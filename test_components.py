@@ -97,7 +97,7 @@ def test_rotor_create_initial_position_not_str():
         Rotor(notch_position='a', initial_poition=1, wiring="EKMFLGDQVZNTOWYHXUSPAIBRCJ")
 
 
-def test_rotor_create_polish_letters():
+def test_rotor_create_non_ascii_characters():
     with pytest.raises(RotorConfigarationWiringError):
         Rotor(notch_position='A', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCŁ', initial_poition='B', ring_setting='B')
 

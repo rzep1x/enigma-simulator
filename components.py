@@ -29,22 +29,21 @@ class Rotor:
     :param reversed_wiring: reversed wiring
     :type wiring: str
     """
-    def __init__(self, notch_position: chr, wiring: str, initial_poition: chr, ring_setting: chr = 'A'):
+    def __init__(self, notch_position: str, wiring: str, initial_poition: str, ring_setting: str = 'A'):
 
         # Validation for notch position
         if not isinstance(notch_position, str) or len(notch_position) != 1:
             raise RotorConfigurationNotchPositionError
         if not notch_position.isascii() or not notch_position.isalpha():
-            # raising error when notch_position_is_not_from_latin_alphabet
             # .isalpha() checks for special characters
             # .isascii() checks for non ascii characters like ą,ł,ć etc
-            #  checks for letters than
+            # checks for letters than
             raise RotorConfigurationNotchPositionError
 
         # Validation for wiring
         if not isinstance(wiring, str) or len(wiring) != 26:
             raise RotorConfigarationWiringError
-        if not wiring.isalpha() or not notch_position.isascii():
+        if not wiring.isalpha() or not wiring.isascii():
             raise RotorConfigarationWiringError
 
         # Validation for initial postion
@@ -110,3 +109,7 @@ class Reflector:
     @property
     def wiring(self):
         return self._wiring
+
+
+class Plugboard:
+    pass
