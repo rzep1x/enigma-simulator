@@ -1,6 +1,18 @@
 from utils import char_to_int, int_to_char
 
 
+class RotorConfigarationWiringError(Exception):
+    pass
+
+
+class RotorConfigurationNotchPositionError(Exception):
+    pass
+
+
+class RotorConfigurationInitialPositionError(Exception):
+    pass
+
+
 class Rotor:
     """
     Class Rotor. Contains attributes:
@@ -14,11 +26,22 @@ class Rotor:
     :type wiring: str 
     """
     def __init__(self, notch_position: chr, wiring : str, initial_poition: chr):
+        if not notch_position.isalpha() or len(notch_position != 1):
+            # raising custom error when notch_postition is wrong
+            raise RotorConfigurationNotchPositionError
+        if not wiring.isalpha() or len(wiring) != 26:
+            # raising error wiring is wrong
+            raise RotorConfigarationWiringError
+        if not initial_poition.isalpha() or len(initial_poition) != 1:
+            # raising error when initial position is wrong
+            raise RotorConfigurationInitialPositionError
+        
         self._notch_position = char_to_int(notch_position)
         self._wiring = [char_to_int(letter) for letter in wiring]
         self._reveresed_wiring = [0] * len(self._wiring)  # Creates list - lenght same as wiring
         for index, value in enumerate(self._wiring):
             self._reveresed_wiring[value] = index
+
         self._initial_position = char_to_int(initial_poition)
     
     @property
