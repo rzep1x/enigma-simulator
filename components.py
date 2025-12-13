@@ -30,19 +30,33 @@ class Rotor:
     :type wiring: str
     """
     def __init__(self, notch_position: chr, wiring: str, initial_poition: chr, ring_setting: chr = 'A'):
-        # .isalpha() function checks if my string is from alphabet
 
-        if not isinstance(notch_position, str) or len(notch_position) != 1 or not notch_position.isalpha():
-            # raising custom error when notch_postition is wrong
+        # Validation for notch position
+        if not isinstance(notch_position, str) or len(notch_position) != 1:
             raise RotorConfigurationNotchPositionError
-        if not isinstance(wiring, str) or len(wiring) != 26 or not wiring.isalpha():
-            # raising error wiring is wrong
+        if not notch_position.isascii() or not notch_position.isalpha():
+            # raising error when notch_position_is_not_from_latin_alphabet
+            # .isalpha() checks for special characters
+            # .isascii() checks for non ascii characters like ą,ł,ć etc
+            #  checks for letters than
+            raise RotorConfigurationNotchPositionError
+
+        # Validation for wiring
+        if not isinstance(wiring, str) or len(wiring) != 26:
             raise RotorConfigarationWiringError
-        if not isinstance(initial_poition, str) or len(initial_poition) != 1 or not initial_poition.isalpha():
-            # raising error when initial position is wrong
+        if not wiring.isalpha() or not notch_position.isascii():
+            raise RotorConfigarationWiringError
+
+        # Validation for initial postion
+        if not isinstance(initial_poition, str) or len(initial_poition) != 1:
             raise RotorConfigurationInitialPositionError
-        if not isinstance(ring_setting, str) or len(ring_setting) != 1 or not ring_setting.isalpha():
-            # raising error when initial position is wrong
+        if not initial_poition.isalpha() or not initial_poition.isascii():
+            raise RotorConfigurationInitialPositionError
+
+        # Validation for ring_setting
+        if not isinstance(ring_setting, str) or len(ring_setting) != 1:
+            raise RotorConfigurationRingSettingError
+        if not ring_setting.isalpha() or not ring_setting.isascii():
             raise RotorConfigurationRingSettingError
 
         self._notch_position = char_to_int(notch_position)
