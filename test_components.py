@@ -8,6 +8,7 @@ import pytest
 
 
 # Tests for Rotor
+# Test create
 def test_rotor_create_():
     rotor = Rotor(notch_position='A', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ', initial_position='B', ring_setting='B')
     assert rotor.notch_position == 0
@@ -16,6 +17,7 @@ def test_rotor_create_():
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
     )
     assert rotor.ring_setting == 1
+    assert rotor.current_position == 1
 
 
 def test_rotor_create_lower_notch_postion():
@@ -100,6 +102,61 @@ def test_rotor_create_initial_position_not_str():
 def test_rotor_create_non_ascii_characters():
     with pytest.raises(RotorConfigurationWiringError):
         Rotor(notch_position='A', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCŁ', initial_position='B', ring_setting='B')
+
+
+# Tests setters
+def test_ring_setting_setter():
+    rotor = Rotor(notch_position='A', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ', initial_position='B', ring_setting='B')
+    assert rotor.notch_position == 0
+    assert rotor.initial_position == 1
+    assert rotor.wiring == (
+        [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
+    )
+    assert rotor.ring_setting == 1
+    assert rotor.current_position == 1
+    rotor.set_ring_setting(rotor.ring_setting + 1)
+    assert rotor.ring_setting == 2
+
+
+def test_ring_setting_setter_more_than_26():
+    rotor = Rotor(notch_position='A', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ', initial_position='B', ring_setting='B')
+    assert rotor.notch_position == 0
+    assert rotor.initial_position == 1
+    assert rotor.wiring == (
+        [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
+    )
+    assert rotor.ring_setting == 1
+    assert rotor.current_position == 1
+    rotor.set_ring_setting(27)
+    assert rotor.ring_setting == 1
+
+
+def test_set_current_postion():
+    rotor = Rotor(notch_position='A', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ', initial_position='B', ring_setting='B')
+    assert rotor.notch_position == 0
+    assert rotor.initial_position == 1
+    assert rotor.wiring == (
+        [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
+    )
+    assert rotor.ring_setting == 1
+    assert rotor.current_position == 1
+    rotor.set_current_position(rotor.current_position + 1)
+    assert rotor.current_position == 2
+    assert rotor.initial_position == 1
+
+
+def test_set_initial_position():
+    rotor = Rotor(notch_position='A', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ', initial_position='B', ring_setting='B')
+    assert rotor.notch_position == 0
+    assert rotor.initial_position == 1
+    assert rotor.wiring == (
+        [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
+    )
+    assert rotor.ring_setting == 1
+    assert rotor.current_position == 1
+    rotor.set_initial_position(4)
+    assert rotor.initial_position == 4
+    assert rotor.current_position == 4
 
 
 # Tests for Reflector
