@@ -17,17 +17,34 @@ class RotorConfigurationRingSettingError(Exception):
     pass
 
 
+class RotorConfigurationCurrentPositionError(Exception):
+    pass
+
+
 class Rotor:
     """
-    Class Rotor. Contains attributes:
-    :param notch_position: rotors notch positiob
-    :type name: int
+    Class Rotor represents a single Enigma rotor.
 
-    :param wiring: rotors wiring list
+    :param notch_position: The letter indicating the notch position (e.g., 'Q').
+    :type notch_position: str
+
+    :param wiring: The wiring string of the rotor (26 letters).
     :type wiring: str
 
-    :param reversed_wiring: reversed wiring
-    :type wiring: str
+    :param initial_position: The starting letter position (e.g., 'A').
+    :type initial_position: str
+
+    :param ring_setting: The ring setting letter (e.g., 'A').
+    :type ring_setting: str
+
+    :attr notch_position: Converted notch position (0-25).
+    :type notch_position: int
+
+    :attr wiring: Converted wiring table (list of 0-25 integers).
+    :type wiring: list[int]
+
+    :attr current_position: Current rotor position (0-25).
+    :type current_position: int
     """
     def __init__(self, notch_position: str, wiring: str, initial_position: str, ring_setting: str = 'A'):
 
@@ -37,7 +54,6 @@ class Rotor:
         if not notch_position.isascii() or not notch_position.isalpha():
             # .isalpha() checks for special characters
             # .isascii() checks for non ascii characters like ą,ł,ć etc
-            # checks for letters than
             raise RotorConfigurationNotchPositionError
 
         # Validation for wiring
@@ -58,12 +74,15 @@ class Rotor:
         if not ring_setting.isalpha() or not ring_setting.isascii():
             raise RotorConfigurationRingSettingError
 
+        # Convert input strings to internal integer representation (0-25)
         self._notch_position = char_to_int(notch_position)
         self._wiring = [char_to_int(letter) for letter in wiring]
-        self._reveresed_wiring = [0] * len(self._wiring)  # Creates list - lenght same as wiring
+
+        # Create reversed wiring list
+        self._reveresed_wiring = [0] * len(self._wiring)  
         for index, value in enumerate(self._wiring):
             self._reveresed_wiring[value] = index
-
+        
         self._initial_position = char_to_int(initial_position)
         self._ring_setting = char_to_int(ring_setting)
         self._current_position = self.initial_position
@@ -92,18 +111,27 @@ class Rotor:
     def ring_setting(self):
         return self._ring_setting
 
-    def set_current_position(self, value: int):
+    def set_current_position(self, new_value: int):
         """
         sets new position of my rotor
         """
-        self._current_position = value % 26
+        if not isinstance(new_value, int):
+            raise RotorConfigurationCurrentPositionError
+        self._current_position = new_value % 26
+        return self.current_position
 
-    def set_initial_position(self, value: int):
-        self._initial_position = value % 26
+    def set_initial_position(self, new_value: int):
+        if not isinstance(new_value, int):
+            raise RotorConfigurationInitialPositionError
+        self._initial_position = new_value % 26
         self._current_position = self.initial_position
+        return self.initial_position
 
-    def set_ring_setting(self, value: int):
-        self._ring_setting = value % 26
+    def set_ring_setting(self, new_value: int):
+        if not isinstance(new_value, int):
+            raise RotorConfigurationRingSettingError
+        self._ring_setting = new_value % 26
+        return self.ring_setting
 
     def step(self):
         pass
