@@ -1,7 +1,7 @@
 from components import (
     Rotor, Reflector,
     RotorConfigurationInitialPositionError,
-    RotorConfigarationWiringError,
+    RotorConfigurationWiringError,
     RotorConfigurationNotchPositionError,
 )
 import pytest
@@ -63,22 +63,22 @@ def test_rotor_create_notch_position_is_not_alpha():
 
 
 def test_rotor_create_wiring_long_len():
-    with pytest.raises(RotorConfigarationWiringError):
+    with pytest.raises(RotorConfigurationWiringError):
         Rotor(notch_position='a', wiring="EKMFLWYHXUSPAIBRCJ", initial_poition='c')
 
 
 def test_rotor_create_wiring_not_alpha():
-    with pytest.raises(RotorConfigarationWiringError):
+    with pytest.raises(RotorConfigurationWiringError):
         Rotor(notch_position='a', wiring="EKMFLGDQVZNTO2YHXUSPAIBRC!", initial_poition='c')
 
 
 def test_rotor_create_wiring_is_number():
-    with pytest.raises(RotorConfigarationWiringError):
+    with pytest.raises(RotorConfigurationWiringError):
         Rotor(notch_position='a', wiring=84710293847561029384756102, initial_poition='c')
 
 
 def test_rotor_create_wiring_is_str_of_nums():
-    with pytest.raises(RotorConfigarationWiringError):
+    with pytest.raises(RotorConfigurationWiringError):
         Rotor(notch_position='a', wiring="84710293847561029384756102", initial_poition='c')
 
 
@@ -98,7 +98,7 @@ def test_rotor_create_initial_position_not_str():
 
 
 def test_rotor_create_non_ascii_characters():
-    with pytest.raises(RotorConfigarationWiringError):
+    with pytest.raises(RotorConfigurationWiringError):
         Rotor(notch_position='A', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCŁ', initial_poition='B', ring_setting='B')
 
 

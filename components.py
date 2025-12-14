@@ -1,7 +1,7 @@
 from utils import char_to_int
 
 
-class RotorConfigarationWiringError(Exception):
+class RotorConfigurationWiringError(Exception):
     pass
 
 
@@ -29,7 +29,7 @@ class Rotor:
     :param reversed_wiring: reversed wiring
     :type wiring: str
     """
-    def __init__(self, notch_position: str, wiring: str, initial_poition: str, ring_setting: str = 'A'):
+    def __init__(self, notch_position: str, wiring: str, initial_position: str, ring_setting: str = 'A'):
 
         # Validation for notch position
         if not isinstance(notch_position, str) or len(notch_position) != 1:
@@ -42,14 +42,14 @@ class Rotor:
 
         # Validation for wiring
         if not isinstance(wiring, str) or len(wiring) != 26:
-            raise RotorConfigarationWiringError
+            raise RotorConfigurationWiringError
         if not wiring.isalpha() or not wiring.isascii():
-            raise RotorConfigarationWiringError
+            raise RotorConfigurationWiringError
 
         # Validation for initial postion
-        if not isinstance(initial_poition, str) or len(initial_poition) != 1:
+        if not isinstance(initial_position, str) or len(initial_position) != 1:
             raise RotorConfigurationInitialPositionError
-        if not initial_poition.isalpha() or not initial_poition.isascii():
+        if not initial_position.isalpha() or not initial_position.isascii():
             raise RotorConfigurationInitialPositionError
 
         # Validation for ring_setting
@@ -64,8 +64,9 @@ class Rotor:
         for index, value in enumerate(self._wiring):
             self._reveresed_wiring[value] = index
 
-        self._initial_position = char_to_int(initial_poition)
+        self._initial_position = char_to_int(initial_position)
         self._ring_setting = char_to_int(ring_setting)
+        self._current_position = self.initial_position
 
     @property
     def notch_position(self):
@@ -84,16 +85,33 @@ class Rotor:
         return self._initial_position
 
     @property
+    def current_position(self):
+        return self._current_position
+
+    @property
     def ring_setting(self):
         return self._ring_setting
+
+    def set_current_position(self, value: int):
+        """
+        sets new position of my rotor
+        """
+        self._current_position = value % 26
+
+    def set_initial_position(self, value: int):
+        self._initial_position = value % 26
+        self._current_position = self.initial_position
+
+    def set_ring_setting(self, value: int):
+        self._ring_setting = value % 26
 
     def step(self):
         pass
 
-    def encript_forward(self):
+    def encrypt_forward(self):
         pass
 
-    def encript_backward(self):
+    def encrypt_backward(self):
         pass
 
 
