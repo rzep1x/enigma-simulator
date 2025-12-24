@@ -5,7 +5,7 @@ class Enigma:
     def __init__(self, rotor1: Rotor, rotor2: Rotor, rotor3: Rotor, reflector: Reflector, plugboard: Plugboard):
         self._rotor1 = rotor1
         self._rotor2 = rotor2
-        self._rotor2 = rotor3
+        self._rotor3 = rotor3
         self._reflector = reflector
         self._plugboard = plugboard
 
@@ -28,3 +28,23 @@ class Enigma:
     @property
     def plugboard(self):
         return self._plugboard
+
+    def set_rotor1(self, new_rotor):
+        self._rotor1 = new_rotor
+        return self._rotor1
+
+    def set_rotor2(self, new_rotor):
+        self._rotor2 = new_rotor
+        return self._rotor2
+
+    def set_rotor3(self, new_rotor):
+        self._rotor3 = new_rotor
+        return self._rotor3
+
+    def set_plugboard(self, new_plugboard):
+        self._plugboard = new_plugboard
+        return self._plugboard
+
+    def set_reflector(self, new_reflector):
+        self._reflector = new_reflector
+        return self._reflector
