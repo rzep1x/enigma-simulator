@@ -110,13 +110,25 @@ class Rotor:
         return self.ring_setting
 
     def step(self):
-        pass
+        self.set_current_position(self._current_position + 1)
+        return self.current_position
 
-    def encrypt_forward(self):
-        pass
+    def is_at_notch(self) -> bool:
+        return self._current_position == self._notch_position
 
-    def encrypt_backward(self):
-        pass
+    def encrypt_forward(self, input_index):
+        shift = self.current_position - self.ring_setting
+        index_in = (input_index + shift) % 26
+        mapped_index = self._wiring[index_in]
+        index_out = (mapped_index - shift) % 26
+        return index_out
+
+    def encrypt_backward(self, input_index):
+        shift = self.current_position - self.ring_setting
+        index_in = (input_index + shift) % 26
+        mapped_index = self._reveresed_wiring[index_in]
+        index_out = (mapped_index - shift) % 26
+        return index_out
 
 
 class Reflector:
