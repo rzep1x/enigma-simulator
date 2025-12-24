@@ -93,7 +93,7 @@ def test_enigma_set_rotor():
     )
     rotor3 = Rotor(
         wiring=ROTORS_DATA["III"]['wiring'], notch_position=ROTORS_DATA["III"]['notch'],
-        initial_position='a'
+        initial_position='v'
     )
 
     rotor4 = Rotor(
@@ -119,11 +119,6 @@ def test_enigma_set_rotor():
     enigma.set_rotor2(rotor1)
     assert enigma.rotor1 == rotor4
     assert enigma.rotor2 == rotor1
-    assert enigma.rotor3 == rotor3
-    assert enigma.reflector == reflector
-    assert enigma.plugboard == plugborad
-    assert enigma.rotor1 == rotor1
-    assert enigma.rotor2 == rotor2
     assert enigma.rotor3 == rotor3
     assert enigma.reflector == reflector
     assert enigma.plugboard == plugborad
@@ -160,7 +155,120 @@ def test_enigma_reflector_setter():
     assert enigma.reflector == reflector2
 
 
-def test_enigma_step():
+def test_enigma_step_nothing_on_notch():
+    rotor1 = Rotor(
+        wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
+        initial_position='a'
+    )
+    rotor2 = Rotor(
+        wiring=ROTORS_DATA["II"]['wiring'], notch_position=ROTORS_DATA["II"]['notch'],
+        initial_position='a'
+    )
+    rotor3 = Rotor(
+        wiring=ROTORS_DATA["III"]['wiring'], notch_position=ROTORS_DATA["III"]['notch'],
+        initial_position='a'
+    )
+
+    reflector = Reflector(
+        REFLECTORS_DATA["B"]
+    )
+
+    plugborad = Plugboard()
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+    assert enigma.rotor1.current_position == 0
+    assert enigma.rotor2.current_position == 0
+    assert enigma.rotor3.current_position == 0
+    enigma.step()
+    assert enigma.rotor1.current_position == 1
+    assert enigma.rotor2.current_position == 0
+    assert enigma.rotor3.current_position == 0
+
+
+def test_enigma_step_first_rotor_on_notch():
+    rotor1 = Rotor(
+        wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
+        initial_position='q'
+    )
+    rotor2 = Rotor(
+        wiring=ROTORS_DATA["II"]['wiring'], notch_position=ROTORS_DATA["II"]['notch'],
+        initial_position='a'
+    )
+    rotor3 = Rotor(
+        wiring=ROTORS_DATA["III"]['wiring'], notch_position=ROTORS_DATA["III"]['notch'],
+        initial_position='a'
+    )
+    reflector = Reflector(
+        REFLECTORS_DATA["B"]
+    )
+    plugborad = Plugboard()
+
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+    assert enigma.rotor1.current_position == 16
+    assert enigma.rotor2.current_position == 0
+    assert enigma.rotor3.current_position == 0
+    enigma.step()
+    assert enigma.rotor1.current_position == 17
+    assert enigma.rotor2.current_position == 1
+    assert enigma.rotor3.current_position == 0
+
+
+def test_enigma_step_second_rotor_on_notch():
+    rotor1 = Rotor(
+        wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
+        initial_position='a'
+    )
+    rotor2 = Rotor(
+        wiring=ROTORS_DATA["II"]['wiring'], notch_position=ROTORS_DATA["II"]['notch'],
+        initial_position='e'
+    )
+    rotor3 = Rotor(
+        wiring=ROTORS_DATA["III"]['wiring'], notch_position=ROTORS_DATA["III"]['notch'],
+        initial_position='a'
+    )
+    reflector = Reflector(
+        REFLECTORS_DATA["B"]
+    )
+    plugborad = Plugboard()
+
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+    assert enigma.rotor1.current_position == 0
+    assert enigma.rotor2.current_position == 4
+    assert enigma.rotor3.current_position == 0
+    enigma.step()
+    assert enigma.rotor1.current_position == 1
+    assert enigma.rotor2.current_position == 5
+    assert enigma.rotor3.current_position == 1
+
+
+def test_enigma_step_third_rotor_on_notch():
+    rotor1 = Rotor(
+        wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
+        initial_position='a'
+    )
+    rotor2 = Rotor(
+        wiring=ROTORS_DATA["II"]['wiring'], notch_position=ROTORS_DATA["II"]['notch'],
+        initial_position='a'
+    )
+    rotor3 = Rotor(
+        wiring=ROTORS_DATA["III"]['wiring'], notch_position=ROTORS_DATA["III"]['notch'],
+        initial_position='v'
+    )
+    reflector = Reflector(
+        REFLECTORS_DATA["B"]
+    )
+    plugborad = Plugboard()
+
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+    assert enigma.rotor1.current_position == 0
+    assert enigma.rotor2.current_position == 0
+    assert enigma.rotor3.current_position == 21
+    enigma.step()
+    assert enigma.rotor1.current_position == 1
+    assert enigma.rotor2.current_position == 0
+    assert enigma.rotor3.current_position == 21
+
+
+def test_enigma_step_double_step():
     rotor1 = Rotor(
         wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
         initial_position='P'
