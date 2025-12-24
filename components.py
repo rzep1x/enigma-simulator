@@ -142,12 +142,15 @@ class Plugboard:
         pairs = connections.upper().split()
         for pair in pairs:
             if len(pair) != 2:
+                # TODO CUSTOM ERROR
                 raise ValueError
             if not pair.isalpha() or not pair.isascii():
+                # TODO CUSTOM ERROR
                 raise ValueError
             char1 = char_to_int(pair[0])
             char2 = char_to_int(pair[1])
             if char1 in used_chars or char2 in used_chars:
+                # TODO CUSTOM EROOR
                 raise ValueError
 
             used_chars.add(char1)
