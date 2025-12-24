@@ -48,3 +48,18 @@ class Enigma:
     def set_reflector(self, new_reflector):
         self._reflector = new_reflector
         return self._reflector
+
+    def step(self):
+        if self._rotor1.is_at_notch():
+            if self._rotor2.is_at_notch():
+                self._rotor2.step()
+                self._rotor3.step()
+            else:
+                self._rotor2.step()
+        elif self._rotor2.is_at_notch():
+            self._rotor2.step()
+            self._rotor3.step()
+
+        self._rotor1.step()
+
+
