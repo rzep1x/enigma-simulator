@@ -21,6 +21,10 @@ class RotorConfigurationCurrentPositionError(Exception):
     pass
 
 
+class PlugboradConfigurationError(Exception):
+    pass
+
+
 class Rotor:
     def __init__(self, notch_position: str, wiring: str, initial_position: str, ring_setting: str = 'A'):
 
@@ -154,16 +158,13 @@ class Plugboard:
         pairs = connections.upper().split()
         for pair in pairs:
             if len(pair) != 2:
-                # TODO CUSTOM ERROR
-                raise ValueError
+                raise PlugboradConfigurationError
             if not pair.isalpha() or not pair.isascii():
-                # TODO CUSTOM ERROR
-                raise ValueError
+                raise PlugboradConfigurationError
             char1 = char_to_int(pair[0])
             char2 = char_to_int(pair[1])
             if char1 in used_chars or char2 in used_chars:
-                # TODO CUSTOM EROOR
-                raise ValueError
+                raise PlugboradConfigurationError
 
             used_chars.add(char1)
             used_chars.add(char2)
