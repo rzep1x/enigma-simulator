@@ -1,5 +1,5 @@
 from components import (
-    Rotor, Reflector,
+    Rotor, Reflector, Plugboard,
     RotorConfigurationInitialPositionError,
     RotorConfigurationWiringError,
     RotorConfigurationNotchPositionError,
@@ -165,3 +165,36 @@ def test_reflector_create():
     assert reflector.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
     )
+
+
+# Tests for Plugboard
+def test_plugboard_create():
+    plug = Plugboard("ab cd fg")
+    assert plug.connections == (
+        [1, 0, 3, 2, 4, 6, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+    )
+
+
+def test_empty_plugboard_create():
+    plug = Plugboard()
+    assert plug.connections == [num for num in range(26)]
+
+
+def test_plugboard_create_three_letters():
+    with pytest.raises(ValueError):
+        Plugboard('abc sx kw')
+
+
+def test_plugborad_create_nonascii_letter():
+    with pytest.raises(ValueError):
+        Plugboard('dł ab po')
+
+
+def test_plugborad_create_special_char():
+    with pytest.raises(ValueError):
+        Plugboard('d. c! po   a')
+
+
+def test_plugboard_create_same_letters_used_more_than_one_time():
+    with pytest.raises(ValueError):
+        Plugboard("ab ac bc")

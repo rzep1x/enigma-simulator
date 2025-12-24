@@ -22,30 +22,6 @@ class RotorConfigurationCurrentPositionError(Exception):
 
 
 class Rotor:
-    """
-    Class Rotor represents a single Enigma rotor.
-
-    :param notch_position: The letter indicating the notch position (e.g., 'Q').
-    :type notch_position: str
-
-    :param wiring: The wiring string of the rotor (26 letters).
-    :type wiring: str
-
-    :param initial_position: The starting letter position (e.g., 'A').
-    :type initial_position: str
-
-    :param ring_setting: The ring setting letter (e.g., 'A').
-    :type ring_setting: str
-
-    :attr notch_position: Converted notch position (0-25).
-    :type notch_position: int
-
-    :attr wiring: Converted wiring table (list of 0-25 integers).
-    :type wiring: list[int]
-
-    :attr current_position: Current rotor position (0-25).
-    :type current_position: int
-    """
     def __init__(self, notch_position: str, wiring: str, initial_position: str, ring_setting: str = 'A'):
 
         # Validation for notch position
@@ -79,10 +55,10 @@ class Rotor:
         self._wiring = [char_to_int(letter) for letter in wiring]
 
         # Create reversed wiring list
-        self._reveresed_wiring = [0] * len(self._wiring)  
+        self._reveresed_wiring = [0] * len(self._wiring)
         for index, value in enumerate(self._wiring):
             self._reveresed_wiring[value] = index
-        
+
         self._initial_position = char_to_int(initial_position)
         self._ring_setting = char_to_int(ring_setting)
         self._current_position = self.initial_position
@@ -158,4 +134,28 @@ class Reflector:
 
 
 class Plugboard:
-    pass
+    def __init__(self, connections=''):
+        used_chars = set()
+        self._connections = [num for num in range(26)]
+        if not connections:
+            return
+        pairs = connections.upper().split()
+        for pair in pairs:
+            if len(pair) != 2:
+                raise ValueError
+            if not pair.isalpha() or not pair.isascii():
+                raise ValueError
+            char1 = char_to_int(pair[0])
+            char2 = char_to_int(pair[1])
+            if char1 in used_chars or char2 in used_chars:
+                raise ValueError
+
+            used_chars.add(char1)
+            used_chars.add(char2)
+
+            self._connections[char1] = char2
+            self._connections[char2] = char1
+
+    @property
+    def connections(self):
+        return self._connections
