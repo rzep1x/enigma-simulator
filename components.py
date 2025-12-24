@@ -95,8 +95,6 @@ class Rotor:
         """
         sets new position of my rotor
         """
-        if not isinstance(new_value, int):
-            raise RotorConfigurationCurrentPositionError
         self._current_position = new_value % 26
         return self.current_position
 
@@ -113,7 +111,7 @@ class Rotor:
         self._ring_setting = new_value % 26
         return self.ring_setting
 
-    def step(self):
+    def step(self) -> int:
         self.set_current_position(self._current_position + 1)
         return self.current_position
 

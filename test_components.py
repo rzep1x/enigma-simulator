@@ -3,6 +3,7 @@ from components import (
     RotorConfigurationInitialPositionError,
     RotorConfigurationWiringError,
     RotorConfigurationNotchPositionError,
+    PlugboradConfigurationError
 )
 import pytest
 
@@ -159,6 +160,50 @@ def test_set_initial_position():
     assert rotor.current_position == 4
 
 
+def test_rotor_step():
+    rotor = Rotor(notch_position='b', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ', initial_position='a')
+    assert rotor.notch_position == 1
+    assert rotor.initial_position == 0
+    assert rotor.wiring == (
+        [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
+    )
+    assert rotor.ring_setting == 0
+    assert rotor.current_position == 0
+    rotor.step()
+    assert rotor.current_position == 1
+    rotor.step()
+    assert rotor.current_position == 2
+
+
+def test_rotor_step_current_position_26():
+    rotor = Rotor(notch_position='b', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ', initial_position='z')
+    assert rotor.notch_position == 1
+    assert rotor.initial_position == 25
+    assert rotor.wiring == (
+        [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
+    )
+    assert rotor.ring_setting == 0
+    assert rotor.current_position == 25
+    rotor.step()
+    assert rotor.current_position == 0
+
+
+def test_rotor_is_at_notch():
+    rotor = Rotor(notch_position='c', wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ', initial_position='a')
+    assert rotor.notch_position == 2
+    assert rotor.initial_position == 0
+    assert rotor.wiring == (
+        [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
+    )
+    assert rotor.ring_setting == 0
+    assert rotor.current_position == 0
+    rotor.step()
+    assert rotor.current_position == 1
+    assert not rotor.is_at_notch()
+    rotor.step()
+    assert rotor.is_at_notch()
+
+
 # Tests for Reflector
 def test_reflector_create():
     reflector = Reflector(wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ')
@@ -181,20 +226,20 @@ def test_empty_plugboard_create():
 
 
 def test_plugboard_create_three_letters():
-    with pytest.raises(ValueError):
+    with pytest.raises(PlugboradConfigurationError):
         Plugboard('abc sx kw')
 
 
 def test_plugborad_create_nonascii_letter():
-    with pytest.raises(ValueError):
+    with pytest.raises(PlugboradConfigurationError):
         Plugboard('dł ab po')
 
 
 def test_plugborad_create_special_char():
-    with pytest.raises(ValueError):
+    with pytest.raises(PlugboradConfigurationError):
         Plugboard('d. c! po   a')
 
 
 def test_plugboard_create_same_letters_used_more_than_one_time():
-    with pytest.raises(ValueError):
+    with pytest.raises(PlugboradConfigurationError):
         Plugboard("ab ac bc")

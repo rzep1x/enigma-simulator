@@ -1,5 +1,5 @@
 from components import Rotor, Reflector, Plugboard
-from config import config
+
 
 class Enigma:
     def __init__(self, rotor1: Rotor, rotor2: Rotor, rotor3: Rotor, reflector: Reflector, plugboard: Plugboard):
