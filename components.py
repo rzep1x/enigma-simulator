@@ -1,4 +1,5 @@
 from utils import char_to_int
+from config import ROTORS_DATA
 
 
 class RotorConfigurationWiringError(Exception):
@@ -26,21 +27,12 @@ class PlugboradConfigurationError(Exception):
 
 
 class Rotor:
-    def __init__(self, notch_position: str, wiring: str, initial_position: str, ring_setting: str = 'A'):
+    def __init__(self, name: str, initial_position: str, ring_setting: str = 'A'):
 
-        # Validation for notch position
-        if not isinstance(notch_position, str) or len(notch_position) != 1:
-            raise RotorConfigurationNotchPositionError
-        if not notch_position.isascii() or not notch_position.isalpha():
-            # .isalpha() checks for special characters
-            # .isascii() checks for non ascii characters like ą,ł,ć etc
-            raise RotorConfigurationNotchPositionError
-
-        # Validation for wiring
-        if not isinstance(wiring, str) or len(wiring) != 26:
-            raise RotorConfigurationWiringError
-        if not wiring.isalpha() or not wiring.isascii():
-            raise RotorConfigurationWiringError
+        # Validation for name
+        if name not in ROTORS_DATA:
+            # TODO custom error
+            raise ValueError
 
         # Validation for initial postion
         if not isinstance(initial_position, str) or len(initial_position) != 1:
@@ -54,9 +46,8 @@ class Rotor:
         if not ring_setting.isalpha() or not ring_setting.isascii():
             raise RotorConfigurationRingSettingError
 
-        # Convert input strings to internal integer representation (0-25)
-        self._notch_position = char_to_int(notch_position)
-        self._wiring = [char_to_int(letter) for letter in wiring]
+        self._notch_position = char_to_int(ROTORS_DATA[name]['notch'])
+        self._wiring = [char_to_int(letter) for letter in ROTORS_DATA[name]['wiring']]
 
         # Create reversed wiring list
         self._reveresed_wiring = [0] * len(self._wiring)
@@ -66,6 +57,10 @@ class Rotor:
         self._initial_position = char_to_int(initial_position)
         self._ring_setting = char_to_int(ring_setting)
         self._current_position = self.initial_position
+
+    @property
+    def name(self):
+        return self._name
 
     @property
     def notch_position(self):
