@@ -403,25 +403,25 @@ def test_enigma_encrypt_ring_setting():
     assert encrypted == "XNEIU"
 
 
-rotor1 = Rotor(
-    wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
-    initial_position='a'
-)
-rotor2 = Rotor(
-    wiring=ROTORS_DATA["II"]['wiring'], notch_position=ROTORS_DATA["II"]['notch'],
-    initial_position='a'
-)
-rotor3 = Rotor(
-    wiring=ROTORS_DATA["III"]['wiring'], notch_position=ROTORS_DATA["III"]['notch'],
-    initial_position='a'
-)
+# rotor1 = Rotor(
+#     wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
+#     initial_position='a'
+# )
+# rotor2 = Rotor(
+#     wiring=ROTORS_DATA["II"]['wiring'], notch_position=ROTORS_DATA["II"]['notch'],
+#     initial_position='a'
+# )
+# rotor3 = Rotor(
+#     wiring=ROTORS_DATA["III"]['wiring'], notch_position=ROTORS_DATA["III"]['notch'],
+#     initial_position='a'
+# )
 
-reflector = Reflector(
-    REFLECTORS_DATA["B"]
-)
+# reflector = Reflector(
+#     REFLECTORS_DATA["B"]
+# )
 
-plugborad = Plugboard()
+# plugborad = Plugboard()
 
-enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+# enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
 
-enigma.save_enigma_settings()
+# enigma.save_enigma_settings()
