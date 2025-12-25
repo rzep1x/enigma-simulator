@@ -86,6 +86,7 @@ class Enigma:
         return encyrpted_text
 
     def save_enigma_settings(self):
+        # TODO think about how to which is better saving rotor data only by its name or leave as it is
         settings = {
             'rotor1': {
                 'wiring': ''.join([int_to_char(letter) for letter in self.rotor1.wiring]),
