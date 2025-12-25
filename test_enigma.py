@@ -360,7 +360,6 @@ def test_plugboard_swap():
 
 
 def test_decryption_symmetry():
-    # Konfiguracja
     r1 = Rotor(wiring=ROTORS_DATA["I"]["wiring"], notch_position=ROTORS_DATA["I"]["notch"], initial_position="G")
     r2 = Rotor(wiring=ROTORS_DATA["II"]["wiring"], notch_position=ROTORS_DATA["II"]["notch"], initial_position="H")
     r3 = Rotor(wiring=ROTORS_DATA["III"]["wiring"], notch_position=ROTORS_DATA["III"]["notch"], initial_position="K")
@@ -370,17 +369,12 @@ def test_decryption_symmetry():
     enigma = Enigma(r1, r2, r3, ref, pb)
 
     message = "TAJNEHASLO"
-
-    # 1. Szyfrowanie
     cipher_text = enigma.encrypt(message)
 
-    # 2. Resetujemy maszynę do tej samej pozycji startowej!
     r1.set_current_position(char_to_int('G'))
     r2.set_current_position(char_to_int('H'))
     r3.set_current_position(char_to_int('K'))
 
-    # 3. Odszyfrowywanie (ponowne wrzucenie szyfrogramu)
     decrypted_text = enigma.encrypt(cipher_text)
 
-    # Assert
     assert decrypted_text == message
