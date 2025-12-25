@@ -1,5 +1,6 @@
 from components import Rotor, Reflector, Plugboard
 from utils import char_to_int, int_to_char
+import json
 
 
 class Enigma:
@@ -84,6 +85,37 @@ class Enigma:
             encyrpted_text += int_to_char(signal)
         return encyrpted_text
 
+    def save_enigma_settings(self):
+        settings = {
+            'rotor1': {
+                'wiring': ''.join([int_to_char(letter) for letter in self.rotor1.wiring]),
+                'initial_position': int_to_char(self.rotor1.initial_position),
+                'notch_position': int_to_char(self.rotor1.notch_position),
+                'ring_setting': int_to_char(self.rotor1.ring_setting),
+            },
 
+            'rotor2': {
+                'wiring': ''.join([int_to_char(letter) for letter in self.rotor2.wiring]),
+                'initial_position': int_to_char(self.rotor2.initial_position),
+                'notch_position': int_to_char(self.rotor2.notch_position),
+                'ring_setting': int_to_char(self.rotor2.ring_setting),
+            },
 
+            'rotor3': {
+                'wiring': ''.join([int_to_char(letter) for letter in self.rotor3.wiring]),
+                'initial_position': int_to_char(self.rotor3.initial_position),
+                'notch_position': int_to_char(self.rotor3.notch_position),
+                'ring_setting': int_to_char(self.rotor3.ring_setting),
+            },
 
+            'reflector': {
+                'wiring': ''.join([int_to_char(letter) for letter in self.reflector.wiring])
+            },
+
+            'plugboard': {
+                'connections': ''.join([int_to_char(letter) for letter in self.plugboard.connections])
+            }
+        }
+
+        with open('settings.json', 'w') as file_handle:
+            json.dump(settings, file_handle, indent=4)

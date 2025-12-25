@@ -1,0 +1,26 @@
+{
+    "rotor1": {
+        "wiring": "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
+        "initial_position": "A",
+        "notch_position": "Q",
+        "ring_setting": "A"
+    },
+    "rotor2": {
+        "wiring": "AJDKSIRUXBLHWTMCQGZNPYFVOE",
+        "initial_position": "A",
+        "notch_position": "E",
+        "ring_setting": "A"
+    },
+    "rotor3": {
+        "wiring": "BDFHJLCPRTXVZNYEIWGAKMUSQO",
+        "initial_position": "A",
+        "notch_position": "V",
+        "ring_setting": "A"
+    },
+    "reflector": {
+        "wiring": "YRUHQSLDPXNGOKMIEBFZCWVJAT"
+    },
+    "plugboard": {
+        "connections": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    }
+}

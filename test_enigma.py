@@ -378,3 +378,50 @@ def test_decryption_symmetry():
     decrypted_text = enigma.encrypt(cipher_text)
 
     assert decrypted_text == message
+
+
+def test_enigma_encrypt_ring_setting():
+    r1 = Rotor(
+        wiring=ROTORS_DATA["I"]["wiring"], notch_position=ROTORS_DATA["I"]["notch"],
+        initial_position="A", ring_setting='d'
+    )
+    r2 = Rotor(
+        wiring=ROTORS_DATA["II"]["wiring"], notch_position=ROTORS_DATA["II"]["notch"],
+        initial_position="A", ring_setting='f'
+    )
+    r3 = Rotor(
+        wiring=ROTORS_DATA["III"]["wiring"], notch_position=ROTORS_DATA["III"]["notch"],
+        initial_position="A", ring_setting='g'
+    )
+    ref = Reflector(REFLECTORS_DATA["B"])
+    pb = Plugboard()
+
+    enigma = Enigma(r1, r2, r3, ref, pb)
+
+    encrypted = enigma.encrypt("AAAAA")
+
+    assert encrypted == "XNEIU"
+
+
+rotor1 = Rotor(
+    wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
+    initial_position='a'
+)
+rotor2 = Rotor(
+    wiring=ROTORS_DATA["II"]['wiring'], notch_position=ROTORS_DATA["II"]['notch'],
+    initial_position='a'
+)
+rotor3 = Rotor(
+    wiring=ROTORS_DATA["III"]['wiring'], notch_position=ROTORS_DATA["III"]['notch'],
+    initial_position='a'
+)
+
+reflector = Reflector(
+    REFLECTORS_DATA["B"]
+)
+
+plugborad = Plugboard()
+
+enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+
+enigma.save_enigma_settings()
