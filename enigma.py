@@ -1,4 +1,5 @@
 from components import Rotor, Reflector, Plugboard
+from utils import char_to_int, int_to_char
 
 
 class Enigma:
@@ -59,7 +60,30 @@ class Enigma:
         elif self._rotor2.is_at_notch():
             self._rotor2.step()
             self._rotor3.step()
-
         self._rotor1.step()
+
+    def encrypt(self, text: str) -> str:
+        clean_text = text.replace(" ", "").upper()
+        if not clean_text.isascii() or not clean_text.isalpha():
+            # TODO CUSTOM ERROR
+            raise ValueError
+        num_text = [char_to_int(char) for char in clean_text]
+        encyrpted_text = ''
+        for num in num_text:
+            self.step()
+            signal = num
+            signal = self.plugboard.connections[signal]
+            signal = self.rotor1.encrypt_forward(signal)
+            signal = self.rotor2.encrypt_forward(signal)
+            signal = self.rotor3.encrypt_forward(signal)
+            signal = self.reflector.wiring[signal]
+            signal = self.rotor3.encrypt_backward(signal)
+            signal = self.rotor2.encrypt_backward(signal)
+            signal = self.rotor1.encrypt_backward(signal)
+            signal = self.plugboard.connections[signal]
+            encyrpted_text += int_to_char(signal)
+        return encyrpted_text
+
+
 
 

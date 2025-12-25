@@ -29,7 +29,8 @@ REFLECTORS_DATA = {
     "C": "FVPJIAOYEDRZXWGCTKUQSBNMHL"
 }
 
-#CREATE
+
+# CREATE
 def test_enigma_create():
     rotor1 = Rotor(
         wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
@@ -302,3 +303,28 @@ def test_enigma_step_double_step():
     assert enigma.rotor1.current_position == 18
     assert enigma.rotor2.current_position == 5
     assert enigma.rotor3.current_position == 1
+
+
+def test_basic_encryption():
+    r1 = Rotor(
+        wiring=ROTORS_DATA["I"]['wiring'], notch_position=ROTORS_DATA["I"]['notch'],
+        initial_position='a'
+    )
+    r2 = Rotor(
+        wiring=ROTORS_DATA["II"]['wiring'], notch_position=ROTORS_DATA["II"]['notch'],
+        initial_position='a'
+    )
+    r3 = Rotor(
+        wiring=ROTORS_DATA["III"]['wiring'], notch_position=ROTORS_DATA["III"]['notch'],
+        initial_position='a'
+    )
+    ref = Reflector(
+        REFLECTORS_DATA["B"]
+    )
+    pb = Plugboard()
+
+    enigma = Enigma(rotor1=r1, rotor2=r2, rotor3=r3, reflector=ref, plugboard=pb)
+
+    encrypted = enigma.encrypt("AAAAA")
+
+    assert encrypted == "BDZGO"
