@@ -51,16 +51,16 @@ class Enigma:
         return self._reflector
 
     def step(self):
-        if self._rotor1.is_at_notch():
+        if self._rotor3.is_at_notch():
             if self._rotor2.is_at_notch():
                 self._rotor2.step()
-                self._rotor3.step()
+                self._rotor1.step()
             else:
                 self._rotor2.step()
         elif self._rotor2.is_at_notch():
             self._rotor2.step()
-            self._rotor3.step()
-        self._rotor1.step()
+            self._rotor1.step()
+        self._rotor3.step()
 
     def encrypt(self, text: str) -> str:
         clean_text = text.replace(" ", "").upper()
@@ -73,13 +73,13 @@ class Enigma:
             self.step()
             signal = num
             signal = self.plugboard.connections[signal]
-            signal = self.rotor1.encrypt_forward(signal)
-            signal = self.rotor2.encrypt_forward(signal)
             signal = self.rotor3.encrypt_forward(signal)
+            signal = self.rotor2.encrypt_forward(signal)
+            signal = self.rotor1.encrypt_forward(signal)
             signal = self.reflector.wiring[signal]
-            signal = self.rotor3.encrypt_backward(signal)
-            signal = self.rotor2.encrypt_backward(signal)
             signal = self.rotor1.encrypt_backward(signal)
+            signal = self.rotor2.encrypt_backward(signal)
+            signal = self.rotor3.encrypt_backward(signal)
             signal = self.plugboard.connections[signal]
             encyrpted_text += int_to_char(signal)
         return encyrpted_text
