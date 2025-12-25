@@ -1,5 +1,5 @@
 from utils import char_to_int
-from config import ROTORS_DATA
+from config import ROTORS_DATA, REFLECTORS_DATA
 
 
 class RotorConfigurationWiringError(Exception):
@@ -129,14 +129,17 @@ class Rotor:
 
 
 class Reflector:
-    """
-    Class Reflector. Contains attributes:
-    :param wiring: reflectors wiring
-    :type name: str
-    """
-    def __init__(self, wiring: str):
-        self._wiring = [char_to_int(letter) for letter in wiring]
+    def __init__(self, name: str):
+        if name not in REFLECTORS_DATA:
+            # TODO custom error
+            raise ValueError
+        self._name = name
+        self._wiring = [char_to_int(letter) for letter in ROTORS_DATA[name]]
 
+    @property
+    def name(self):
+        return self._name
+    
     @property
     def wiring(self):
         return self._wiring
