@@ -152,10 +152,15 @@ def test_rotor_is_at_notch():
 
 # Tests for Reflector
 def test_reflector_create():
-    reflector = Reflector(wiring='EKMFLGDQVZNTOWYHXUSPAIBRCJ')
+    reflector = Reflector(name='B')
     assert reflector.wiring == (
-        [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
+        [24, 17, 20, 7, 16, 18, 11, 3, 15, 23, 13, 6, 14, 10, 12, 8, 4, 1, 5, 25, 2, 22, 21, 9, 0, 19]
     )
+
+
+def test_reflector_create_not_in_reflectors_data():
+    with pytest.raises(ValueError):
+        Reflector('a')
 
 
 # Tests for Plugboard

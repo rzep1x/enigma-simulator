@@ -134,12 +134,12 @@ class Reflector:
             # TODO custom error
             raise ValueError
         self._name = name
-        self._wiring = [char_to_int(letter) for letter in ROTORS_DATA[name]]
+        self._wiring = [char_to_int(letter) for letter in REFLECTORS_DATA[name]]
 
     @property
     def name(self):
         return self._name
-    
+
     @property
     def wiring(self):
         return self._wiring
