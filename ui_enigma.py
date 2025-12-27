@@ -185,6 +185,8 @@ class Ui_inputTextArea(object):
         self.gridLayout.addWidget(self.rotor3Model, 9, 0, 1, 1)
 
         self.reflectorModel = QComboBox(self.groupBox)
+        self.reflectorModel.addItem("")
+        self.reflectorModel.addItem("")
         self.reflectorModel.setObjectName(u"reflectorModel")
         sizePolicy.setHeightForWidth(self.reflectorModel.sizePolicy().hasHeightForWidth())
         self.reflectorModel.setSizePolicy(sizePolicy)
@@ -355,6 +357,9 @@ class Ui_inputTextArea(object):
         self.rotor3Model.setItemText(2, QCoreApplication.translate("inputTextArea", u"III", None))
         self.rotor3Model.setItemText(3, QCoreApplication.translate("inputTextArea", u"IV", None))
         self.rotor3Model.setItemText(4, QCoreApplication.translate("inputTextArea", u"V", None))
+
+        self.reflectorModel.setItemText(0, QCoreApplication.translate("inputTextArea", u"B", None))
+        self.reflectorModel.setItemText(1, QCoreApplication.translate("inputTextArea", u"C", None))
 
         self.label_6.setText(QCoreApplication.translate("inputTextArea", u"Initial position", None))
         self.label_7.setText(QCoreApplication.translate("inputTextArea", u"Ring Setting", None))

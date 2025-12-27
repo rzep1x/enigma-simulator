@@ -1,4 +1,4 @@
-from components import(
+from components import (
     Rotor, Reflector, Plugboard,
     RotorConfigurationInitialPositionError,
     RotorConfigurationRingSettingError,
