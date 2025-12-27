@@ -3,7 +3,6 @@ from components import Rotor, Plugboard, Reflector
 import pytest
 from utils import char_to_int
 from io import StringIO
-import json
 
 ROTORS_DATA = {
     "I": {

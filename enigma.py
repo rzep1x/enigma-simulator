@@ -64,25 +64,25 @@ class Enigma:
         self._rotor3.step()
 
     def encrypt(self, text: str) -> str:
-        clean_text = text.replace(" ", "").upper()
-        if not clean_text.isascii() or not clean_text.isalpha():
-            # TODO CUSTOM ERROR
+        text = text.upper()
+        if not text.isascii():
             raise ValueError
-        num_text = [char_to_int(char) for char in clean_text]
+
         encyrpted_text = ''
-        for num in num_text:
-            self.step()
-            signal = num
-            signal = self.plugboard.connections[signal]
-            signal = self.rotor3.encrypt_forward(signal)
-            signal = self.rotor2.encrypt_forward(signal)
-            signal = self.rotor1.encrypt_forward(signal)
-            signal = self.reflector.wiring[signal]
-            signal = self.rotor1.encrypt_backward(signal)
-            signal = self.rotor2.encrypt_backward(signal)
-            signal = self.rotor3.encrypt_backward(signal)
-            signal = self.plugboard.connections[signal]
-            encyrpted_text += int_to_char(signal)
+        for char in text:
+            if char.isalpha():
+                self.step()
+                signal = char_to_int(char)
+                signal = self.plugboard.connections[signal]
+                signal = self.rotor3.encrypt_forward(signal)
+                signal = self.rotor2.encrypt_forward(signal)
+                signal = self.rotor1.encrypt_forward(signal)
+                signal = self.reflector.wiring[signal]
+                signal = self.rotor1.encrypt_backward(signal)
+                signal = self.rotor2.encrypt_backward(signal)
+                signal = self.rotor3.encrypt_backward(signal)
+                signal = self.plugboard.connections[signal]
+                encyrpted_text += int_to_char(signal)
         return encyrpted_text
 
     def save_enigma_settings(self, file_handle):
