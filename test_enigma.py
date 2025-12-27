@@ -2,6 +2,8 @@ from enigma import Enigma
 from components import Rotor, Plugboard, Reflector
 import pytest
 from utils import char_to_int
+from io import StringIO
+import json
 
 ROTORS_DATA = {
     "I": {
@@ -297,14 +299,54 @@ def test_enigma_encrypt_ring_setting():
     assert encrypted == "XNEIU"
 
 
-rotor1 = Rotor(name='I', initial_position='a')
-rotor2 = Rotor(name='II', initial_position='a')
-rotor3 = Rotor(name='III', initial_position='a')
+def test_enigma_save_enigma_settings():
+    rotor1 = Rotor(name='I', initial_position='q')
+    rotor2 = Rotor(name='II', initial_position='a')
+    rotor3 = Rotor(name='III', initial_position='a')
+    reflector = Reflector(name='B')
+    plugborad = Plugboard('AB CD')
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+    file_handle = StringIO()
 
-reflector = Reflector(name='B')
+    enigma.save_enigma_settings(file_handle)
+    output_content = file_handle.getvalue()
+    assert '"name": "I"' in output_content
+    assert '"connections": "AB CD"' in output_content
 
-plugborad = Plugboard('ab')
 
-enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+def test_load_enigma_settings_from_stringio():
+    rotor1 = Rotor(name='I', initial_position='q')
+    rotor2 = Rotor(name='II', initial_position='a')
+    rotor3 = Rotor(name='III', initial_position='a')
+    reflector = Reflector(name='B')
+    plugborad = Plugboard('AB CD')
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+    json_data = """
+    {
+        "rotor1": {"name": "V", "initial_position": "Z", "ring_setting": "H"},
+        "rotor2": {"name": "IV", "initial_position": "M", "ring_setting": "M"},
+        "rotor3": {"name": "III", "initial_position": "Q", "ring_setting": "L"},
+        "reflector": {"name": "C"},
+        "plugboard": {"connections": "XY WF"}
+    }
+    """
 
-enigma.save_enigma_settings()
+    file_handle = StringIO(json_data)
+
+    enigma.load_enigma_settings(file_handle)
+
+    assert enigma.rotor1.name == "V"
+    assert enigma.reflector.name == "C"
+
+
+# rotor1 = Rotor(name='I', initial_position='a')
+# rotor2 = Rotor(name='II', initial_position='a')
+# rotor3 = Rotor(name='III', initial_position='a')
+
+# reflector = Reflector(name='B')
+
+# plugborad = Plugboard('ab')
+
+# enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
+
+# enigma.save_enigma_settings()

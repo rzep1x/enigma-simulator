@@ -85,26 +85,33 @@ class Enigma:
             encyrpted_text += int_to_char(signal)
         return encyrpted_text
 
-    def save_enigma_settings(self):
+    def save_enigma_settings(self, file_handle):
+        plugboard_pairs = []
+        checked = set()
+        for i, connected_to in enumerate(self.plugboard.connections):
+            if i != connected_to and i not in checked:
+                pair = f"{int_to_char(i)}{int_to_char(connected_to)}"
+                plugboard_pairs.append(pair)
+                checked.add(i)
+                checked.add(connected_to)
+        plugboard_string = " ".join(plugboard_pairs)\
+
         settings = {
             'rotor1': {
                 'name': self.rotor1.name,
-                'initial_position': int_to_char(self.rotor1.initial_position),
-                'current_position': int_to_char(self.rotor1.current_position),
+                'initial_position': int_to_char(self.rotor1.current_position),
                 'ring_setting': int_to_char(self.rotor1.ring_setting)
             },
 
             'rotor2': {
                 'name': self.rotor2.name,
-                'initial_position': int_to_char(self.rotor2.initial_position),
-                'current_position': int_to_char(self.rotor2.current_position),
+                'initial_position': int_to_char(self.rotor2.current_position),
                 'ring_setting': int_to_char(self.rotor2.ring_setting)
             },
 
             'rotor3': {
                 'name': self.rotor3.name,
-                'initial_position': int_to_char(self.rotor3.initial_position),
-                'current_position': int_to_char(self.rotor3.current_position),
+                'initial_position': int_to_char(self.rotor3.current_position),
                 'ring_setting': int_to_char(self.rotor3.ring_setting)
             },
 
@@ -113,39 +120,38 @@ class Enigma:
             },
 
             'plugboard': {
-                'connections': ''.join([int_to_char(letter) for letter in self.plugboard.connections])
+                'connections': plugboard_string
             }
         }
+        # TODO: i will open file higher
+        # with open(file_name, 'w') as file_handle:
+        json.dump(settings, file_handle, indent=4)
 
-        with open('settings.json', 'w') as file_handle:
-            json.dump(settings, file_handle, indent=4)
+    def load_enigma_settings(self, file_handle):
+        # with open(filename, 'r') as file_handle:
+        # TODO: i will open file higher
+        data = json.load(file_handle)
 
-    def load_enigma_settings(self, filename='settings.json'):
-        with open(filename, 'r') as file_handle:
-            data = json.load(file_handle)
+        new_rotor1 = Rotor(
+            name=data['rotor1']['name'],
+            initial_position=data['rotor1']['initial_position'],
+            ring_setting=data['rotor1']["ring_setting"]
+        )
+        new_rotor2 = Rotor(
+            name=data['rotor2']['name'],
+            initial_position=data['rotor2']['initial_position'],
+            ring_setting=data['rotor2']["ring_setting"]
+        )
+        new_rotor3 = Rotor(
+            name=data['rotor3']['name'],
+            initial_position=data['rotor3']['initial_position'],
+            ring_setting=data['rotor3']["ring_setting"]
+        )
+        new_reflector = Reflector(data['reflector']['name'])
+        new_plugboard = Plugboard(data['plugboard']['connections'])
 
-            new_rotor1 = Rotor(
-                name=data['rotor1']['name'],
-                initial_position=data['rotor1']['initial_position'],
-                ring_setting=data['rotor1']["ring_setting"]
-            )
-            new_rotor2 = Rotor(
-                name=data['rotor2']['name'],
-                initial_position=data['rotor2']['initial_position'],
-                ring_setting=data['rotor2']["ring_setting"]
-            )
-            new_rotor3 = Rotor(
-                name=data['rotor3']['name'],
-                initial_position=data['rotor3']['initial_position'],
-                ring_setting=data['rotor3']["ring_setting"]
-            )
-            new_reflector = Reflector(data['reflector']['name'])
-            new_plugboard = Plugboard(data['plugboard']['connections'])
-
-            self.set_rotor1(new_rotor1)
-            self.set_rotor2(new_rotor2)
-            self.set_rotor3(new_rotor3)
-            self.set_plugboard(new_plugboard)
-            self.set_reflector(new_reflector)
-
-
+        self.set_rotor1(new_rotor1)
+        self.set_rotor2(new_rotor2)
+        self.set_rotor3(new_rotor3)
+        self.set_plugboard(new_plugboard)
+        self.set_reflector(new_reflector)
