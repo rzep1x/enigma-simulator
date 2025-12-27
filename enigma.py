@@ -1,6 +1,21 @@
-from components import Rotor, Reflector, Plugboard
+from components import(
+    Rotor, Reflector, Plugboard,
+    RotorConfigurationInitialPositionError,
+    RotorConfigurationRingSettingError,
+    RotorConfigurationCurrentPositionError,
+    PlugboradConfigurationError,
+    ReflectorConfigurationError
+)
 from utils import char_to_int, int_to_char
 import json
+
+
+class MalformedDataError(Exception):
+    pass
+
+
+class InvalidRotorError(Exception):
+    pass
 
 
 class Enigma:
@@ -65,12 +80,9 @@ class Enigma:
 
     def encrypt(self, text: str) -> str:
         text = text.upper()
-        if not text.isascii():
-            raise ValueError
-
         encyrpted_text = ''
         for char in text:
-            if char.isalpha():
+            if char.isalpha() and char.isascii():
                 self.step()
                 signal = char_to_int(char)
                 signal = self.plugboard.connections[signal]
@@ -130,25 +142,37 @@ class Enigma:
     def load_enigma_settings(self, file_handle):
         # with open(filename, 'r') as file_handle:
         # TODO: i will open file higher
-        data = json.load(file_handle)
+        try:
+            data = json.load(file_handle)
+        except json.JSONDecodeError as e:
+            raise MalformedDataError("File is not json file") from e
+        try:
+            new_rotor1 = Rotor(
+                name=data['rotor1']['name'],
+                initial_position=data['rotor1']['initial_position'],
+                ring_setting=data['rotor1']["ring_setting"]
+            )
+            new_rotor2 = Rotor(
+                name=data['rotor2']['name'],
+                initial_position=data['rotor2']['initial_position'],
+                ring_setting=data['rotor2']["ring_setting"]
+            )
+            new_rotor3 = Rotor(
+                name=data['rotor3']['name'],
+                initial_position=data['rotor3']['initial_position'],
+                ring_setting=data['rotor3']["ring_setting"]
+            )
 
-        new_rotor1 = Rotor(
-            name=data['rotor1']['name'],
-            initial_position=data['rotor1']['initial_position'],
-            ring_setting=data['rotor1']["ring_setting"]
-        )
-        new_rotor2 = Rotor(
-            name=data['rotor2']['name'],
-            initial_position=data['rotor2']['initial_position'],
-            ring_setting=data['rotor2']["ring_setting"]
-        )
-        new_rotor3 = Rotor(
-            name=data['rotor3']['name'],
-            initial_position=data['rotor3']['initial_position'],
-            ring_setting=data['rotor3']["ring_setting"]
-        )
-        new_reflector = Reflector(data['reflector']['name'])
-        new_plugboard = Plugboard(data['plugboard']['connections'])
+            new_reflector = Reflector(data['reflector']['name'])
+            new_plugboard = Plugboard(data['plugboard']['connections'])
+        except KeyError as e:
+            raise MalformedDataError("Missing key in file") from e
+        except (
+            RotorConfigurationInitialPositionError, RotorConfigurationRingSettingError,
+            RotorConfigurationCurrentPositionError, PlugboradConfigurationError,
+            ReflectorConfigurationError
+        ) as e:
+            raise InvalidRotorError("Invalid data detected during settings loading") from e
 
         self.set_rotor1(new_rotor1)
         self.set_rotor2(new_rotor2)

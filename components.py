@@ -2,6 +2,10 @@ from utils import char_to_int
 from config import ROTORS_DATA, REFLECTORS_DATA
 
 
+class RotorConfigurationNameError(Exception):
+    pass
+
+
 class RotorConfigurationInitialPositionError(Exception):
     pass
 
@@ -18,13 +22,16 @@ class PlugboradConfigurationError(Exception):
     pass
 
 
+class ReflectorConfigurationError(Exception):
+    pass
+
+
 class Rotor:
     def __init__(self, name: str, initial_position: str, ring_setting: str = 'A'):
 
         # Validation for name
         if name not in ROTORS_DATA:
-            # TODO custom error
-            raise ValueError
+            raise RotorConfigurationNameError
 
         # Validation for initial postion
         if not isinstance(initial_position, str) or len(initial_position) != 1:
@@ -124,8 +131,7 @@ class Rotor:
 class Reflector:
     def __init__(self, name: str):
         if name not in REFLECTORS_DATA:
-            # TODO custom error
-            raise ValueError
+            raise ReflectorConfigurationError
         self._name = name
         self._wiring = [char_to_int(letter) for letter in REFLECTORS_DATA[name]]
 
