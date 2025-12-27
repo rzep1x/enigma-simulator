@@ -1,8 +1,6 @@
 from components import (
     Rotor, Reflector, Plugboard,
     RotorConfigurationInitialPositionError,
-    RotorConfigurationWiringError,
-    RotorConfigurationNotchPositionError,
     PlugboradConfigurationError
 )
 import pytest

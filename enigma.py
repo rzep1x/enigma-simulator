@@ -86,31 +86,30 @@ class Enigma:
         return encyrpted_text
 
     def save_enigma_settings(self):
-        # TODO think about how to which is better saving rotor data only by its name or leave as it is
         settings = {
             'rotor1': {
-                'wiring': ''.join([int_to_char(letter) for letter in self.rotor1.wiring]),
+                'name': self.rotor1.name,
                 'initial_position': int_to_char(self.rotor1.initial_position),
-                'notch_position': int_to_char(self.rotor1.notch_position),
-                'ring_setting': int_to_char(self.rotor1.ring_setting),
+                'current_position': int_to_char(self.rotor1.current_position),
+                'ring_setting': int_to_char(self.rotor1.ring_setting)
             },
 
             'rotor2': {
-                'wiring': ''.join([int_to_char(letter) for letter in self.rotor2.wiring]),
+                'name': self.rotor2.name,
                 'initial_position': int_to_char(self.rotor2.initial_position),
-                'notch_position': int_to_char(self.rotor2.notch_position),
-                'ring_setting': int_to_char(self.rotor2.ring_setting),
+                'current_position': int_to_char(self.rotor2.current_position),
+                'ring_setting': int_to_char(self.rotor2.ring_setting)
             },
 
             'rotor3': {
-                'wiring': ''.join([int_to_char(letter) for letter in self.rotor3.wiring]),
+                'name': self.rotor3.name,
                 'initial_position': int_to_char(self.rotor3.initial_position),
-                'notch_position': int_to_char(self.rotor3.notch_position),
-                'ring_setting': int_to_char(self.rotor3.ring_setting),
+                'current_position': int_to_char(self.rotor3.current_position),
+                'ring_setting': int_to_char(self.rotor3.ring_setting)
             },
 
             'reflector': {
-                'wiring': ''.join([int_to_char(letter) for letter in self.reflector.wiring])
+                'name': self.reflector.name
             },
 
             'plugboard': {

@@ -46,6 +46,7 @@ class Rotor:
         if not ring_setting.isalpha() or not ring_setting.isascii():
             raise RotorConfigurationRingSettingError
 
+        self._name = name
         self._notch_position = char_to_int(ROTORS_DATA[name]['notch'])
         self._wiring = [char_to_int(letter) for letter in ROTORS_DATA[name]['wiring']]
 
