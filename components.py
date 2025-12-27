@@ -27,22 +27,18 @@ class ReflectorConfigurationError(Exception):
 
 
 class Rotor:
-    def __init__(self, name: str, initial_position: str, ring_setting: str = 'A'):
+    def __init__(self, name: str, initial_position: int, ring_setting: int = 0):
 
         # Validation for name
         if name not in ROTORS_DATA:
             raise RotorConfigurationNameError
 
         # Validation for initial postion
-        if not isinstance(initial_position, str) or len(initial_position) != 1:
-            raise RotorConfigurationInitialPositionError
-        if not initial_position.isalpha() or not initial_position.isascii():
+        if not isinstance(initial_position, int):
             raise RotorConfigurationInitialPositionError
 
         # Validation for ring_setting
-        if not isinstance(ring_setting, str) or len(ring_setting) != 1:
-            raise RotorConfigurationRingSettingError
-        if not ring_setting.isalpha() or not ring_setting.isascii():
+        if not isinstance(ring_setting, int):
             raise RotorConfigurationRingSettingError
 
         self._name = name
@@ -54,8 +50,8 @@ class Rotor:
         for index, value in enumerate(self._wiring):
             self._reveresed_wiring[value] = index
 
-        self._initial_position = char_to_int(initial_position)
-        self._ring_setting = char_to_int(ring_setting)
+        self._initial_position = initial_position
+        self._ring_setting = ring_setting
         self._current_position = self.initial_position
 
     @property
