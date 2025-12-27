@@ -76,7 +76,7 @@ class EnigmaUI(QMainWindow):
 
             self.enigma = Enigma(rotor1=r1, rotor2=r2, rotor3=r3, reflector=ref, plugboard=plug)
 
-            self._encryption()
+            # self._encryption()
 
         except Exception as e:
             print(f"Configuration Error {e}")
