@@ -1,15 +1,6 @@
 from utils import char_to_int
 from config import ROTORS_DATA, REFLECTORS_DATA
 
-
-class RotorConfigurationWiringError(Exception):
-    pass
-
-
-class RotorConfigurationNotchPositionError(Exception):
-    pass
-
-
 class RotorConfigurationInitialPositionError(Exception):
     pass
 
