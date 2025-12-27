@@ -1,6 +1,7 @@
 from utils import char_to_int
 from config import ROTORS_DATA, REFLECTORS_DATA
 
+
 class RotorConfigurationInitialPositionError(Exception):
     pass
 

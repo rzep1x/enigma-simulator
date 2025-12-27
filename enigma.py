@@ -119,3 +119,33 @@ class Enigma:
 
         with open('settings.json', 'w') as file_handle:
             json.dump(settings, file_handle, indent=4)
+
+    def load_enigma_settings(self, filename='settings.json'):
+        with open(filename, 'r') as file_handle:
+            data = json.load(file_handle)
+
+            new_rotor1 = Rotor(
+                name=data['rotor1']['name'],
+                initial_position=data['rotor1']['initial_position'],
+                ring_setting=data['rotor1']["ring_setting"]
+            )
+            new_rotor2 = Rotor(
+                name=data['rotor2']['name'],
+                initial_position=data['rotor2']['initial_position'],
+                ring_setting=data['rotor2']["ring_setting"]
+            )
+            new_rotor3 = Rotor(
+                name=data['rotor3']['name'],
+                initial_position=data['rotor3']['initial_position'],
+                ring_setting=data['rotor3']["ring_setting"]
+            )
+            new_reflector = Reflector(data['reflector']['name'])
+            new_plugboard = Plugboard(data['plugboard']['connections'])
+
+            self.set_rotor1(new_rotor1)
+            self.set_rotor2(new_rotor2)
+            self.set_rotor3(new_rotor3)
+            self.set_plugboard(new_plugboard)
+            self.set_reflector(new_reflector)
+
+
