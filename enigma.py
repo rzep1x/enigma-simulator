@@ -3,8 +3,10 @@ from components import (
     RotorConfigurationInitialPositionError,
     RotorConfigurationRingSettingError,
     RotorConfigurationCurrentPositionError,
-    PlugboradConfigurationError,
-    ReflectorConfigurationError
+    ReflectorConfigurationError,
+    PlugboradConfigurationLenghtError,
+    PlugboradConfigurationWrongLettersError,
+    PlugboardConfigurationLetterAlreadyUsedError
 )
 from utils import char_to_int, int_to_char
 import json
@@ -169,8 +171,9 @@ class Enigma:
             raise MalformedDataError("Missing key in file") from e
         except (
             RotorConfigurationInitialPositionError, RotorConfigurationRingSettingError,
-            RotorConfigurationCurrentPositionError, PlugboradConfigurationError,
-            ReflectorConfigurationError
+            RotorConfigurationCurrentPositionError,
+            ReflectorConfigurationError, PlugboradConfigurationLenghtError,
+            PlugboradConfigurationWrongLettersError, PlugboardConfigurationLetterAlreadyUsedError
         ) as e:
             raise InvalidRotorError("Invalid data detected during settings loading") from e
 

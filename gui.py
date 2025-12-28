@@ -3,6 +3,11 @@ from PySide6.QtWidgets import QMainWindow, QApplication
 import sys
 from enigma import Enigma
 from components import Rotor, Reflector, Plugboard
+from components import (
+    PlugboradConfigurationLenghtError,
+    PlugboradConfigurationWrongLettersError,
+    PlugboardConfigurationLetterAlreadyUsedError
+)
 
 
 class EnigmaUI(QMainWindow):
@@ -52,32 +57,28 @@ class EnigmaUI(QMainWindow):
         self.ui.plugboard.textChanged.connect(self._encryption)
 
     def _rebuild_enigma(self):
-        try:
-            r1_model = self.ui.rotor1Model.currentText()
-            r1_pos = self.ui.rotor1InitialPosition.value()
-            r1_ring_setting = self.ui.rotor1RingSetting.value()
-            r1 = Rotor(r1_model, r1_pos, r1_ring_setting)
+        r1_model = self.ui.rotor1Model.currentText()
+        r1_pos = self.ui.rotor1InitialPosition.value()
+        r1_ring_setting = self.ui.rotor1RingSetting.value()
+        r1 = Rotor(r1_model, r1_pos, r1_ring_setting)
 
-            r2_model = self.ui.rotor2Model.currentText()
-            r2_pos = self.ui.rotor2InitialPosition.value()
-            r2_ring_setting = self.ui.rotor2RingSetting.value()
-            r2 = Rotor(r2_model, r2_pos, r2_ring_setting)
+        r2_model = self.ui.rotor2Model.currentText()
+        r2_pos = self.ui.rotor2InitialPosition.value()
+        r2_ring_setting = self.ui.rotor2RingSetting.value()
+        r2 = Rotor(r2_model, r2_pos, r2_ring_setting)
 
-            r3_model = self.ui.rotor3Model.currentText()
-            r3_pos = self.ui.rotor3InitialPosition.value()
-            r3_ring_setting = self.ui.rotor3RingSetting.value()
-            r3 = Rotor(r3_model, r3_pos, r3_ring_setting)
+        r3_model = self.ui.rotor3Model.currentText()
+        r3_pos = self.ui.rotor3InitialPosition.value()
+        r3_ring_setting = self.ui.rotor3RingSetting.value()
+        r3 = Rotor(r3_model, r3_pos, r3_ring_setting)
 
-            plug_conn = self.ui.plugboard.text()
-            plug = Plugboard(plug_conn)
+        plug_conn = self.ui.plugboard.text()
+        plug = Plugboard(plug_conn)
 
-            ref_model = self.ui.reflectorModel.currentText()
-            ref = Reflector(ref_model)
+        ref_model = self.ui.reflectorModel.currentText()
+        ref = Reflector(ref_model)
 
-            self.enigma = Enigma(rotor1=r1, rotor2=r2, rotor3=r3, reflector=ref, plugboard=plug)
-
-        except Exception as e:
-            print(f"Configuration Error {e}")
+        self.enigma = Enigma(rotor1=r1, rotor2=r2, rotor3=r3, reflector=ref, plugboard=plug)
 
     def _encryption(self):
         text = self.ui.textEdit.toPlainText()
@@ -85,13 +86,18 @@ class EnigmaUI(QMainWindow):
             self.ui.outputText.clear()
             return
 
-        self._rebuild_enigma()
-
         try:
+            self._rebuild_enigma()
             encrypted_text = self.enigma.encrypt(text)
             self.ui.outputText.setText(encrypted_text)
-        except ValueError as e:
-            print(f'wrong char: {e}')
+        except (PlugboradConfigurationLenghtError, PlugboradConfigurationWrongLettersError):
+            self.ui.outputText.setText(
+                "Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')"
+            )
+            print("Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')")
+        except PlugboardConfigurationLetterAlreadyUsedError:
+            self.ui.outputText.setText("Pair of letters to be swapped need to be unique")
+            print("Pair of letters to be swapped need to be unique")
 
 
 def guiMain(args):
@@ -103,4 +109,3 @@ def guiMain(args):
 
 if __name__ == "__main__":
     guiMain(sys.argv)
-

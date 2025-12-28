@@ -18,7 +18,15 @@ class RotorConfigurationCurrentPositionError(Exception):
     pass
 
 
-class PlugboradConfigurationError(Exception):
+class PlugboradConfigurationLenghtError(Exception):
+    pass
+
+
+class PlugboradConfigurationWrongLettersError(Exception):
+    pass
+
+
+class PlugboardConfigurationLetterAlreadyUsedError(Exception):
     pass
 
 
@@ -149,13 +157,13 @@ class Plugboard:
         pairs = connections.upper().split()
         for pair in pairs:
             if len(pair) != 2:
-                raise PlugboradConfigurationError
+                raise PlugboradConfigurationLenghtError
             if not pair.isalpha() or not pair.isascii():
-                raise PlugboradConfigurationError
+                raise PlugboradConfigurationWrongLettersError
             char1 = char_to_int(pair[0])
             char2 = char_to_int(pair[1])
             if char1 in used_chars or char2 in used_chars:
-                raise PlugboradConfigurationError
+                raise PlugboardConfigurationLetterAlreadyUsedError
 
             used_chars.add(char1)
             used_chars.add(char2)
