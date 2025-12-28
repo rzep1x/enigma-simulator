@@ -1,5 +1,5 @@
 from ui_enigma import Ui_inputTextArea
-from PySide6.QtWidgets import QMainWindow, QApplication
+from PySide6.QtWidgets import QMainWindow, QApplication, QWidget
 import sys
 from enigma import Enigma
 from components import Rotor, Reflector, Plugboard
@@ -13,8 +13,11 @@ from components import (
 class EnigmaUI(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.cetral_widget = QWidget()
+        # fixed problem with expanding by creating central widget and put everythiong in this widget
+        self.setCentralWidget(self.cetral_widget)
         self.ui = Ui_inputTextArea()
-        self.ui.setupUi(self)
+        self.ui.setupUi(self.cetral_widget)
 
         self.ui.rotor1Model.setCurrentText("I")
         self.ui.rotor1InitialPosition.setValue(0)
