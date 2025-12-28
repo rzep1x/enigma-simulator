@@ -49,6 +49,17 @@ class EnigmaUI(QMainWindow):
 
         self.ui.clearButton.clicked.connect(self._set_deafult_values)
 
+        self.ui.saveButton.clicked.connect(self._save_enigma_settings)
+
+    def _save_enigma_settings(self):
+        self._rebuild_enigma()
+        try:
+            with open('settings.json', 'w') as file_handle:
+                self.enigma.save_enigma_settings(file_handle)
+            print("Saved")
+        except Exception as e:
+            print(f"Error {e}")
+
     def _set_deafult_values(self):
         self.ui.rotor1Model.setCurrentText("I")
         self.ui.rotor1InitialPosition.setValue(0)

@@ -113,20 +113,20 @@ class Enigma:
         settings = {
             'rotor1': {
                 'name': self.rotor1.name,
-                'initial_position': int_to_char(self.rotor1.current_position),
-                'ring_setting': int_to_char(self.rotor1.ring_setting)
+                'initial_position': self.rotor1.current_position,
+                'ring_setting': self.rotor1.ring_setting
             },
 
             'rotor2': {
                 'name': self.rotor2.name,
-                'initial_position': int_to_char(self.rotor2.current_position),
-                'ring_setting': int_to_char(self.rotor2.ring_setting)
+                'initial_position': self.rotor2.current_position,
+                'ring_setting': self.rotor2.ring_setting
             },
 
             'rotor3': {
                 'name': self.rotor3.name,
-                'initial_position': int_to_char(self.rotor3.current_position),
-                'ring_setting': int_to_char(self.rotor3.ring_setting)
+                'initial_position': self.rotor3.current_position,
+                'ring_setting': self.rotor3.ring_setting
             },
 
             'reflector': {
@@ -137,13 +137,9 @@ class Enigma:
                 'connections': plugboard_string
             }
         }
-        # TODO: i will open file higher
-        # with open(file_name, 'w') as file_handle:
         json.dump(settings, file_handle, indent=4)
 
     def load_enigma_settings(self, file_handle):
-        # with open(filename, 'r') as file_handle:
-        # TODO: i will open file higher
         try:
             data = json.load(file_handle)
         except json.JSONDecodeError as e:

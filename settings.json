@@ -1,26 +1,23 @@
 {
     "rotor1": {
-        "name": "I",
-        "initial_position": "A",
-        "current_position": "A",
-        "ring_setting": "A"
+        "name": "II",
+        "initial_position": 4,
+        "ring_setting": 0
     },
     "rotor2": {
-        "name": "II",
-        "initial_position": "A",
-        "current_position": "A",
-        "ring_setting": "A"
+        "name": "V",
+        "initial_position": 0,
+        "ring_setting": 0
     },
     "rotor3": {
         "name": "III",
-        "initial_position": "A",
-        "current_position": "A",
-        "ring_setting": "A"
+        "initial_position": 0,
+        "ring_setting": 0
     },
     "reflector": {
         "name": "B"
     },
     "plugboard": {
-        "connections": "BACDEFGHIJKLMNOPQRSTUVWXYZ"
+        "connections": ""
     }
 }
