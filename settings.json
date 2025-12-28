@@ -7,7 +7,7 @@
     "rotor2": {
         "name": "II",
         "initial_position": 0,
-        "ring_setting": 0
+        "ring_setting": 1
     },
     "rotor3": {
         "name": "III",

@@ -152,6 +152,7 @@ class Plugboard:
     def __init__(self, connections=''):
         used_chars = set()
         self._connections = [num for num in range(26)]
+        self._connections_as_str = connections.upper()
         if not connections:
             return
         pairs = connections.upper().split()
@@ -176,7 +177,7 @@ class Plugboard:
             self._connections[char1] = char2
             self._connections[char2] = char1
 
-        self._connections_as_str = connections
+
 
     @property
     def connections(self):
