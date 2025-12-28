@@ -160,7 +160,7 @@ class Plugboard:
                 raise PlugboradConfigurationLenghtError(
                     "Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')"
                 )
-            if not pair.isalpha() or not pair.isascii():
+            if not pair.isalpha() or not pair.isascii() or pair[0] == pair[1]:
                 raise PlugboradConfigurationWrongLettersError(
                     "Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')"
                 )
@@ -170,7 +170,6 @@ class Plugboard:
                 raise PlugboardConfigurationLetterAlreadyUsedError(
                     "Pair of letters to be swapped need to be unique"
                 )
-
             used_chars.add(char1)
             used_chars.add(char2)
 
