@@ -1,7 +1,9 @@
 from components import (
     Rotor, Reflector, Plugboard,
     RotorConfigurationInitialPositionError,
-    PlugboradConfigurationError
+    PlugboradConfigurationError,
+    RotorConfigurationNameError,
+    ReflectorConfigurationError
 )
 import pytest
 
@@ -9,7 +11,7 @@ import pytest
 # Tests for Rotor
 # Test create
 def test_rotor_create_():
-    rotor = Rotor(name='I', initial_position='B', ring_setting='B')
+    rotor = Rotor(name='I', initial_position=1, ring_setting=1)
     assert rotor.notch_position == 16
     assert rotor.initial_position == 1
     assert rotor.wiring == (
@@ -20,7 +22,7 @@ def test_rotor_create_():
 
 
 def test_rotor_create_ring_setting_default():
-    rotor = Rotor(name='I', initial_position='B')
+    rotor = Rotor(name='I', initial_position=1)
     assert rotor.notch_position == 16
     assert rotor.initial_position == 1
     assert rotor.wiring == (
@@ -29,13 +31,13 @@ def test_rotor_create_ring_setting_default():
     assert rotor.ring_setting == 0
 
 
-def test_rotor_create_initial_position_not_alpha():
+def test_rotor_create_initial_position_not_int():
     with pytest.raises(RotorConfigurationInitialPositionError):
         Rotor(name='I', initial_position='!')
 
 
 def test_rotor_create_rotor_not_in_rotors_data():
-    with pytest.raises(ValueError):
+    with pytest.raises(RotorConfigurationNameError):
         Rotor(name='VIII', initial_position='!')
 
 
@@ -44,14 +46,14 @@ def test_rotor_create_initial_position_wrong_length():
         Rotor(name='I', initial_position='bc')
 
 
-def test_rotor_create_initial_position_not_str():
+def test_rotor_create_initial_position_not_int2():
     with pytest.raises(RotorConfigurationInitialPositionError):
-        Rotor(name='I', initial_position=1)
+        Rotor(name='I', initial_position='q')
 
 
 # Tests setters
 def test_ring_setting_setter():
-    rotor = Rotor(name='I', initial_position='B', ring_setting='B')
+    rotor = Rotor(name='I', initial_position=1, ring_setting=1)
     assert rotor.notch_position == 16
     assert rotor.initial_position == 1
     assert rotor.wiring == (
@@ -64,7 +66,7 @@ def test_ring_setting_setter():
 
 
 def test_ring_setting_setter_more_than_26():
-    rotor = Rotor(name='I', initial_position='B', ring_setting='B')
+    rotor = Rotor(name='I', initial_position=1, ring_setting=1)
     assert rotor.notch_position == 16
     assert rotor.initial_position == 1
     assert rotor.wiring == (
@@ -77,7 +79,7 @@ def test_ring_setting_setter_more_than_26():
 
 
 def test_set_current_postion():
-    rotor = Rotor(name='I', initial_position='B', ring_setting='B')
+    rotor = Rotor(name='I', initial_position=1, ring_setting=1)
     assert rotor.notch_position == 16
     assert rotor.initial_position == 1
     assert rotor.wiring == (
@@ -91,7 +93,7 @@ def test_set_current_postion():
 
 
 def test_set_initial_position():
-    rotor = Rotor(name='I', initial_position='B', ring_setting='B')
+    rotor = Rotor(name='I', initial_position=1, ring_setting=1)
     assert rotor.notch_position == 16
     assert rotor.initial_position == 1
     assert rotor.wiring == (
@@ -105,7 +107,7 @@ def test_set_initial_position():
 
 
 def test_rotor_step():
-    rotor = Rotor(name='I', initial_position='a')
+    rotor = Rotor(name='I', initial_position=0)
     assert rotor.notch_position == 16
     assert rotor.initial_position == 0
     assert rotor.wiring == (
@@ -120,7 +122,7 @@ def test_rotor_step():
 
 
 def test_rotor_step_current_position_26():
-    rotor = Rotor(name='I', initial_position='z')
+    rotor = Rotor(name='I', initial_position=25)
     assert rotor.notch_position == 16
     assert rotor.initial_position == 25
     assert rotor.wiring == (
@@ -133,7 +135,7 @@ def test_rotor_step_current_position_26():
 
 
 def test_rotor_is_at_notch():
-    rotor = Rotor(name='I', initial_position='o')
+    rotor = Rotor(name='I', initial_position=14)
     assert rotor.notch_position == 16
     assert rotor.initial_position == 14
     assert rotor.wiring == (
@@ -157,7 +159,7 @@ def test_reflector_create():
 
 
 def test_reflector_create_not_in_reflectors_data():
-    with pytest.raises(ValueError):
+    with pytest.raises(ReflectorConfigurationError):
         Reflector('a')
 
 

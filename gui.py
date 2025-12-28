@@ -15,11 +15,11 @@ class EnigmaUI(QMainWindow):
         self.ui.rotor1InitialPosition.setValue(0)
         self.ui.rotor1RingSetting.setValue(0)
 
-        self.ui.rotor2Model.setCurrentText("I")
+        self.ui.rotor2Model.setCurrentText("II")
         self.ui.rotor2InitialPosition.setValue(0)
         self.ui.rotor2RingSetting.setValue(0)
 
-        self.ui.rotor3Model.setCurrentText("I")
+        self.ui.rotor3Model.setCurrentText("III")
         self.ui.rotor3InitialPosition.setValue(0)
         self.ui.rotor3RingSetting.setValue(0)
 
@@ -33,23 +33,23 @@ class EnigmaUI(QMainWindow):
         self._connect_signals()
 
     def _connect_signals(self):
-        # self.ui.textEdit.textChanged.connect(self._encrypt)
+        self.ui.textEdit.textChanged.connect(self._encryption)
 
-        self.ui.rotor1Model.currentTextChanged.connect(self._rebuild_enigma)
-        self.ui.rotor1InitialPosition.valueChanged.connect(self._rebuild_enigma)
-        self.ui.rotor1RingSetting.valueChanged.connect(self._rebuild_enigma)
+        self.ui.rotor1Model.currentTextChanged.connect(self._encryption)
+        self.ui.rotor1InitialPosition.valueChanged.connect(self._encryption)
+        self.ui.rotor1RingSetting.valueChanged.connect(self._encryption)
 
-        self.ui.rotor2Model.currentTextChanged.connect(self._rebuild_enigma)
-        self.ui.rotor2InitialPosition.valueChanged.connect(self._rebuild_enigma)
-        self.ui.rotor2RingSetting.valueChanged.connect(self._rebuild_enigma)
+        self.ui.rotor2Model.currentTextChanged.connect(self._encryption)
+        self.ui.rotor2InitialPosition.valueChanged.connect(self._encryption)
+        self.ui.rotor2RingSetting.valueChanged.connect(self._encryption)
 
-        self.ui.rotor3Model.currentTextChanged.connect(self._rebuild_enigma)
-        self.ui.rotor3InitialPosition.valueChanged.connect(self._rebuild_enigma)
-        self.ui.rotor3RingSetting.valueChanged.connect(self._rebuild_enigma)
+        self.ui.rotor3Model.currentTextChanged.connect(self._encryption)
+        self.ui.rotor3InitialPosition.valueChanged.connect(self._encryption)
+        self.ui.rotor3RingSetting.valueChanged.connect(self._encryption)
 
-        self.ui.reflectorModel.currentTextChanged.connect(self._rebuild_enigma)
+        self.ui.reflectorModel.currentTextChanged.connect(self._encryption)
 
-        self.ui.plugboard.textChanged.connect(self._rebuild_enigma)
+        self.ui.plugboard.textChanged.connect(self._encryption)
 
     def _rebuild_enigma(self):
         try:
@@ -76,10 +76,22 @@ class EnigmaUI(QMainWindow):
 
             self.enigma = Enigma(rotor1=r1, rotor2=r2, rotor3=r3, reflector=ref, plugboard=plug)
 
-            # self._encryption()
-
         except Exception as e:
             print(f"Configuration Error {e}")
+
+    def _encryption(self):
+        text = self.ui.textEdit.toPlainText()
+        if not text:
+            self.ui.outputText.clear()
+            return
+
+        self._rebuild_enigma()
+
+        try:
+            encrypted_text = self.enigma.encrypt(text)
+            self.ui.outputText.setText(encrypted_text)
+        except ValueError as e:
+            print(f'wrong char: {e}')
 
 
 def guiMain(args):

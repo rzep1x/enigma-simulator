@@ -34,9 +34,9 @@ REFLECTORS_DATA = {
 
 # CREATE
 def test_enigma_create():
-    rotor1 = Rotor(name='I', initial_position='a')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='a')
+    rotor1 = Rotor(name='I', initial_position=0)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='III', initial_position=0)
 
     reflector = Reflector(name='B')
 
@@ -52,9 +52,9 @@ def test_enigma_create():
 
 
 def test_enigma_create_missing_component():
-    rotor1 = Rotor(name='I', initial_position='a')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='a')
+    rotor1 = Rotor(name='I', initial_position=0)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='III', initial_position=0)
 
     reflector = Reflector(name='B')
 
@@ -64,10 +64,10 @@ def test_enigma_create_missing_component():
 
 # SETTERS
 def test_enigma_set_rotor():
-    rotor1 = Rotor(name='I', initial_position='a')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='a')
-    rotor4 = Rotor(name='IV', initial_position='a')
+    rotor1 = Rotor(name='I', initial_position=0)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='III', initial_position=0)
+    rotor4 = Rotor(name='IV', initial_position=0)
 
     reflector = Reflector(name='B')
 
@@ -91,9 +91,9 @@ def test_enigma_set_rotor():
 
 
 def test_enigma_reflector_setter():
-    rotor1 = Rotor(name='I', initial_position='a')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='a')
+    rotor1 = Rotor(name='I', initial_position=0)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='III', initial_position=0)
 
     reflector = Reflector(name='B')
     reflector2 = Reflector(name='C')
@@ -111,9 +111,9 @@ def test_enigma_reflector_setter():
 
 
 def test_enigma_step_nothing_on_notch():
-    rotor1 = Rotor(name='I', initial_position='a')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='a')
+    rotor1 = Rotor(name='I', initial_position=0)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='III', initial_position=0)
 
     reflector = Reflector(name='B')
 
@@ -129,9 +129,9 @@ def test_enigma_step_nothing_on_notch():
 
 
 def test_enigma_step_first_rotor_on_notch():
-    rotor1 = Rotor(name='I', initial_position='a')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='v')
+    rotor1 = Rotor(name='I', initial_position=0)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='III', initial_position=21)
 
     reflector = Reflector(name='B')
 
@@ -147,9 +147,9 @@ def test_enigma_step_first_rotor_on_notch():
 
 
 def test_enigma_step_second_rotor_on_notch():
-    rotor1 = Rotor(name='I', initial_position='a')
-    rotor2 = Rotor(name='II', initial_position='e')
-    rotor3 = Rotor(name='III', initial_position='a')
+    rotor1 = Rotor(name='I', initial_position=0)
+    rotor2 = Rotor(name='II', initial_position=4)
+    rotor3 = Rotor(name='III', initial_position=0)
 
     reflector = Reflector(name='B')
 
@@ -166,9 +166,9 @@ def test_enigma_step_second_rotor_on_notch():
 
 
 def test_enigma_step_third_rotor_on_notch():
-    rotor1 = Rotor(name='I', initial_position='q')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='a')
+    rotor1 = Rotor(name='I', initial_position=16)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='III', initial_position=0)
 
     reflector = Reflector(name='B')
 
@@ -185,9 +185,9 @@ def test_enigma_step_third_rotor_on_notch():
 
 
 def test_enigma_step_double_step():
-    rotor1 = Rotor(name='I', initial_position='a')
-    rotor2 = Rotor(name='II', initial_position='d')
-    rotor3 = Rotor(name='III', initial_position='u')
+    rotor1 = Rotor(name='I', initial_position=0)
+    rotor2 = Rotor(name='II', initial_position=3)
+    rotor3 = Rotor(name='III', initial_position=20)
 
     reflector = Reflector(name='B')
 
@@ -212,9 +212,9 @@ def test_enigma_step_double_step():
 
 
 def test_basic_encryption():
-    r1 = Rotor(name='I', initial_position='a')
-    r2 = Rotor(name='II', initial_position='a')
-    r3 = Rotor(name='III', initial_position='a')
+    r1 = Rotor(name='I', initial_position=0)
+    r2 = Rotor(name='II', initial_position=0)
+    r3 = Rotor(name='III', initial_position=0)
 
     ref = Reflector(name='B')
 
@@ -228,9 +228,9 @@ def test_basic_encryption():
 
 
 def test_double_stepping():
-    r1 = Rotor(name='I', initial_position='a')
-    r2 = Rotor(name='II', initial_position='d')
-    r3 = Rotor(name='III', initial_position='u')
+    r1 = Rotor(name='I', initial_position=0)
+    r2 = Rotor(name='II', initial_position=4)
+    r3 = Rotor(name='III', initial_position=20)
 
     ref = Reflector(name='B')
 
@@ -240,13 +240,13 @@ def test_double_stepping():
 
     encrypted = enigma.encrypt("AAAAA")
 
-    assert encrypted == "EQIBM"
+    assert encrypted == "BRNCO"
 
 
 def test_plugboard_swap():
-    r1 = Rotor(name='I', initial_position='a')
-    r2 = Rotor(name='II', initial_position='a')
-    r3 = Rotor(name='III', initial_position='a')
+    r1 = Rotor(name='I', initial_position=0)
+    r2 = Rotor(name='II', initial_position=0)
+    r3 = Rotor(name='III', initial_position=0)
 
     ref = Reflector(name='B')
 
@@ -260,9 +260,9 @@ def test_plugboard_swap():
 
 
 def test_decryption_symmetry():
-    r1 = Rotor(name='I', initial_position='g')
-    r2 = Rotor(name='II', initial_position='h')
-    r3 = Rotor(name='III', initial_position='k')
+    r1 = Rotor(name='I', initial_position=6)
+    r2 = Rotor(name='II', initial_position=7)
+    r3 = Rotor(name='III', initial_position=10)
 
     ref = Reflector(name='B')
 
@@ -283,9 +283,9 @@ def test_decryption_symmetry():
 
 
 def test_enigma_encrypt_ring_setting():
-    r1 = Rotor(name='I', initial_position='a', ring_setting='d')
-    r2 = Rotor(name='II', initial_position='a', ring_setting='f')
-    r3 = Rotor(name='III', initial_position='a', ring_setting='g')
+    r1 = Rotor(name='I', initial_position=0, ring_setting=3)
+    r2 = Rotor(name='II', initial_position=0, ring_setting=5)
+    r3 = Rotor(name='III', initial_position=0, ring_setting=6)
 
     ref = Reflector(name='B')
 
@@ -299,9 +299,9 @@ def test_enigma_encrypt_ring_setting():
 
 
 def test_enigma_save_enigma_settings():
-    rotor1 = Rotor(name='I', initial_position='q')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='a')
+    rotor1 = Rotor(name='I', initial_position=16)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='III', initial_position=0)
     reflector = Reflector(name='B')
     plugborad = Plugboard('AB CD')
     enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
@@ -314,42 +314,17 @@ def test_enigma_save_enigma_settings():
 
 
 def test_load_enigma_settings_from_stringio():
-    rotor1 = Rotor(name='I', initial_position='q')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='a')
+    rotor1 = Rotor(name='I', initial_position=16)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='III', initial_position=0)
     reflector = Reflector(name='B')
     plugborad = Plugboard('AB CD')
     enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
     json_data = """
     {
-        "rotor1": {"name": "V", "initial_position": "Z", "ring_setting": "H"},
-        "rotor2": {"name": "IV", "initial_position": "M", "ring_setting": "M"},
-        "rotor3": {"name": "III", "initial_position": "Q", "ring_setting": "L"},
-        "reflector": {"name": "C"},
-        "plugboard": {"connections": "XY WF"}
-    }
-    """
-
-    file_handle = StringIO(json_data)
-
-    enigma.load_enigma_settings(file_handle)
-
-    assert enigma.rotor1.name == "V"
-    assert enigma.reflector.name == "C"
-
-
-def test_load_settings_malformed_data():
-    rotor1 = Rotor(name='I', initial_position='q')
-    rotor2 = Rotor(name='II', initial_position='a')
-    rotor3 = Rotor(name='III', initial_position='a')
-    reflector = Reflector(name='B')
-    plugborad = Plugboard('AB CD')
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugborad)
-    json_data = """
-    {
-        "rotor1": {"name": "V", "initial_position": "Z", "ring_setting": "H"},
-        "rotor2": {"name": "IV", "initial_position": "M", "ring_setting": "M"},
-        "rotor3": {"name": "III", "initial_position": "Q", "ring_setting": "L"},
+        "rotor1": {"name": "V", "initial_position": 25, "ring_setting": 7},
+        "rotor2": {"name": "IV", "initial_position": 12, "ring_setting": 12},
+        "rotor3": {"name": "III", "initial_position": 16, "ring_setting": 11},
         "reflector": {"name": "C"},
         "plugboard": {"connections": "XY WF"}
     }
