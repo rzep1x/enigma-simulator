@@ -57,6 +57,24 @@ class EnigmaUI(QMainWindow):
         try:
             with open('settings.json', 'r') as file_handle:
                 self.enigma.load_enigma_settings(file_handle)
+
+                self.ui.rotor1Model.setCurrentText(self.enigma.rotor1.name)
+                self.ui.rotor1InitialPosition.setValue(self.enigma.rotor1.initial_position)
+                self.ui.rotor1RingSetting.setValue(self.enigma.rotor1.ring_setting)
+
+                self.ui.rotor2Model.setCurrentText(self.enigma.rotor2.name)
+                self.ui.rotor2InitialPosition.setValue(self.enigma.rotor2.initial_position)
+                self.ui.rotor2RingSetting.setValue(self.enigma.rotor2.ring_setting)
+
+                self.ui.rotor3Model.setCurrentText(self.enigma.rotor3.name)
+                self.ui.rotor3InitialPosition.setValue(self.enigma.rotor3.initial_position)
+                self.ui.rotor3RingSetting.setValue(self.enigma.rotor3.ring_setting)
+
+                self.ui.reflectorModel.setCurrentText(self.enigma.reflector.name)
+
+                self.ui.plugboard.setText(self.enigma.plugboard.connections_as_str)
+
+                self._encryption()
             QMessageBox.information(self, "Loaded", "Successfully loaded enigma settings")
             print("Loaded")
         except Exception as e:

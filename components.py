@@ -1,4 +1,4 @@
-from utils import char_to_int
+from utils import char_to_int, int_to_char
 from config import ROTORS_DATA, REFLECTORS_DATA
 
 
@@ -176,6 +176,12 @@ class Plugboard:
             self._connections[char1] = char2
             self._connections[char2] = char1
 
+        self._connections_as_str = connections
+
     @property
     def connections(self):
         return self._connections
+
+    @property
+    def connections_as_str(self):
+        return self._connections_as_str
