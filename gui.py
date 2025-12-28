@@ -16,24 +16,8 @@ class EnigmaUI(QMainWindow):
         self.ui = Ui_inputTextArea()
         self.ui.setupUi(self)
 
-        self.ui.rotor1Model.setCurrentText("I")
-        self.ui.rotor1InitialPosition.setValue(0)
-        self.ui.rotor1RingSetting.setValue(0)
-
-        self.ui.rotor2Model.setCurrentText("II")
-        self.ui.rotor2InitialPosition.setValue(0)
-        self.ui.rotor2RingSetting.setValue(0)
-
-        self.ui.rotor3Model.setCurrentText("III")
-        self.ui.rotor3InitialPosition.setValue(0)
-        self.ui.rotor3RingSetting.setValue(0)
-
-        self.ui.reflectorModel.setCurrentText('B')
-
-        self.ui.plugboard.setText('')
-
         self.enigma = None
-        self._rebuild_enigma()
+        self._set_deafult_values()
 
         self._connect_signals()
 
@@ -55,6 +39,34 @@ class EnigmaUI(QMainWindow):
         self.ui.reflectorModel.currentTextChanged.connect(self._encryption)
 
         self.ui.plugboard.textChanged.connect(self._encryption)
+
+        self.ui.reflectorModel.setCurrentText('B')
+
+        self.ui.plugboard.setText('')
+
+        self.ui.clearButton.clicked.connect(self._set_deafult_values)
+
+    def _set_deafult_values(self):
+        self.ui.rotor1Model.setCurrentText("I")
+        self.ui.rotor1InitialPosition.setValue(0)
+        self.ui.rotor1RingSetting.setValue(0)
+
+        self.ui.rotor2Model.setCurrentText("II")
+        self.ui.rotor2InitialPosition.setValue(0)
+        self.ui.rotor2RingSetting.setValue(0)
+
+        self.ui.rotor3Model.setCurrentText("III")
+        self.ui.rotor3InitialPosition.setValue(0)
+        self.ui.rotor3RingSetting.setValue(0)
+
+        self.ui.reflectorModel.setCurrentText('B')
+
+        self.ui.plugboard.setText('')
+
+        self.ui.textEdit.clear()
+        self.ui.outputText.clear()
+
+        self._rebuild_enigma()
 
     def _rebuild_enigma(self):
         r1_model = self.ui.rotor1Model.currentText()
