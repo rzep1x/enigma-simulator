@@ -116,12 +116,15 @@ class EnigmaUI(QMainWindow):
 
         try:
             self._rebuild_enigma()
+            self.ui.plugboard.setStyleSheet("")
             encrypted_text = self.enigma.encrypt(text)
             self.ui.outputText.setText(encrypted_text)
         except (PlugboradConfigurationLenghtError, PlugboradConfigurationWrongLettersError) as e:
+            self.ui.plugboard.setStyleSheet("border: 1px solid red; background-color: rgba(255, 0, 0, 30);")
             self.ui.outputText.setText(f'{e}')
             print(e)
         except PlugboardConfigurationLetterAlreadyUsedError as e:
+            self.ui.plugboard.setStyleSheet("border: 1px solid red; background-color: rgba(255, 0, 0, 30);")
             self.ui.outputText.setText(f'{e}')
             print(e)
 
