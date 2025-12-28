@@ -51,6 +51,18 @@ class EnigmaUI(QMainWindow):
 
         self.ui.saveButton.clicked.connect(self._save_enigma_settings)
 
+        self.ui.loadButton.clicked.connect(self._load_enigma_settings)
+
+    def _load_enigma_settings(self):
+        try:
+            with open('settings.json', 'r') as file_handle:
+                self.enigma.load_enigma_settings(file_handle)
+            QMessageBox.information(self, "Loaded", "Successfully loaded enigma settings")
+            print("Loaded")
+        except Exception as e:
+            print(f"Error {e}")
+            QMessageBox.critical(self, "Loading Error", f'Coudlnt load settings: {e}')
+
     def _save_enigma_settings(self):
         try:
             self._rebuild_enigma()
