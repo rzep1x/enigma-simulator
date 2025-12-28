@@ -1,5 +1,9 @@
 from ui_enigma import Ui_inputTextArea
-from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
+from PySide6.QtWidgets import (
+    QMainWindow, QApplication, QWidget, QMessageBox,
+    QFileDialog
+)
+
 import sys
 from enigma import Enigma
 from components import Rotor, Reflector, Plugboard
@@ -52,6 +56,27 @@ class EnigmaUI(QMainWindow):
         self.ui.saveButton.clicked.connect(self._save_enigma_settings)
 
         self.ui.loadButton.clicked.connect(self._load_enigma_settings)
+
+        self.ui.chooseFileButton.clicked.connect(self._load_text)
+
+    def _load_text(self):
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "",
+            "",
+            "Text files (*.txt)"
+        )
+
+        if not file_path:
+            return
+
+        try:
+            with open(file_path, 'r') as f:
+                content = f.read()
+
+            self.ui.textEdit.setText(content)
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Could not open file:\n{e}")
 
     def _load_enigma_settings(self):
         try:

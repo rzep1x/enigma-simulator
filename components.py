@@ -1,4 +1,4 @@
-from utils import char_to_int, int_to_char
+from utils import char_to_int
 from config import ROTORS_DATA, REFLECTORS_DATA
 
 
