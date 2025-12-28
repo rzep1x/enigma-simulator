@@ -118,14 +118,12 @@ class EnigmaUI(QMainWindow):
             self._rebuild_enigma()
             encrypted_text = self.enigma.encrypt(text)
             self.ui.outputText.setText(encrypted_text)
-        except (PlugboradConfigurationLenghtError, PlugboradConfigurationWrongLettersError):
-            self.ui.outputText.setText(
-                "Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')"
-            )
-            print("Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')")
-        except PlugboardConfigurationLetterAlreadyUsedError:
-            self.ui.outputText.setText("Pair of letters to be swapped need to be unique")
-            print("Pair of letters to be swapped need to be unique")
+        except (PlugboradConfigurationLenghtError, PlugboradConfigurationWrongLettersError) as e:
+            self.ui.outputText.setText(f'{e}')
+            print(e)
+        except PlugboardConfigurationLetterAlreadyUsedError as e:
+            self.ui.outputText.setText(f'{e}')
+            print(e)
 
 
 def guiMain(args):
