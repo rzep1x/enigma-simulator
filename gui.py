@@ -59,6 +59,25 @@ class EnigmaUI(QMainWindow):
 
         self.ui.chooseFileButton.clicked.connect(self._load_text)
 
+        self.ui.exportToFile.clicked.connect(self._export_to_file)
+
+    def _export_to_file(self):
+        file_path, _ = QFileDialog.getSaveFileName(self, "", "encrypted_text.txt", "Text files (*.txt);;All files (*)")
+        content = self.ui.outputText.toPlainText()
+
+        if not content:
+            return
+
+        if not file_path:
+            return
+
+        try:
+            with open(file_path, 'w') as file_handle:
+                file_handle.write(content)
+            QMessageBox.information(self, "Saved encrypted text", "You succesfully saved encrypted text")
+        except Exception as e:
+            QMessageBox.critical(self, "", f"Error {e}")
+
     def _load_text(self):
         file_path, _ = QFileDialog.getOpenFileName(
             self,
@@ -71,8 +90,8 @@ class EnigmaUI(QMainWindow):
             return
 
         try:
-            with open(file_path, 'r') as f:
-                content = f.read()
+            with open(file_path, 'r') as file_handle:
+                content = file_handle.read()
 
             self.ui.textEdit.setText(content)
         except Exception as e:
