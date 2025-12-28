@@ -157,13 +157,19 @@ class Plugboard:
         pairs = connections.upper().split()
         for pair in pairs:
             if len(pair) != 2:
-                raise PlugboradConfigurationLenghtError
+                raise PlugboradConfigurationLenghtError(
+                    "Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')"
+                )
             if not pair.isalpha() or not pair.isascii():
-                raise PlugboradConfigurationWrongLettersError
+                raise PlugboradConfigurationWrongLettersError(
+                    "Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')"
+                )
             char1 = char_to_int(pair[0])
             char2 = char_to_int(pair[1])
             if char1 in used_chars or char2 in used_chars:
-                raise PlugboardConfigurationLetterAlreadyUsedError
+                raise PlugboardConfigurationLetterAlreadyUsedError(
+                    "Pair of letters to be swapped need to be unique"
+                )
 
             used_chars.add(char1)
             used_chars.add(char2)

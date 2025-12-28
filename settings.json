@@ -1,11 +1,11 @@
 {
     "rotor1": {
-        "name": "II",
-        "initial_position": 4,
+        "name": "I",
+        "initial_position": 0,
         "ring_setting": 0
     },
     "rotor2": {
-        "name": "V",
+        "name": "II",
         "initial_position": 0,
         "ring_setting": 0
     },

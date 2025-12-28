@@ -1,5 +1,5 @@
 from ui_enigma import Ui_inputTextArea
-from PySide6.QtWidgets import QMainWindow, QApplication, QWidget
+from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QMessageBox
 import sys
 from enigma import Enigma
 from components import Rotor, Reflector, Plugboard
@@ -52,13 +52,15 @@ class EnigmaUI(QMainWindow):
         self.ui.saveButton.clicked.connect(self._save_enigma_settings)
 
     def _save_enigma_settings(self):
-        self._rebuild_enigma()
         try:
+            self._rebuild_enigma()
             with open('settings.json', 'w') as file_handle:
                 self.enigma.save_enigma_settings(file_handle)
+            QMessageBox.information(self, "Saved", "Successfully saved current settings")
             print("Saved")
         except Exception as e:
             print(f"Error {e}")
+            QMessageBox.critical(self, "Save Error", f"Cannot save enigma settings: {e}")
 
     def _set_deafult_values(self):
         self.ui.rotor1Model.setCurrentText("I")
