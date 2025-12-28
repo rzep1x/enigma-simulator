@@ -330,6 +330,11 @@ class Ui_inputTextArea(object):
 
         self.verticalLayout_2.addWidget(self.outputText)
 
+        self.exportToFile = QPushButton(inputTextArea)
+        self.exportToFile.setObjectName(u"exportToFile")
+
+        self.verticalLayout_2.addWidget(self.exportToFile)
+
 
         self.horizontalLayout_8.addLayout(self.verticalLayout_2)
 
@@ -386,5 +391,6 @@ class Ui_inputTextArea(object):
         self.label_12.setText(QCoreApplication.translate("inputTextArea", u"Initial position", None))
         self.label_13.setText(QCoreApplication.translate("inputTextArea", u"Ring setting", None))
         self.label_16.setText(QCoreApplication.translate("inputTextArea", u"Cipher Text", None))
+        self.exportToFile.setText(QCoreApplication.translate("inputTextArea", u"Export to file", None))
     # retranslateUi
 

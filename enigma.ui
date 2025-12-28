@@ -547,6 +547,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="exportToFile">
+         <property name="text">
+          <string>Export to file</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
