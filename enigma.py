@@ -99,19 +99,19 @@ class Enigma:
         settings = {
             'rotor1': {
                 'name': self.rotor1.name,
-                'initial_position': self.rotor1.current_position,
+                'initial_position': self.rotor1.initial_position,
                 'ring_setting': self.rotor1.ring_setting
             },
 
             'rotor2': {
                 'name': self.rotor2.name,
-                'initial_position': self.rotor2.current_position,
+                'initial_position': self.rotor2.initial_position,
                 'ring_setting': self.rotor2.ring_setting
             },
 
             'rotor3': {
                 'name': self.rotor3.name,
-                'initial_position': self.rotor3.current_position,
+                'initial_position': self.rotor3.initial_position,
                 'ring_setting': self.rotor3.ring_setting
             },
 
