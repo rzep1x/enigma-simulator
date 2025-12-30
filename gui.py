@@ -83,7 +83,7 @@ class EnigmaUI(QMainWindow):
 
     def _update_spinbox_suffix(self, spin_box):
         letter = int_to_char(spin_box.value())
-        spin_box.setSuffix(f"({letter})")
+        spin_box.setSuffix(f" ({letter})")
 
     def _export_to_file(self):
         file_path, _ = QFileDialog.getSaveFileName(self, "", "encrypted_text.txt", "Text files (*.txt);;All files (*)")
