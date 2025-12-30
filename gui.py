@@ -28,34 +28,22 @@ class EnigmaUI(QMainWindow):
     def _connect_signals(self):
         self.ui.textEdit.textChanged.connect(self._encryption)
 
-        self.ui.rotor1Model.currentTextChanged.connect(self._encryption)
-        self.ui.rotor1InitialPosition.valueChanged.connect(self._encryption)
-        self.ui.rotor1InitialPosition.valueChanged.connect(
-            lambda: self._update_spinbox_suffix(self.ui.rotor1InitialPosition)
-        )
-        self.ui.rotor1RingSetting.valueChanged.connect(self._encryption)
-        self.ui.rotor1RingSetting.valueChanged.connect(
-            lambda: self._update_spinbox_suffix(self.ui.rotor1RingSetting)
+        self._setup_rotors_signal(
+            self.ui.rotor1Model,
+            self.ui.rotor1InitialPosition,
+            self.ui.rotor1RingSetting
         )
 
-        self.ui.rotor2Model.currentTextChanged.connect(self._encryption)
-        self.ui.rotor2InitialPosition.valueChanged.connect(self._encryption)
-        self.ui.rotor2InitialPosition.valueChanged.connect(
-            lambda: self._update_spinbox_suffix(self.ui.rotor2InitialPosition)
-        )
-        self.ui.rotor2RingSetting.valueChanged.connect(self._encryption)
-        self.ui.rotor2RingSetting.valueChanged.connect(
-            lambda: self._update_spinbox_suffix(self.ui.rotor2RingSetting)
+        self._setup_rotors_signal(
+            self.ui.rotor2Model,
+            self.ui.rotor2InitialPosition,
+            self.ui.rotor2RingSetting
         )
 
-        self.ui.rotor3Model.currentTextChanged.connect(self._encryption)
-        self.ui.rotor3InitialPosition.valueChanged.connect(self._encryption)
-        self.ui.rotor3InitialPosition.valueChanged.connect(
-            lambda: self._update_spinbox_suffix(self.ui.rotor3InitialPosition)
-        )
-        self.ui.rotor3RingSetting.valueChanged.connect(self._encryption)
-        self.ui.rotor3RingSetting.valueChanged.connect(
-            lambda: self._update_spinbox_suffix(self.ui.rotor3RingSetting)
+        self._setup_rotors_signal(
+            self.ui.rotor3Model,
+            self.ui.rotor3InitialPosition,
+            self.ui.rotor3RingSetting
         )
 
         self.ui.reflectorModel.currentTextChanged.connect(self._encryption)
@@ -75,6 +63,19 @@ class EnigmaUI(QMainWindow):
         self.ui.chooseFileButton.clicked.connect(self._load_text)
 
         self.ui.exportToFile.clicked.connect(self._export_to_file)
+
+    def _setup_rotors_signal(self, model, position, ring_setting):
+        model.currentTextChanged.connect(self._encryption)
+
+        position.valueChanged.connect(self._encryption)
+        position.valueChanged.connect(
+            lambda: self._update_spinbox_suffix(position)
+        )
+
+        ring_setting.valueChanged.connect(self._encryption)
+        ring_setting.valueChanged.connect(
+            lambda: self._update_spinbox_suffix(ring_setting)
+        )
 
     def _update_spinbox_suffix(self, spin_box):
         letter = int_to_char(spin_box.value())
