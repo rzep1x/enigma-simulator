@@ -6,7 +6,11 @@ from PySide6.QtWidgets import (
 import sys
 from enigma import Enigma
 from components import Rotor, Reflector, Plugboard
-from components import PlugboardConfigurationError
+from components import (
+    RotorConfigurationError,
+    PlugboardConfigurationError,
+    ReflectorConfigurationError
+)
 
 from utils import int_to_char
 
@@ -114,7 +118,7 @@ class EnigmaUI(QMainWindow):
                 content = file_handle.read()
 
             self.ui.textEdit.setText(content)
-        except Exception as e:
+        except OSError as e:
             QMessageBox.critical(self, "Error", f"Could not open file:\n{e}")
 
     def _load_enigma_settings(self):
@@ -141,9 +145,15 @@ class EnigmaUI(QMainWindow):
                 self._encryption()
             QMessageBox.information(self, "Loaded", "Successfully loaded enigma settings")
             print("Loaded")
-        except Exception as e:
-            print(f"Error {e}")
-            QMessageBox.critical(self, "Loading Error", f'Coudlnt load settings: {e}')
+        except RotorConfigurationError as e:
+            print(f"Error during loading rottor settings: {e}")
+            QMessageBox.critical(self, "Loading Error", f'Coudlnt load rotor settings: {e}')
+        except PlugboardConfigurationError as e:
+            print(f"Error during loading plugboard settings: {e}")
+            QMessageBox.critical(self, "Loading Error", f'Coudlnt load plugboard settings: {e}')
+        except ReflectorConfigurationError as e:
+            print(f"Error during loading reflector settings: {e}")
+            QMessageBox.critical(self, "Loading Error", f'Coudlnt load reflector settings: {e}')
 
     def _save_enigma_settings(self):
         try:
