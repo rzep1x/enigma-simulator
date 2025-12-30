@@ -2,31 +2,11 @@ from utils import char_to_int
 from config import ROTORS_DATA, REFLECTORS_DATA
 
 
-class RotorConfigurationNameError(Exception):
+class RotorConfigurationError(Exception):
     pass
 
 
-class RotorConfigurationInitialPositionError(Exception):
-    pass
-
-
-class RotorConfigurationRingSettingError(Exception):
-    pass
-
-
-class RotorConfigurationCurrentPositionError(Exception):
-    pass
-
-
-class PlugboardConfigurationLengthError(Exception):
-    pass
-
-
-class PlugboardConfigurationWrongLettersError(Exception):
-    pass
-
-
-class PlugboardConfigurationLetterAlreadyUsedError(Exception):
+class PlugboardConfigurationError(Exception):
     pass
 
 
@@ -39,15 +19,15 @@ class Rotor:
 
         # Validation for name
         if name not in ROTORS_DATA:
-            raise RotorConfigurationNameError
+            raise RotorConfigurationError("Unknown rotor: {name}")
 
         # Validation for initial postion
         if not isinstance(initial_position, int):
-            raise RotorConfigurationInitialPositionError
+            raise RotorConfigurationError("Initial position must be an integer")
 
         # Validation for ring_setting
         if not isinstance(ring_setting, int):
-            raise RotorConfigurationRingSettingError
+            raise RotorConfigurationError("Ring setting must be an integer")
 
         self._name = name
         self._notch_position = char_to_int(ROTORS_DATA[name]['notch'])
@@ -99,14 +79,14 @@ class Rotor:
 
     def set_initial_position(self, new_value: int) -> int:
         if not isinstance(new_value, int):
-            raise RotorConfigurationInitialPositionError
+            raise RotorConfigurationError("New initial position must be integer")
         self._initial_position = new_value % 26
         self._current_position = self.initial_position
         return self.initial_position
 
     def set_ring_setting(self, new_value: int) -> int:
         if not isinstance(new_value, int):
-            raise RotorConfigurationRingSettingError
+            raise RotorConfigurationError("New ring setting must be integer")
         self._ring_setting = new_value % 26
         return self.ring_setting
 
@@ -135,7 +115,7 @@ class Rotor:
 class Reflector:
     def __init__(self, name: str):
         if name not in REFLECTORS_DATA:
-            raise ReflectorConfigurationError
+            raise ReflectorConfigurationError("Unknown reflector")
         self._name = name
         self._wiring = [char_to_int(letter) for letter in REFLECTORS_DATA[name]]
 
@@ -158,17 +138,17 @@ class Plugboard:
         pairs = connections.upper().split()
         for pair in pairs:
             if len(pair) != 2:
-                raise PlugboardConfigurationLengthError(
+                raise PlugboardConfigurationError(
                     "Invalid plugboard format: pairs of letters to be swapped expected (e.g 'ab cd ef')"
                 )
             if not pair.isalpha() or not pair.isascii() or pair[0] == pair[1]:
-                raise PlugboardConfigurationWrongLettersError(
+                raise PlugboardConfigurationError(
                     "Invalid plugboard format: pairs of letters to be swapped expected (e.g 'ab cd ef')"
                 )
             char1 = char_to_int(pair[0])
             char2 = char_to_int(pair[1])
             if char1 in used_chars or char2 in used_chars:
-                raise PlugboardConfigurationLetterAlreadyUsedError(
+                raise PlugboardConfigurationError(
                     "Pair of letters to be swapped need to be unique"
                 )
             used_chars.add(char1)

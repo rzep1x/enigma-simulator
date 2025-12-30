@@ -3,15 +3,10 @@ from PySide6.QtWidgets import (
     QMainWindow, QApplication, QWidget, QMessageBox,
     QFileDialog
 )
-
 import sys
 from enigma import Enigma
 from components import Rotor, Reflector, Plugboard
-from components import (
-    PlugboardConfigurationLengthError,
-    PlugboardConfigurationWrongLettersError,
-    PlugboardConfigurationLetterAlreadyUsedError
-)
+from components import PlugboardConfigurationError
 
 from utils import int_to_char
 
@@ -223,11 +218,7 @@ class EnigmaUI(QMainWindow):
             self.ui.plugboard.setStyleSheet("")
             encrypted_text = self.enigma.encrypt(text)
             self.ui.outputText.setText(encrypted_text)
-        except (PlugboardConfigurationLengthError, PlugboardConfigurationWrongLettersError) as e:
-            self.ui.plugboard.setStyleSheet("border: 1px solid red; background-color: rgba(255, 0, 0, 30);")
-            self.ui.outputText.setText(f'{e}')
-            print(e)
-        except PlugboardConfigurationLetterAlreadyUsedError as e:
+        except (PlugboardConfigurationError) as e:
             self.ui.plugboard.setStyleSheet("border: 1px solid red; background-color: rgba(255, 0, 0, 30);")
             self.ui.outputText.setText(f'{e}')
             print(e)
