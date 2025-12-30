@@ -420,4 +420,3 @@ def test_enigma_settings_invalid_value():
 
     with pytest.raises(InvalidComponentError):
         enigma.load_enigma_settings(bad_value_json)
-
