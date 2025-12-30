@@ -359,6 +359,9 @@
             <property name="wrapping">
              <bool>true</bool>
             </property>
+            <property name="maximum">
+             <number>25</number>
+            </property>
            </widget>
           </item>
           <item>
@@ -371,6 +374,9 @@
             </property>
             <property name="wrapping">
              <bool>true</bool>
+            </property>
+            <property name="maximum">
+             <number>25</number>
             </property>
            </widget>
           </item>
@@ -402,6 +408,9 @@
             <property name="wrapping">
              <bool>true</bool>
             </property>
+            <property name="maximum">
+             <number>25</number>
+            </property>
            </widget>
           </item>
           <item>
@@ -414,6 +423,9 @@
             </property>
             <property name="wrapping">
              <bool>true</bool>
+            </property>
+            <property name="maximum">
+             <number>25</number>
             </property>
            </widget>
           </item>

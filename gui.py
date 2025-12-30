@@ -127,6 +127,15 @@ class EnigmaUI(QMainWindow):
             with open('settings.json', 'r') as file_handle:
                 self.enigma.load_enigma_settings(file_handle)
 
+                widgets_to_block = [
+                    self.ui.rotor1Model, self.ui.rotor1InitialPosition, self.ui.rotor1RingSetting,
+                    self.ui.rotor2Model, self.ui.rotor2InitialPosition, self.ui.rotor2RingSetting,
+                    self.ui.rotor3Model, self.ui.rotor3InitialPosition, self.ui.rotor3RingSetting,
+                    self.ui.reflectorModel, self.ui.plugboard
+                ]
+                for widget in widgets_to_block:
+                    widget.blockSignals(True)
+
                 self.ui.rotor1Model.setCurrentText(self.enigma.rotor1.name)
                 self.ui.rotor1InitialPosition.setValue(self.enigma.rotor1.initial_position)
                 self.ui.rotor1RingSetting.setValue(self.enigma.rotor1.ring_setting)
@@ -152,6 +161,11 @@ class EnigmaUI(QMainWindow):
         except InvalidComponentError as e:
             print(f"Error: {e}")
             QMessageBox.critical(self, "Error", f"Loading Error: {e}")
+
+        # finally guaranttes that this lines of code will always execute no matter what
+        finally:
+            for widget in widgets_to_block:
+                widget.blockSignals(False)
 
     def _save_enigma_settings(self):
         try:

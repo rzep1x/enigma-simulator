@@ -216,6 +216,7 @@ class Ui_inputTextArea(object):
         sizePolicy3.setHeightForWidth(self.rotor2InitialPosition.sizePolicy().hasHeightForWidth())
         self.rotor2InitialPosition.setSizePolicy(sizePolicy3)
         self.rotor2InitialPosition.setWrapping(True)
+        self.rotor2InitialPosition.setMaximum(25)
 
         self.horizontalLayout_2.addWidget(self.rotor2InitialPosition)
 
@@ -224,6 +225,7 @@ class Ui_inputTextArea(object):
         sizePolicy3.setHeightForWidth(self.rotor2RingSetting.sizePolicy().hasHeightForWidth())
         self.rotor2RingSetting.setSizePolicy(sizePolicy3)
         self.rotor2RingSetting.setWrapping(True)
+        self.rotor2RingSetting.setMaximum(25)
 
         self.horizontalLayout_2.addWidget(self.rotor2RingSetting)
 
@@ -244,6 +246,7 @@ class Ui_inputTextArea(object):
         sizePolicy1.setHeightForWidth(self.rotor3InitialPosition.sizePolicy().hasHeightForWidth())
         self.rotor3InitialPosition.setSizePolicy(sizePolicy1)
         self.rotor3InitialPosition.setWrapping(True)
+        self.rotor3InitialPosition.setMaximum(25)
 
         self.horizontalLayout_6.addWidget(self.rotor3InitialPosition)
 
@@ -252,6 +255,7 @@ class Ui_inputTextArea(object):
         sizePolicy1.setHeightForWidth(self.rotor3RingSetting.sizePolicy().hasHeightForWidth())
         self.rotor3RingSetting.setSizePolicy(sizePolicy1)
         self.rotor3RingSetting.setWrapping(True)
+        self.rotor3RingSetting.setMaximum(25)
 
         self.horizontalLayout_6.addWidget(self.rotor3RingSetting)
 
