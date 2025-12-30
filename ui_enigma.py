@@ -182,6 +182,7 @@ class Ui_inputTextArea(object):
         self.rotor1InitialPosition.setObjectName(u"rotor1InitialPosition")
         sizePolicy1.setHeightForWidth(self.rotor1InitialPosition.sizePolicy().hasHeightForWidth())
         self.rotor1InitialPosition.setSizePolicy(sizePolicy1)
+        self.rotor1InitialPosition.setWrapping(True)
         self.rotor1InitialPosition.setMaximum(25)
 
         self.horizontalLayout_4.addWidget(self.rotor1InitialPosition)
@@ -190,6 +191,7 @@ class Ui_inputTextArea(object):
         self.rotor1RingSetting.setObjectName(u"rotor1RingSetting")
         sizePolicy1.setHeightForWidth(self.rotor1RingSetting.sizePolicy().hasHeightForWidth())
         self.rotor1RingSetting.setSizePolicy(sizePolicy1)
+        self.rotor1RingSetting.setWrapping(True)
         self.rotor1RingSetting.setMaximum(25)
 
         self.horizontalLayout_4.addWidget(self.rotor1RingSetting)
@@ -213,6 +215,7 @@ class Ui_inputTextArea(object):
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.rotor2InitialPosition.sizePolicy().hasHeightForWidth())
         self.rotor2InitialPosition.setSizePolicy(sizePolicy3)
+        self.rotor2InitialPosition.setWrapping(True)
 
         self.horizontalLayout_2.addWidget(self.rotor2InitialPosition)
 
@@ -220,6 +223,7 @@ class Ui_inputTextArea(object):
         self.rotor2RingSetting.setObjectName(u"rotor2RingSetting")
         sizePolicy3.setHeightForWidth(self.rotor2RingSetting.sizePolicy().hasHeightForWidth())
         self.rotor2RingSetting.setSizePolicy(sizePolicy3)
+        self.rotor2RingSetting.setWrapping(True)
 
         self.horizontalLayout_2.addWidget(self.rotor2RingSetting)
 
@@ -239,6 +243,7 @@ class Ui_inputTextArea(object):
         self.rotor3InitialPosition.setObjectName(u"rotor3InitialPosition")
         sizePolicy1.setHeightForWidth(self.rotor3InitialPosition.sizePolicy().hasHeightForWidth())
         self.rotor3InitialPosition.setSizePolicy(sizePolicy1)
+        self.rotor3InitialPosition.setWrapping(True)
 
         self.horizontalLayout_6.addWidget(self.rotor3InitialPosition)
 
@@ -246,6 +251,7 @@ class Ui_inputTextArea(object):
         self.rotor3RingSetting.setObjectName(u"rotor3RingSetting")
         sizePolicy1.setHeightForWidth(self.rotor3RingSetting.sizePolicy().hasHeightForWidth())
         self.rotor3RingSetting.setSizePolicy(sizePolicy1)
+        self.rotor3RingSetting.setWrapping(True)
 
         self.horizontalLayout_6.addWidget(self.rotor3RingSetting)
 

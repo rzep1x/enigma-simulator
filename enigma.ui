@@ -307,6 +307,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="wrapping">
+             <bool>true</bool>
+            </property>
             <property name="maximum">
              <number>25</number>
             </property>
@@ -319,6 +322,9 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="wrapping">
+             <bool>true</bool>
             </property>
             <property name="maximum">
              <number>25</number>
@@ -350,6 +356,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="wrapping">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -359,6 +368,9 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="wrapping">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -387,6 +399,9 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="wrapping">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -396,6 +411,9 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="wrapping">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
