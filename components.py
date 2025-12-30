@@ -90,21 +90,21 @@ class Rotor:
     def ring_setting(self):
         return self._ring_setting
 
-    def set_current_position(self, new_value: int):
+    def set_current_position(self, new_value: int) -> int:
         """
         sets new position of my rotor
         """
         self._current_position = new_value % 26
         return self.current_position
 
-    def set_initial_position(self, new_value: int):
+    def set_initial_position(self, new_value: int) -> int:
         if not isinstance(new_value, int):
             raise RotorConfigurationInitialPositionError
         self._initial_position = new_value % 26
         self._current_position = self.initial_position
         return self.initial_position
 
-    def set_ring_setting(self, new_value: int):
+    def set_ring_setting(self, new_value: int) -> int:
         if not isinstance(new_value, int):
             raise RotorConfigurationRingSettingError
         self._ring_setting = new_value % 26
@@ -117,14 +117,14 @@ class Rotor:
     def is_at_notch(self) -> bool:
         return self._current_position == self._notch_position
 
-    def encrypt_forward(self, input_index):
+    def encrypt_forward(self, input_index) -> int:
         shift = self.current_position - self.ring_setting
         index_in = (input_index + shift) % 26
         mapped_index = self._wiring[index_in]
         index_out = (mapped_index - shift) % 26
         return index_out
 
-    def encrypt_backward(self, input_index):
+    def encrypt_backward(self, input_index) -> int:
         shift = self.current_position - self.ring_setting
         index_in = (input_index + shift) % 26
         mapped_index = self._reversed_wiring[index_in]
