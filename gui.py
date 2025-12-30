@@ -94,6 +94,7 @@ class EnigmaUI(QMainWindow):
         content = self.ui.outputText.toPlainText()
 
         if not content:
+            QMessageBox.warning(self, "Warning", "There is no text to export")
             return
 
         if not file_path:
@@ -103,7 +104,7 @@ class EnigmaUI(QMainWindow):
             with open(file_path, 'w') as file_handle:
                 file_handle.write(content)
             QMessageBox.information(self, "Saved encrypted text", "You succesfully saved encrypted text")
-        except Exception as e:
+        except OSError as e:
             QMessageBox.critical(self, "", f"Error {e}")
 
     def _load_text(self):
