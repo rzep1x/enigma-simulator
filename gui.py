@@ -231,7 +231,7 @@ class EnigmaUI(QMainWindow):
             self.ui.plugboard.setStyleSheet("")
             encrypted_text = self.enigma.encrypt(text)
             self.ui.outputText.setText(encrypted_text)
-        except (PlugboardConfigurationError) as e:
+        except PlugboardConfigurationError as e:
             self.ui.plugboard.setStyleSheet("border: 1px solid red; background-color: rgba(255, 0, 0, 30);")
             self.ui.outputText.setText(f'{e}')
             print(e)
