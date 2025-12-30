@@ -40,15 +40,15 @@ def test_enigma_create():
 
     reflector = Reflector(name='B')
 
-    Plugboard = Plugboard()
+    plugboard = Plugboard()
 
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
 
     assert enigma.rotor1 == rotor1
     assert enigma.rotor2 == rotor2
     assert enigma.rotor3 == rotor3
     assert enigma.reflector == reflector
-    assert enigma.plugboard == Plugboard
+    assert enigma.plugboard == plugboard
 
 
 def test_enigma_create_missing_component():
@@ -71,15 +71,15 @@ def test_enigma_set_rotor():
 
     reflector = Reflector(name='B')
 
-    Plugboard = Plugboard()
+    plugboard = Plugboard()
 
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
 
     assert enigma.rotor1 == rotor1
     assert enigma.rotor2 == rotor2
     assert enigma.rotor3 == rotor3
     assert enigma.reflector == reflector
-    assert enigma.plugboard == Plugboard
+    assert enigma.plugboard == plugboard
 
     enigma.set_rotor1(rotor4)
     enigma.set_rotor2(rotor1)
@@ -87,7 +87,7 @@ def test_enigma_set_rotor():
     assert enigma.rotor2 == rotor1
     assert enigma.rotor3 == rotor3
     assert enigma.reflector == reflector
-    assert enigma.plugboard == Plugboard
+    assert enigma.plugboard == plugboard
 
 
 def test_enigma_reflector_setter():
@@ -98,14 +98,14 @@ def test_enigma_reflector_setter():
     reflector = Reflector(name='B')
     reflector2 = Reflector(name='C')
 
-    Plugboard = Plugboard()
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    plugboard = Plugboard()
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
 
     assert enigma.rotor1 == rotor1
     assert enigma.rotor2 == rotor2
     assert enigma.rotor3 == rotor3
     assert enigma.reflector == reflector
-    assert enigma.plugboard == Plugboard
+    assert enigma.plugboard == plugboard
     enigma.set_reflector(reflector2)
     assert enigma.reflector == reflector2
 
@@ -117,8 +117,8 @@ def test_enigma_step_nothing_on_notch():
 
     reflector = Reflector(name='B')
 
-    Plugboard = Plugboard()
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    plugboard = Plugboard()
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
     assert enigma.rotor1.current_position == 0
     assert enigma.rotor2.current_position == 0
     assert enigma.rotor3.current_position == 0
@@ -135,8 +135,8 @@ def test_enigma_step_first_rotor_on_notch():
 
     reflector = Reflector(name='B')
 
-    Plugboard = Plugboard()
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    plugboard = Plugboard()
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
     assert enigma.rotor1.current_position == 0
     assert enigma.rotor2.current_position == 0
     assert enigma.rotor3.current_position == 21
@@ -153,9 +153,9 @@ def test_enigma_step_second_rotor_on_notch():
 
     reflector = Reflector(name='B')
 
-    Plugboard = Plugboard()
+    plugboard = Plugboard()
 
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
     assert enigma.rotor1.current_position == 0
     assert enigma.rotor2.current_position == 4
     assert enigma.rotor3.current_position == 0
@@ -172,9 +172,9 @@ def test_enigma_step_third_rotor_on_notch():
 
     reflector = Reflector(name='B')
 
-    Plugboard = Plugboard()
+    plugboard = Plugboard()
 
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
     assert enigma.rotor1.current_position == 16
     assert enigma.rotor2.current_position == 0
     assert enigma.rotor3.current_position == 0
@@ -191,9 +191,9 @@ def test_enigma_step_double_step():
 
     reflector = Reflector(name='B')
 
-    Plugboard = Plugboard()
+    plugboard = Plugboard()
 
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
     assert enigma.rotor1.current_position == 0
     assert enigma.rotor2.current_position == 3
     assert enigma.rotor3.current_position == 20
@@ -303,8 +303,8 @@ def test_enigma_save_enigma_settings():
     rotor2 = Rotor(name='II', initial_position=0)
     rotor3 = Rotor(name='III', initial_position=0)
     reflector = Reflector(name='B')
-    Plugboard = Plugboard('AB CD')
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    plugboard = Plugboard('AB CD')
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
     file_handle = StringIO()
 
     enigma.save_enigma_settings(file_handle)
@@ -318,8 +318,8 @@ def test_load_enigma_settings_from_stringio():
     rotor2 = Rotor(name='II', initial_position=0)
     rotor3 = Rotor(name='III', initial_position=0)
     reflector = Reflector(name='B')
-    Plugboard = Plugboard('AB CD')
-    enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+    plugboard = Plugboard('AB CD')
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
     json_data = """
     {
         "rotor1": {"name": "V", "initial_position": 25, "ring_setting": 7},

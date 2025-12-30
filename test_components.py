@@ -1,10 +1,7 @@
 from components import (
     Rotor, Reflector, Plugboard,
-    RotorConfigurationInitialPositionError,
-    PlugboardConfigurationLengthError,
-    PlugboardConfigurationWrongLettersError,
-    PlugboardConfigurationLetterAlreadyUsedError,
-    RotorConfigurationNameError,
+    RotorConfigurationError,
+    PlugboardConfigurationError,
     ReflectorConfigurationError
 )
 import pytest
@@ -34,22 +31,22 @@ def test_rotor_create_ring_setting_default():
 
 
 def test_rotor_create_initial_position_not_int():
-    with pytest.raises(RotorConfigurationInitialPositionError):
+    with pytest.raises(RotorConfigurationError):
         Rotor(name='I', initial_position='!')
 
 
 def test_rotor_create_rotor_not_in_rotors_data():
-    with pytest.raises(RotorConfigurationNameError):
+    with pytest.raises(RotorConfigurationError):
         Rotor(name='VIII', initial_position='!')
 
 
 def test_rotor_create_initial_position_wrong_length():
-    with pytest.raises(RotorConfigurationInitialPositionError):
+    with pytest.raises(RotorConfigurationError):
         Rotor(name='I', initial_position='bc')
 
 
 def test_rotor_create_initial_position_not_int2():
-    with pytest.raises(RotorConfigurationInitialPositionError):
+    with pytest.raises(RotorConfigurationError):
         Rotor(name='I', initial_position='q')
 
 
@@ -179,20 +176,20 @@ def test_empty_plugboard_create():
 
 
 def test_plugboard_create_three_letters():
-    with pytest.raises(PlugboardConfigurationLengthError):
+    with pytest.raises(PlugboardConfigurationError):
         Plugboard('abc sx kw')
 
 
 def test_Plugboard_create_nonascii_letter():
-    with pytest.raises(PlugboardConfigurationWrongLettersError):
+    with pytest.raises(PlugboardConfigurationError):
         Plugboard('dł ab po')
 
 
 def test_Plugboard_create_special_char():
-    with pytest.raises(PlugboardConfigurationWrongLettersError):
+    with pytest.raises(PlugboardConfigurationError):
         Plugboard('d. c! po   a')
 
 
 def test_plugboard_create_same_letters_used_more_than_one_time():
-    with pytest.raises(PlugboardConfigurationLetterAlreadyUsedError):
+    with pytest.raises(PlugboardConfigurationError):
         Plugboard("ab ac bc")
