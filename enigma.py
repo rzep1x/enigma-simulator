@@ -12,7 +12,7 @@ class MalformedDataError(Exception):
     pass
 
 
-class InvalidRotorError(Exception):
+class InvalidComponentError(Exception):
     pass
 
 
@@ -165,7 +165,7 @@ class Enigma:
             RotorConfigurationError, PlugboardConfigurationError,
             ReflectorConfigurationError
         ) as e:
-            raise InvalidRotorError("Invalid data detected during settings loading") from e
+            raise InvalidComponentError("Invalid data detected during settings loading") from e
 
         self.set_rotor1(new_rotor1)
         self.set_rotor2(new_rotor2)

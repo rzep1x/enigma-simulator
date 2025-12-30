@@ -11,6 +11,10 @@ from components import (
     PlugboardConfigurationError,
     ReflectorConfigurationError
 )
+from enigma import (
+    MalformedDataError,
+    InvalidComponentError
+)
 
 from utils import int_to_char
 
@@ -145,15 +149,12 @@ class EnigmaUI(QMainWindow):
                 self._encryption()
             QMessageBox.information(self, "Loaded", "Successfully loaded enigma settings")
             print("Loaded")
-        except RotorConfigurationError as e:
-            print(f"Error during loading rottor settings: {e}")
-            QMessageBox.critical(self, "Loading Error", f'Coudlnt load rotor settings: {e}')
-        except PlugboardConfigurationError as e:
-            print(f"Error during loading plugboard settings: {e}")
-            QMessageBox.critical(self, "Loading Error", f'Coudlnt load plugboard settings: {e}')
-        except ReflectorConfigurationError as e:
-            print(f"Error during loading reflector settings: {e}")
-            QMessageBox.critical(self, "Loading Error", f'Coudlnt load reflector settings: {e}')
+        except MalformedDataError as e:
+            print(f"Error during loading settings {e}")
+            QMessageBox.critical(self, "Error", f"Loading Error: {e}")
+        except InvalidComponentError as e:
+            print(f"Error: {e}")
+            QMessageBox.critical(self, "Error", f"Loading Error: {e}")
 
     def _save_enigma_settings(self):
         try:
