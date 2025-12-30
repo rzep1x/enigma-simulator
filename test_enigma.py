@@ -1,5 +1,6 @@
 from enigma import Enigma
 from components import Rotor, Plugboard, Reflector
+from enigma import MalformedDataError, InvalidComponentError
 import pytest
 from utils import char_to_int
 from io import StringIO
@@ -371,14 +372,52 @@ def test_load_enigma_settings_from_stringio():
     assert enigma.reflector.name == "C"
 
 
-# rotor1 = Rotor(name='I', initial_position='a')
-# rotor2 = Rotor(name='II', initial_position='a')
-# rotor3 = Rotor(name='III', initial_position='a')
+def test_enigma_load_settings_broken_json_structure():
+    r1 = Rotor(name='I', initial_position=0, ring_setting=0)
+    r2 = Rotor(name='II', initial_position=0, ring_setting=0)
+    r3 = Rotor(name='III', initial_position=0, ring_setting=0)
+    ref = Reflector(name='B')
+    pb = Plugboard()
+    enigma = Enigma(r1, r2, r3, ref, pb)
 
-# reflector = Reflector(name='B')
+    bad_file = StringIO('{"rotor1" : {"name": 1}')
+    with pytest.raises(MalformedDataError):
+        enigma.load_enigma_settings(bad_file)
 
-# Plugboard = Plugboard('ab')
 
-# enigma = Enigma(rotor1, rotor2, rotor3, reflector, Plugboard)
+def test_enigma_load_settings_missing_key():
+    r1 = Rotor(name='I', initial_position=0, ring_setting=0)
+    r2 = Rotor(name='II', initial_position=0, ring_setting=0)
+    r3 = Rotor(name='III', initial_position=0, ring_setting=0)
+    ref = Reflector(name='B')
+    pb = Plugboard()
+    enigma = Enigma(r1, r2, r3, ref, pb)
 
-# enigma.save_enigma_settings()
+    bad_file = StringIO('{"rotor1": {"name": "I"}, "reflector": {"name": "B"}}')
+    with pytest.raises(MalformedDataError):
+        enigma.load_enigma_settings(bad_file)
+
+
+def test_enigma_settings_invalid_value():
+    r1 = Rotor(name='I', initial_position=0, ring_setting=0)
+    r2 = Rotor(name='II', initial_position=0, ring_setting=0)
+    r3 = Rotor(name='III', initial_position=0, ring_setting=0)
+    ref = Reflector(name='B')
+    pb = Plugboard()
+    enigma = Enigma(r1, r2, r3, ref, pb)
+
+    bad_value_json = StringIO(
+        """
+        {
+            "rotor1": {"name": "XVIII", "initial_position": 0, "ring_setting": 0},
+            "rotor2": {"name": "II", "initial_position": 0, "ring_setting": 0},
+            "rotor3": {"name": "III", "initial_position": 0, "ring_setting": 0},
+            "reflector": {"name": "B"},
+            "plugboard": {"connections": ""}
+        }
+        """
+    )
+
+    with pytest.raises(InvalidComponentError):
+        enigma.load_enigma_settings(bad_value_json)
+
