@@ -298,6 +298,39 @@ def test_enigma_encrypt_ring_setting():
     assert encrypted == "XNEIU"
 
 
+def test_encrypt_ignores_special_characters_nad_numbers():
+    r1 = Rotor(name='I', initial_position=0, ring_setting=0)
+    r2 = Rotor(name='II', initial_position=0, ring_setting=0)
+    r3 = Rotor(name='III', initial_position=0, ring_setting=0)
+    ref = Reflector(name='B')
+    pb = Plugboard()
+    enigma = Enigma(r1, r2, r3, ref, pb)
+
+    encrpted_text = enigma.encrypt("AAA !ąa.  a@#")
+    assert encrpted_text == "BDZGO"
+
+
+def test_encrypt_lowercase():
+    r1 = Rotor(name='I', initial_position=0, ring_setting=0)
+    r2 = Rotor(name='II', initial_position=0, ring_setting=0)
+    r3 = Rotor(name='III', initial_position=0, ring_setting=0)
+    ref = Reflector(name='B')
+    pb = Plugboard()
+    enigma = Enigma(r1, r2, r3, ref, pb)
+
+    assert enigma.encrypt("aaaaa") == "BDZGO"
+
+
+def test_enctpy_empty_str():
+    r1 = Rotor(name='I', initial_position=0, ring_setting=0)
+    r2 = Rotor(name='II', initial_position=0, ring_setting=0)
+    r3 = Rotor(name='III', initial_position=0, ring_setting=0)
+    ref = Reflector(name='B')
+    pb = Plugboard()
+    enigma = Enigma(r1, r2, r3, ref, pb)
+    assert enigma.encrypt('') == ''
+
+
 def test_enigma_save_enigma_settings():
     rotor1 = Rotor(name='I', initial_position=16)
     rotor2 = Rotor(name='II', initial_position=0)
