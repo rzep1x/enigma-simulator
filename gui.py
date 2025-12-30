@@ -13,6 +13,8 @@ from components import (
     PlugboardConfigurationLetterAlreadyUsedError
 )
 
+from utils import int_to_char
+
 
 class EnigmaUI(QMainWindow):
     def __init__(self, parent=None):
@@ -33,15 +35,33 @@ class EnigmaUI(QMainWindow):
 
         self.ui.rotor1Model.currentTextChanged.connect(self._encryption)
         self.ui.rotor1InitialPosition.valueChanged.connect(self._encryption)
+        self.ui.rotor1InitialPosition.valueChanged.connect(
+            lambda: self._update_spinbox_suffix(self.ui.rotor1InitialPosition)
+        )
         self.ui.rotor1RingSetting.valueChanged.connect(self._encryption)
+        self.ui.rotor1RingSetting.valueChanged.connect(
+            lambda: self._update_spinbox_suffix(self.ui.rotor1RingSetting)
+        )
 
         self.ui.rotor2Model.currentTextChanged.connect(self._encryption)
         self.ui.rotor2InitialPosition.valueChanged.connect(self._encryption)
+        self.ui.rotor2InitialPosition.valueChanged.connect(
+            lambda: self._update_spinbox_suffix(self.ui.rotor2InitialPosition)
+        )
         self.ui.rotor2RingSetting.valueChanged.connect(self._encryption)
+        self.ui.rotor2RingSetting.valueChanged.connect(
+            lambda: self._update_spinbox_suffix(self.ui.rotor2RingSetting)
+        )
 
         self.ui.rotor3Model.currentTextChanged.connect(self._encryption)
         self.ui.rotor3InitialPosition.valueChanged.connect(self._encryption)
+        self.ui.rotor3InitialPosition.valueChanged.connect(
+            lambda: self._update_spinbox_suffix(self.ui.rotor3InitialPosition)
+        )
         self.ui.rotor3RingSetting.valueChanged.connect(self._encryption)
+        self.ui.rotor3RingSetting.valueChanged.connect(
+            lambda: self._update_spinbox_suffix(self.ui.rotor3RingSetting)
+        )
 
         self.ui.reflectorModel.currentTextChanged.connect(self._encryption)
 
@@ -60,6 +80,10 @@ class EnigmaUI(QMainWindow):
         self.ui.chooseFileButton.clicked.connect(self._load_text)
 
         self.ui.exportToFile.clicked.connect(self._export_to_file)
+
+    def _update_spinbox_suffix(self, spin_box):
+        letter = int_to_char(spin_box.value())
+        spin_box.setSuffix(f"({letter})")
 
     def _export_to_file(self):
         file_path, _ = QFileDialog.getSaveFileName(self, "", "encrypted_text.txt", "Text files (*.txt);;All files (*)")
@@ -139,15 +163,21 @@ class EnigmaUI(QMainWindow):
     def _set_default_values(self):
         self.ui.rotor1Model.setCurrentText("I")
         self.ui.rotor1InitialPosition.setValue(0)
+        self._update_spinbox_suffix(self.ui.rotor1InitialPosition)
         self.ui.rotor1RingSetting.setValue(0)
+        self._update_spinbox_suffix(self.ui.rotor1RingSetting)
 
         self.ui.rotor2Model.setCurrentText("II")
         self.ui.rotor2InitialPosition.setValue(0)
+        self._update_spinbox_suffix(self.ui.rotor2InitialPosition)
         self.ui.rotor2RingSetting.setValue(0)
+        self._update_spinbox_suffix(self.ui.rotor2RingSetting)
 
         self.ui.rotor3Model.setCurrentText("III")
         self.ui.rotor3InitialPosition.setValue(0)
+        self._update_spinbox_suffix(self.ui.rotor3InitialPosition)
         self.ui.rotor3RingSetting.setValue(0)
+        self._update_spinbox_suffix(self.ui.rotor3RingSetting)
 
         self.ui.reflectorModel.setCurrentText('B')
 
