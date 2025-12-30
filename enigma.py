@@ -96,16 +96,6 @@ class Enigma:
         return encrypted_text
 
     def save_enigma_settings(self, file_handle):
-        plugboard_pairs = []
-        checked = set()
-        for i, connected_to in enumerate(self.plugboard.connections):
-            if i != connected_to and i not in checked:
-                pair = f"{int_to_char(i)}{int_to_char(connected_to)}"
-                plugboard_pairs.append(pair)
-                checked.add(i)
-                checked.add(connected_to)
-        plugboard_string = " ".join(plugboard_pairs)\
-
         settings = {
             'rotor1': {
                 'name': self.rotor1.name,
@@ -130,7 +120,7 @@ class Enigma:
             },
 
             'plugboard': {
-                'connections': plugboard_string
+                'connections': self.plugboard.connections_as_str
             }
         }
         json.dump(settings, file_handle, indent=4)
