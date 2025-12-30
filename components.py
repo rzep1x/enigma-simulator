@@ -104,7 +104,7 @@ class Rotor:
         index_out = (mapped_index - shift) % 26
         return index_out
 
-    def encrypt_backward(self, input_index) -> int:
+    def encrypt_backward(self, input_index: int) -> int:
         shift = self.current_position - self.ring_setting
         index_in = (input_index + shift) % 26
         mapped_index = self._reversed_wiring[index_in]
@@ -129,7 +129,7 @@ class Reflector:
 
 
 class Plugboard:
-    def __init__(self, connections=''):
+    def __init__(self, connections: str = ""):
         used_chars = set()
         self._connections = [num for num in range(26)]
         self._connections_as_str = connections.upper()

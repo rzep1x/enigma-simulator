@@ -6,11 +6,7 @@ from PySide6.QtWidgets import (
 import sys
 from enigma import Enigma
 from components import Rotor, Reflector, Plugboard
-from components import (
-    RotorConfigurationError,
-    PlugboardConfigurationError,
-    ReflectorConfigurationError
-)
+from components import PlugboardConfigurationError
 from enigma import (
     MalformedDataError,
     InvalidComponentError

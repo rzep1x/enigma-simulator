@@ -44,23 +44,23 @@ class Enigma:
     def plugboard(self):
         return self._plugboard
 
-    def set_rotor1(self, new_rotor) -> Rotor:
+    def set_rotor1(self, new_rotor: Rotor) -> Rotor:
         self._rotor1 = new_rotor
         return self._rotor1
 
-    def set_rotor2(self, new_rotor) -> Rotor:
+    def set_rotor2(self, new_rotor: Rotor) -> Rotor:
         self._rotor2 = new_rotor
         return self._rotor2
 
-    def set_rotor3(self, new_rotor) -> Rotor:
+    def set_rotor3(self, new_rotor: Rotor) -> Rotor:
         self._rotor3 = new_rotor
         return self._rotor3
 
-    def set_plugboard(self, new_plugboard) -> Plugboard:
+    def set_plugboard(self, new_plugboard: Plugboard) -> Plugboard:
         self._plugboard = new_plugboard
         return self._plugboard
 
-    def set_reflector(self, new_reflector) -> Reflector:
+    def set_reflector(self, new_reflector: Reflector) -> Reflector:
         self._reflector = new_reflector
         return self._reflector
 
