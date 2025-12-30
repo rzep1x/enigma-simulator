@@ -18,11 +18,11 @@ class RotorConfigurationCurrentPositionError(Exception):
     pass
 
 
-class PlugboradConfigurationLenghtError(Exception):
+class PlugboardConfigurationLengthError(Exception):
     pass
 
 
-class PlugboradConfigurationWrongLettersError(Exception):
+class PlugboardConfigurationWrongLettersError(Exception):
     pass
 
 
@@ -54,9 +54,9 @@ class Rotor:
         self._wiring = [char_to_int(letter) for letter in ROTORS_DATA[name]['wiring']]
 
         # Create reversed wiring list
-        self._reveresed_wiring = [0] * len(self._wiring)
+        self._reversed_wiring = [0] * len(self._wiring)
         for index, value in enumerate(self._wiring):
-            self._reveresed_wiring[value] = index
+            self._reversed_wiring[value] = index
 
         self._initial_position = initial_position
         self._ring_setting = ring_setting
@@ -76,7 +76,7 @@ class Rotor:
 
     @property
     def reversed_wiring(self):
-        return self._reveresed_wiring
+        return self._reversed_wiring
 
     @property
     def initial_position(self):
@@ -127,7 +127,7 @@ class Rotor:
     def encrypt_backward(self, input_index):
         shift = self.current_position - self.ring_setting
         index_in = (input_index + shift) % 26
-        mapped_index = self._reveresed_wiring[index_in]
+        mapped_index = self._reversed_wiring[index_in]
         index_out = (mapped_index - shift) % 26
         return index_out
 
@@ -158,12 +158,12 @@ class Plugboard:
         pairs = connections.upper().split()
         for pair in pairs:
             if len(pair) != 2:
-                raise PlugboradConfigurationLenghtError(
-                    "Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')"
+                raise PlugboardConfigurationLengthError(
+                    "Invalid plugboard format: pairs of letters to be swapped expected (e.g 'ab cd ef')"
                 )
             if not pair.isalpha() or not pair.isascii() or pair[0] == pair[1]:
-                raise PlugboradConfigurationWrongLettersError(
-                    "Invalid plugboard format: pairs of letters to be swapped excpeted (e.g 'ab cd ef')"
+                raise PlugboardConfigurationWrongLettersError(
+                    "Invalid plugboard format: pairs of letters to be swapped expected (e.g 'ab cd ef')"
                 )
             char1 = char_to_int(pair[0])
             char2 = char_to_int(pair[1])
@@ -176,8 +176,6 @@ class Plugboard:
 
             self._connections[char1] = char2
             self._connections[char2] = char1
-
-
 
     @property
     def connections(self):

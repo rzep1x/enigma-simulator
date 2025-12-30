@@ -8,8 +8,8 @@ import sys
 from enigma import Enigma
 from components import Rotor, Reflector, Plugboard
 from components import (
-    PlugboradConfigurationLenghtError,
-    PlugboradConfigurationWrongLettersError,
+    PlugboardConfigurationLengthError,
+    PlugboardConfigurationWrongLettersError,
     PlugboardConfigurationLetterAlreadyUsedError
 )
 
@@ -17,14 +17,14 @@ from components import (
 class EnigmaUI(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.cetral_widget = QWidget()
+        self.central_widget = QWidget()
         # fixed problem with expanding by creating central widget and put everythiong in this widget
-        self.setCentralWidget(self.cetral_widget)
+        self.setCentralWidget(self.central_widget)
         self.ui = Ui_inputTextArea()
-        self.ui.setupUi(self.cetral_widget)
+        self.ui.setupUi(self.central_widget)
 
         self.enigma = None
-        self._set_deafult_values()
+        self._set_default_values()
 
         self._connect_signals()
 
@@ -51,7 +51,7 @@ class EnigmaUI(QMainWindow):
 
         self.ui.plugboard.setText('')
 
-        self.ui.clearButton.clicked.connect(self._set_deafult_values)
+        self.ui.clearButton.clicked.connect(self._set_default_values)
 
         self.ui.saveButton.clicked.connect(self._save_enigma_settings)
 
@@ -136,7 +136,7 @@ class EnigmaUI(QMainWindow):
             print(f"Error {e}")
             QMessageBox.critical(self, "Save Error", f"Cannot save enigma settings: {e}")
 
-    def _set_deafult_values(self):
+    def _set_default_values(self):
         self.ui.rotor1Model.setCurrentText("I")
         self.ui.rotor1InitialPosition.setValue(0)
         self.ui.rotor1RingSetting.setValue(0)
@@ -193,7 +193,7 @@ class EnigmaUI(QMainWindow):
             self.ui.plugboard.setStyleSheet("")
             encrypted_text = self.enigma.encrypt(text)
             self.ui.outputText.setText(encrypted_text)
-        except (PlugboradConfigurationLenghtError, PlugboradConfigurationWrongLettersError) as e:
+        except (PlugboardConfigurationLengthError, PlugboardConfigurationWrongLettersError) as e:
             self.ui.plugboard.setStyleSheet("border: 1px solid red; background-color: rgba(255, 0, 0, 30);")
             self.ui.outputText.setText(f'{e}')
             print(e)

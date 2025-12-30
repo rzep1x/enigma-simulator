@@ -1,8 +1,8 @@
 from components import (
     Rotor, Reflector, Plugboard,
     RotorConfigurationInitialPositionError,
-    PlugboradConfigurationLenghtError,
-    PlugboradConfigurationWrongLettersError,
+    PlugboardConfigurationLengthError,
+    PlugboardConfigurationWrongLettersError,
     PlugboardConfigurationLetterAlreadyUsedError,
     RotorConfigurationNameError,
     ReflectorConfigurationError
@@ -179,17 +179,17 @@ def test_empty_plugboard_create():
 
 
 def test_plugboard_create_three_letters():
-    with pytest.raises(PlugboradConfigurationLenghtError):
+    with pytest.raises(PlugboardConfigurationLengthError):
         Plugboard('abc sx kw')
 
 
-def test_plugborad_create_nonascii_letter():
-    with pytest.raises(PlugboradConfigurationWrongLettersError):
+def test_Plugboard_create_nonascii_letter():
+    with pytest.raises(PlugboardConfigurationWrongLettersError):
         Plugboard('dł ab po')
 
 
-def test_plugborad_create_special_char():
-    with pytest.raises(PlugboradConfigurationWrongLettersError):
+def test_Plugboard_create_special_char():
+    with pytest.raises(PlugboardConfigurationWrongLettersError):
         Plugboard('d. c! po   a')
 
 

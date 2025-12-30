@@ -4,8 +4,8 @@ from components import (
     RotorConfigurationRingSettingError,
     RotorConfigurationCurrentPositionError,
     ReflectorConfigurationError,
-    PlugboradConfigurationLenghtError,
-    PlugboradConfigurationWrongLettersError,
+    PlugboardConfigurationLengthError,
+    PlugboardConfigurationWrongLettersError,
     PlugboardConfigurationLetterAlreadyUsedError
 )
 from utils import char_to_int, int_to_char
@@ -82,7 +82,7 @@ class Enigma:
 
     def encrypt(self, text: str) -> str:
         text = text.upper()
-        encyrpted_text = ''
+        encrypted_text = ''
         for char in text:
             if char.isalpha() and char.isascii():
                 self.step()
@@ -96,8 +96,8 @@ class Enigma:
                 signal = self.rotor2.encrypt_backward(signal)
                 signal = self.rotor3.encrypt_backward(signal)
                 signal = self.plugboard.connections[signal]
-                encyrpted_text += int_to_char(signal)
-        return encyrpted_text
+                encrypted_text += int_to_char(signal)
+        return encrypted_text
 
     def save_enigma_settings(self, file_handle):
         plugboard_pairs = []
@@ -168,8 +168,8 @@ class Enigma:
         except (
             RotorConfigurationInitialPositionError, RotorConfigurationRingSettingError,
             RotorConfigurationCurrentPositionError,
-            ReflectorConfigurationError, PlugboradConfigurationLenghtError,
-            PlugboradConfigurationWrongLettersError, PlugboardConfigurationLetterAlreadyUsedError
+            ReflectorConfigurationError, PlugboardConfigurationLengthError,
+            PlugboardConfigurationWrongLettersError, PlugboardConfigurationLetterAlreadyUsedError
         ) as e:
             raise InvalidRotorError("Invalid data detected during settings loading") from e
 
