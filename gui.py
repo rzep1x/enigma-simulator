@@ -169,7 +169,6 @@ class EnigmaUI(QMainWindow):
 
     def _save_enigma_settings(self):
         try:
-            self._rebuild_enigma()
             with open('settings.json', 'w') as file_handle:
                 self.enigma.save_enigma_settings(file_handle)
             QMessageBox.information(self, "Saved", "Successfully saved current settings")

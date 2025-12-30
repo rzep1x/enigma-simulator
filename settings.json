@@ -1,23 +1,23 @@
 {
     "rotor1": {
-        "name": "IV",
-        "initial_position": 17,
-        "ring_setting": 18
+        "name": "I",
+        "initial_position": 0,
+        "ring_setting": 0
     },
     "rotor2": {
-        "name": "I",
-        "initial_position": 9,
-        "ring_setting": 20
+        "name": "II",
+        "initial_position": 0,
+        "ring_setting": 0
     },
     "rotor3": {
-        "name": "IV",
-        "initial_position": 9,
-        "ring_setting": 16
+        "name": "III",
+        "initial_position": 3,
+        "ring_setting": 0
     },
     "reflector": {
         "name": "B"
     },
     "plugboard": {
-        "connections": "AG QI PO NC MZ LR"
+        "connections": ""
     }
 }
