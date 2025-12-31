@@ -123,16 +123,16 @@ class EnigmaUI(QMainWindow):
             QMessageBox.critical(self, "Error", f"Could not open file:\n{e}")
 
     def _load_enigma_settings(self):
-        try:
-            with open('settings.json', 'r') as file_handle:
-                self.enigma.load_enigma_settings(file_handle)
-
-                widgets_to_block = [
+        widgets_to_block = [
                     self.ui.rotor1Model, self.ui.rotor1InitialPosition, self.ui.rotor1RingSetting,
                     self.ui.rotor2Model, self.ui.rotor2InitialPosition, self.ui.rotor2RingSetting,
                     self.ui.rotor3Model, self.ui.rotor3InitialPosition, self.ui.rotor3RingSetting,
                     self.ui.reflectorModel, self.ui.plugboard
                 ]
+        try:
+            with open('settings.json', 'r') as file_handle:
+                self.enigma.load_enigma_settings(file_handle)
+
                 for widget in widgets_to_block:
                     widget.blockSignals(True)
 
