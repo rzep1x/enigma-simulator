@@ -5,6 +5,7 @@ import pytest
 from utils import char_to_int
 from io import StringIO
 
+
 ROTORS_DATA = {
     "I": {
         "wiring": "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
