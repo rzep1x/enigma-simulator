@@ -5,7 +5,7 @@
  Program umożliwia użytkownikowi także zapis ustawień enigmy na której aktualnie pracuje i wczytanie jej po ponownym uruchomieniu programu. Import tesktu do szyfrowania z pliku txt oraz zapis zaszyfrowanej wiadomości także do pliku o rozszerzeniu .txt
 
 ## Logika szyfrowania
-[Logika szyfrowania enigmy](/README/enigma_flow.png)
+[Logika szyfrowania enigmy](/README/enigma_flow.pdf)
 
 ## Struktura projektu (najważniejsze pliki)
 - enigma.py — główna klasa Enigma: budowa, kroki rotorów, szyfrowanie, zapisywanie/ładowanie ustawień.
