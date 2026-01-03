@@ -250,7 +250,6 @@ class EnigmaUI(QMainWindow):
             self.ui.outputText.clear()
             return
 
-        self.ui.plugboard.setStyleSheet("")
         encrypted_text = self.enigma.encrypt(text)
         self.ui.outputText.setText(encrypted_text)
 
