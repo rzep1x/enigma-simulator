@@ -152,6 +152,13 @@ class EnigmaUI(QMainWindow):
 
                 self.ui.plugboard.setText(self.enigma.plugboard.connections_as_str)
 
+                self._update_spinbox_suffix(self.ui.rotor1InitialPosition)
+                self._update_spinbox_suffix(self.ui.rotor1RingSetting)
+                self._update_spinbox_suffix(self.ui.rotor2InitialPosition)
+                self._update_spinbox_suffix(self.ui.rotor2RingSetting)
+                self._update_spinbox_suffix(self.ui.rotor3InitialPosition)
+                self._update_spinbox_suffix(self.ui.rotor3RingSetting)
+
                 self._encryption()
             QMessageBox.information(self, "Loaded", "Successfully loaded enigma settings")
             print("Loaded")
@@ -231,19 +238,21 @@ class EnigmaUI(QMainWindow):
 
     def _encryption(self):
         text = self.ui.textEdit.toPlainText()
-        if not text:
-            self.ui.outputText.clear()
-            return
-
         try:
             self._rebuild_enigma()
             self.ui.plugboard.setStyleSheet("")
-            encrypted_text = self.enigma.encrypt(text)
-            self.ui.outputText.setText(encrypted_text)
         except PlugboardConfigurationError as e:
             self.ui.plugboard.setStyleSheet("border: 1px solid red; background-color: rgba(255, 0, 0, 30);")
             self.ui.outputText.setText(f'{e}')
             print(e)
+            return
+        if not text:
+            self.ui.outputText.clear()
+            return
+
+        self.ui.plugboard.setStyleSheet("")
+        encrypted_text = self.enigma.encrypt(text)
+        self.ui.outputText.setText(encrypted_text)
 
 
 def guiMain(args):
