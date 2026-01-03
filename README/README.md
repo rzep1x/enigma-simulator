@@ -1,16 +1,19 @@
-# Enigma — symulator maszyny Enigma (projekt uczelniany)
+# Enigma — symulator maszyny Enigma (projekt PIPR25Z)
 
 ## Opis
- Program jest  wiernym symulatorem wojskowej maszyny szyfrującej Enigma (model M3/Wehrmacht). Aplikacja odwzorowuje pełną, dwukierunkową ścieżkę sygnału elektrycznego przez wszystkie komponenty mechaniczne: łącznicę kablową, wirniki oraz reflektor. Przy kofiguracji użytkownik posiada do wyboru 5 hisotrycznym modeli wirników (I-V) oraz dwa modele reflektorów (B,C).
- Program umożliwia użytkownikowi także zapis ustawień enigmy na której aktualnie pracuje i wczytanie jej po ponownym uruchomieniu programu. Import tesktu do szyfrowania z pliku txt oraz zapis zaszyfrowanej wiadomości także do pliku o rozszerzeniu .txt
+ Program jest  wiernym symulatorem wojskowej maszyny szyfrującej Enigma (model M3/Wehrmacht).
+ Aplikacja odwzorowuje pełną, dwukierunkową ścieżkę sygnału elektrycznego przez wszystkie komponenty mechaniczne: łącznicę kablową, wirniki oraz reflektor.
+ Przy konfiguracji użytkownik posiada do wyboru 5 historycznych modeli wirników (I-V) oraz dwa modele reflektorów (B,C).
+ Program umożliwia użytkownikowi także zapis ustawień enigmy na której aktualnie pracuje i wczytanie jej po ponownym uruchomieniu programu.
+ Import tekstu do szyfrowania z pliku txt oraz zapis zaszyfrowanej wiadomości także do pliku o rozszerzeniu .txt
 
 ## Logika szyfrowania
 [Logika szyfrowania enigmy](/README/enigma_flow.pdf)
 
-## Logika przejścia przez pojedyńczy wirnik
-[Logika przejścia przez pojedyńczy rotor na podstawie uproszczonej wersji rotora z indeksami od 0 do 5](/README/rotor.png)
+## Logika przejścia przez pojedynczy wirnik
+[Logika przejścia przez pojedynczy rotor na podstawie uproszczonej wersji rotora z indeksami od 0 do 5](/README/rotor.png)
 
-Na podstawie narysowanego scheamtu można zauważyć, że indeks wejścia w rotor wyraża sie wzorem:
+Na podstawie narysowanego schematu można zauważyć, że indeks wejścia w rotor wyraża sie wzorem:
 ```python
  index_in = (input_index + shift) % 26
  ```
@@ -18,10 +21,10 @@ Na podstawie narysowanego scheamtu można zauważyć, że indeks wejścia w roto
  ```python
  shift = self.current_position - self.ring_setting
  ```
-Na przykładzie ostatniego z podanego schematów:
+Na przykładzie ostatniego z podanych schematów:
 klikamy literkę A więc input_index = 0
 shift = 3 - 1 = 2
-więc index_in = 0 + 2 = 2 co jest zgodne z przedstawionych scheamtem
+więc index_in = 0 + 2 = 2 co jest zgodne z przedstawionych schematem
 
 Wzór na numer pinu którym wychodzi prąd jest następujący:
 bierzemy do jakiego pinu wyjściowego na stałe podpięty jest pin wejściowy
@@ -32,9 +35,9 @@ teraz mamy indeks pinu lecz musimy ustalić na jakim on jest miejscu.
 ```python
 index_out = (mapped_index - shift) % 26
 ```
-Kontunuując poprzedni przykład wiemy, że prąd wejdzie do rotora pinem nr 2 jest on połączony na stałe z pinem nr 4
+Kontynuując poprzedni przykład wiemy, że prąd wejdzie do rotora pinem nr 2 jest on połączony na stałe z pinem nr 4
 więc według wzoru: index_out = 4 - 2 = 2 co jest zgodne z przedstawionych schematem.
-Widzimy więc ze po kliknięciu litery A po przejściu przez pojedyńczy rotor wychodzi nam C
+Widzimy więc ze po kliknięciu litery A po przejściu przez pojedynczy rotor wychodzi nam C
 
 
 ## Struktura projektu (najważniejsze pliki)
@@ -42,7 +45,7 @@ Widzimy więc ze po kliknięciu litery A po przejściu przez pojedyńczy rotor w
 - components.py — implementacja Rotor, Reflector, Plugboard oraz walidacje konfiguracji.
 - config.py — dane konfiguracyjne rotorów i reflektorów.
 - ui_enigma.py — interfejs użytkownika (PySide6).
-- gui.py - opowiedzialne za uruchomienie programu oraz za interfejs.
+- gui.py - odpowiedzialne za uruchomienie programu oraz za interfejs.
 - utils.py — pomocnicze funkcje.
 - settings.json — przechowuje zapisane ustawienia
 - requirements.txt — wymagane pakiety.
@@ -65,6 +68,6 @@ python3 ./gui.py
 
 ## Uwagi implementacyjne
 - Szyfrowanie ignoruje znaki nie-ASCII / cyfry / znaki specjalne / spacje.
-- Szyforwanie przyjmuje litery małe i wielkie lecz zakodowana wiadomość zawsze będzie wielkimi literami
+- Szyfrowanie przyjmuje litery małe i wielkie lecz zakodowana wiadomość zawsze będzie wielkimi literami
 - Plugboard przyjmuje pary liter w formacie "AB CD EF" (unikatowe pary).
 - Enigma.save_enigma_settings i load_enigma_settings operują na plikach JSON i walidują strukturę.
