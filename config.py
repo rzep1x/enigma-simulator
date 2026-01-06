@@ -18,10 +18,23 @@ ROTORS_DATA = {
     "V": {
         "wiring": "VZBRGITYUPSDNHLXAWMJQOFECK",
         "notch": "Z"
+    },
+    "VI": {
+        "wiring": "JPGVOUMFYQBENHZRDKASXLICTW",
+        "notch": "ZM"
+    },
+    "VII": {
+        "wiring": "NZJHGRCXMYSWBOUFAIVLPEKQDT",
+        "notch": "ZM"
+    },
+    "VIII": {
+        "wiring": "FKQHTLXOCBJSPDZRAMEWNIUYGV",
+        "notch": "ZM"
     }
+
 }
 
 REFLECTORS_DATA = {
-    "B": "YRUHQSLDPXNGOKMIEBFZCWVJAT",
+    "B": "YRUHQSLDPXNGOKIMIEBFZCWVJAT",
     "C": "FVPJIAOYEDRZXWGCTKUQSBNMHL"
 }

@@ -30,7 +30,8 @@ class Rotor:
             raise RotorConfigurationError("Ring setting must be an integer")
 
         self._name = name
-        self._notch_position = char_to_int(ROTORS_DATA[name]['notch'])
+        notches = ROTORS_DATA[name]['notch']
+        self._notch_positions = [char_to_int(char) for char in notches]
         self._wiring = [char_to_int(letter) for letter in ROTORS_DATA[name]['wiring']]
 
         # Create reversed wiring list
@@ -47,8 +48,8 @@ class Rotor:
         return self._name
 
     @property
-    def notch_position(self):
-        return self._notch_position
+    def notch_positions(self):
+        return self._notch_positions
 
     @property
     def wiring(self):
@@ -95,7 +96,7 @@ class Rotor:
         return self.current_position
 
     def is_at_notch(self) -> bool:
-        return self._current_position == self._notch_position
+        return self._current_position in self._notch_positions
 
     def encrypt_forward(self, input_index) -> int:
         shift = self.current_position - self.ring_setting
