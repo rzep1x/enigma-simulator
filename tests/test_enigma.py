@@ -213,6 +213,43 @@ def test_enigma_step_double_step():
     assert enigma.rotor3.current_position == 23
 
 
+def test_enigma_step_double_notch():
+    rotor1 = Rotor(name='I', initial_position=0)
+    rotor2 = Rotor(name='II', initial_position=0)
+    rotor3 = Rotor(name='VI', initial_position=11)
+    reflector = Reflector(name='B')
+    plugboard = Plugboard()
+    enigma = Enigma(rotor1, rotor2, rotor3, reflector, plugboard)
+    assert enigma.rotor1.current_position == 0
+    assert enigma.rotor2.current_position == 0
+    assert enigma.rotor3.current_position == 11
+    enigma.step()
+    assert enigma.rotor1.current_position == 0
+    assert enigma.rotor2.current_position == 0
+    assert enigma.rotor3.current_position == 12
+    enigma.step()
+    assert enigma.rotor1.current_position == 0
+    assert enigma.rotor2.current_position == 1
+    assert enigma.rotor3.current_position == 13
+
+    enigma.rotor1.set_current_position(0)
+    enigma.rotor2.set_current_position(0)
+    enigma.rotor3.set_current_position(24)
+
+    assert enigma.rotor1.current_position == 0
+    assert enigma.rotor2.current_position == 0
+    assert enigma.rotor3.current_position == 24
+    enigma.step()
+    assert enigma.rotor1.current_position == 0
+    assert enigma.rotor2.current_position == 0
+    assert enigma.rotor3.current_position == 25
+    enigma.step()
+    assert enigma.rotor1.current_position == 0
+    assert enigma.rotor2.current_position == 1
+    assert enigma.rotor3.current_position == 0
+
+
+
 def test_basic_encryption():
     r1 = Rotor(name='I', initial_position=0)
     r2 = Rotor(name='II', initial_position=0)
