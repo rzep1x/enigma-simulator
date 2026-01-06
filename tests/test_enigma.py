@@ -249,7 +249,6 @@ def test_enigma_step_double_notch():
     assert enigma.rotor3.current_position == 0
 
 
-
 def test_basic_encryption():
     r1 = Rotor(name='I', initial_position=0)
     r2 = Rotor(name='II', initial_position=0)
