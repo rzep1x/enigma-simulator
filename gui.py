@@ -86,16 +86,15 @@ class EnigmaUI(QMainWindow):
         spin_box.setSuffix(f" ({letter})")
 
     def _export_to_file(self):
-        file_path, _ = QFileDialog.getSaveFileName(self, "", "encrypted_text.txt", "Text files (*.txt);;All files (*)")
         content = self.ui.outputText.toPlainText()
-
         if not content:
             QMessageBox.warning(self, "Warning", "There is no text to export")
             return
 
+        file_path, _ = QFileDialog.getSaveFileName(self, "", "encrypted_text.txt", "Text files (*.txt);;All files (*)")
+
         if not file_path:
             return
-
         try:
             with open(file_path, 'w') as file_handle:
                 file_handle.write(content)
