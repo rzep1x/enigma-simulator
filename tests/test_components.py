@@ -11,7 +11,7 @@ import pytest
 # Test create
 def test_rotor_create_():
     rotor = Rotor(name='I', initial_position=1, ring_setting=1)
-    assert rotor.notch_position == 16
+    assert rotor.notch_positions == [16]
     assert rotor.initial_position == 1
     assert rotor.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
@@ -22,7 +22,7 @@ def test_rotor_create_():
 
 def test_rotor_create_ring_setting_default():
     rotor = Rotor(name='I', initial_position=1)
-    assert rotor.notch_position == 16
+    assert rotor.notch_positions == [16]
     assert rotor.initial_position == 1
     assert rotor.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
@@ -50,10 +50,21 @@ def test_rotor_create_initial_position_not_int2():
         Rotor(name='I', initial_position='q')
 
 
+def test_rotor_create_double_notch_postion():
+    rotor = Rotor(name='VIII', initial_position=1, ring_setting=1)
+    assert rotor.notch_positions == [25, 12]
+    assert rotor.initial_position == 1
+    assert rotor.wiring == (
+        [5, 10, 16, 7, 19, 11, 23, 14, 2, 1, 9, 18, 15, 3, 25, 17, 0, 12, 4, 22, 13, 8, 20, 24, 6, 21]
+    )
+    assert rotor.ring_setting == 1
+    assert rotor.current_position == 1
+
+
 # Tests setters
 def test_ring_setting_setter():
     rotor = Rotor(name='I', initial_position=1, ring_setting=1)
-    assert rotor.notch_position == 16
+    assert rotor.notch_positions == [16]
     assert rotor.initial_position == 1
     assert rotor.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
@@ -66,7 +77,7 @@ def test_ring_setting_setter():
 
 def test_ring_setting_setter_more_than_26():
     rotor = Rotor(name='I', initial_position=1, ring_setting=1)
-    assert rotor.notch_position == 16
+    assert rotor.notch_positions == [16]
     assert rotor.initial_position == 1
     assert rotor.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
@@ -79,7 +90,7 @@ def test_ring_setting_setter_more_than_26():
 
 def test_set_current_postion():
     rotor = Rotor(name='I', initial_position=1, ring_setting=1)
-    assert rotor.notch_position == 16
+    assert rotor.notch_positions == [16]
     assert rotor.initial_position == 1
     assert rotor.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
@@ -93,7 +104,7 @@ def test_set_current_postion():
 
 def test_set_initial_position():
     rotor = Rotor(name='I', initial_position=1, ring_setting=1)
-    assert rotor.notch_position == 16
+    assert rotor.notch_positions == [16]
     assert rotor.initial_position == 1
     assert rotor.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
@@ -107,7 +118,7 @@ def test_set_initial_position():
 
 def test_rotor_step():
     rotor = Rotor(name='I', initial_position=0)
-    assert rotor.notch_position == 16
+    assert rotor.notch_positions == [16]
     assert rotor.initial_position == 0
     assert rotor.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
@@ -122,7 +133,7 @@ def test_rotor_step():
 
 def test_rotor_step_current_position_26():
     rotor = Rotor(name='I', initial_position=25)
-    assert rotor.notch_position == 16
+    assert rotor.notch_positions == [16]
     assert rotor.initial_position == 25
     assert rotor.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
@@ -135,7 +146,7 @@ def test_rotor_step_current_position_26():
 
 def test_rotor_is_at_notch():
     rotor = Rotor(name='I', initial_position=14)
-    assert rotor.notch_position == 16
+    assert rotor.notch_positions == [16]
     assert rotor.initial_position == 14
     assert rotor.wiring == (
         [4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9]
