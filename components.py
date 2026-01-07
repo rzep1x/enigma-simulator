@@ -19,7 +19,7 @@ class Rotor:
 
         # Validation for name
         if name not in ROTORS_DATA:
-            raise RotorConfigurationError("Unknown rotor: {name}")
+            raise RotorConfigurationError(f"Unknown rotor: {name}")
 
         # Validation for initial postion
         if not isinstance(initial_position, int):
