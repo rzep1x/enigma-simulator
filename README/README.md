@@ -3,7 +3,7 @@
 ## Opis
  Program jest  wiernym symulatorem wojskowej maszyny szyfrującej Enigma (model M3/Wehrmacht).
  Aplikacja odwzorowuje pełną, dwukierunkową ścieżkę sygnału elektrycznego przez wszystkie komponenty mechaniczne: łącznicę kablową, wirniki oraz reflektor.
- Przy konfiguracji użytkownik posiada do wyboru 5 historycznych modeli wirników (I-V) oraz dwa modele reflektorów (B,C).
+ Przy konfiguracji użytkownik posiada do wyboru 5 historycznych modeli wirników (I-VIII) oraz dwa modele reflektorów (B,C).
  Program umożliwia użytkownikowi także zapis ustawień enigmy na której aktualnie pracuje i wczytanie jej po ponownym uruchomieniu programu.
  Import tekstu do szyfrowania z pliku txt oraz zapis zaszyfrowanej wiadomości także do pliku o rozszerzeniu .txt
 
