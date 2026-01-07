@@ -3,7 +3,6 @@ from PySide6.QtWidgets import (
     QMainWindow, QApplication, QWidget, QMessageBox,
     QFileDialog
 )
-import sys
 from enigma import Enigma
 from components import Rotor, Reflector, Plugboard
 from components import PlugboardConfigurationError
