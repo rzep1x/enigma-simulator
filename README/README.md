@@ -65,7 +65,7 @@ pip install -r requirements.txt
 ```
 
 ## Uruchamianie
-Jeśli posiadasz odpowiednie wersje Pythona oraz pakiety z requirements.txt uruchom program komendami:
+Jeśli posiadasz odpowiednie wersje Pythona oraz pakiety z requirements.txt uruchom program komendami (bedąc w folderze programu):
 
 - Tryb graficzny (GUI):
 ```bash
