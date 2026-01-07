@@ -73,12 +73,16 @@ python3 ./main.py
 ```
 - Tryb wsadowy (Batch Mode)
 Tryb ten pozwala na szyfrowanie danych bezpośrednio z konsoli, bez otwierania okna programu. Wymaga podania trzech argumentów: źródła tekstu, pliku wyjściowego oraz pliku z ustawieniami.
+
+
 | Flaga Krótka | Flaga Długa | Opis |
 | :---: | :--- | :--- |
 | `-i` | `--input` | Ścieżka do pliku wejściowego (np. `message.txt`). |
 | `-t` | `--text` | Tekst do zaszyfrowania podany bezpośrednio (np. `"MESSAGE"`). |
 | `-o` | `--output` | Ścieżka do pliku wynikowego (np. `encrypted.txt`). |
 | `-s` | `--settings` | Ścieżka do pliku JSON z ustawieniami maszyny. |
+
+
 Przykłady użycia:
 ```bash
 python3 ./main.py -t "TextToEncyrpt" -o ./encrypted_text.txt -s ./settings.json
