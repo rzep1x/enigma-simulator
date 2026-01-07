@@ -41,11 +41,11 @@ Widzimy więc ze po kliknięciu litery A po przejściu przez pojedynczy rotor wy
 
 
 ## Struktura projektu (najważniejsze pliki)
+- main.py - odpowiedzialna za uruchomienie programu.
 - enigma.py — główna klasa Enigma: budowa, kroki rotorów, szyfrowanie, zapisywanie/ładowanie ustawień.
 - components.py — implementacja Rotor, Reflector, Plugboard oraz walidacje konfiguracji.
 - config.py — dane konfiguracyjne rotorów i reflektorów.
-- ui_enigma.py — interfejs użytkownika (PySide6).
-- gui.py - odpowiedzialne za uruchomienie programu oraz za interfejs.
+- ui_enigma.py, gui.py — interfejs użytkownika (PySide6).
 - utils.py — pomocnicze funkcje.
 - settings.json — przechowuje zapisane ustawienia
 - requirements.txt — wymagane pakiety.
@@ -60,11 +60,25 @@ pip install -r requirements.txt
 
 ## Uruchamianie
 Jeśli posiadasz odpowiednie wersje Pythona oraz pakiety z requirements.txt uruchom program komendami:
+
+- Tryb graficzny (GUI):
 ```bash
-git clone https://gitlab-stud.elka.pw.edu.pl/frzepkow/enigma.git
-cd enigma
-python3 ./gui.py
+python3 ./main.py
 ```
+- Tryb wsadowy (Batch Mode)
+Tryb ten pozwala na szyfrowanie danych bezpośrednio z konsoli, bez otwierania okna programu. Wymaga podania trzech argumentów: źródła tekstu, pliku wyjściowego oraz pliku z ustawieniami.
+| Flaga Krótka | Flaga Długa | Opis |
+| :---: | :--- | :--- |
+| `-i` | `--input` | Ścieżka do pliku wejściowego (np. `message.txt`). |
+| `-t` | `--text` | Tekst do zaszyfrowania podany bezpośrednio (np. `"MESSAGE"`). |
+| `-o` | `--output` | Ścieżka do pliku wynikowego (np. `encrypted.txt`). |
+| `-s` | `--settings` | Ścieżka do pliku JSON z ustawieniami maszyny. |
+Przykłady użycia:
+```bash
+python3 ./main.py -t "TextToEncyrpt" -o ./encrypted_text.txt -s ./settings.json
+```
+```bash
+python3 ./main.py -i ./message_to_encrypt.txt -o ./encrypted_text.txt -s ./settings.json
 
 ## Uwagi implementacyjne
 - Szyfrowanie ignoruje znaki nie-ASCII / cyfry / znaki specjalne / spacje.
