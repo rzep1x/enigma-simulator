@@ -3,8 +3,8 @@
 ## Opis
  Program jest  wiernym symulatorem wojskowej maszyny szyfrującej Enigma (model M3/Wehrmacht).
  Aplikacja odwzorowuje pełną, dwukierunkową ścieżkę sygnału elektrycznego przez wszystkie komponenty mechaniczne: łącznicę kablową, wirniki oraz reflektor.
- Przy konfiguracji użytkownik posiada do wyboru 5 historycznych modeli wirników (I-VIII) oraz dwa modele reflektorów (B,C).
- Program umożliwia użytkownikowi także zapis ustawień enigmy na której aktualnie pracuje i wczytanie jej po ponownym uruchomieniu programu.
+ Przy konfiguracji użytkownik posiada do wyboru 8 historycznych modeli wirników (I-VIII) oraz dwa modele reflektorów (B,C).
+ Program umożliwia użytkownikowi także zapis ustawień enigmy na której aktualnie pracuje i wczytanie tych ustawień.
  Import tekstu do szyfrowania z pliku txt oraz zapis zaszyfrowanej wiadomości także do pliku o rozszerzeniu .txt
 
 ## Logika szyfrowania
@@ -85,6 +85,7 @@ python3 ./main.py -t "TextToEncyrpt" -o ./encrypted_text.txt -s ./settings.json
 ```
 ```bash
 python3 ./main.py -i ./message_to_encrypt.txt -o ./encrypted_text.txt -s ./settings.json
+```
 
 ## Uwagi implementacyjne
 - Szyfrowanie ignoruje znaki nie-ASCII / cyfry / znaki specjalne / spacje.
