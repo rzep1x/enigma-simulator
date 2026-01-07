@@ -258,7 +258,3 @@ def guiMain(args):
     window = EnigmaUI()
     window.show()
     return app.exec()
-
-
-if __name__ == "__main__":
-    guiMain(sys.argv)

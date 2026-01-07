@@ -71,11 +71,11 @@ def run_batch_mode(input_data, is_file, output_file, settings_file):
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Enigma M3 Simulator")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-i', "--input", help="File path to input file")
-    group.add_argument("-t", "--text", help="Text to cipher")
+    group.add_argument("-t", "--text", help='Text to encrypt in ""')
 
     parser.add_argument("-o", "--output", help="File path to output file")
     parser.add_argument("-s", "--settings", help="File path to json file with settings of enigma")
