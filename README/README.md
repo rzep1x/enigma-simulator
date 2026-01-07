@@ -51,6 +51,12 @@ Widzimy więc ze po kliknięciu litery A po przejściu przez pojedynczy rotor wy
 - requirements.txt — wymagane pakiety.
 - tests/ — testy jednostkowe (pytest).
 
+## Instalacja
+Instalacja programu poprzez komendy
+```bash
+git clone https://gitlab-stud.elka.pw.edu.pl/frzepkow/enigma.git
+```
+
 ## Wymagania
 - Python 3.9+ (Testowano na wersji 3.9.6)
 - Zainstaluj biblioteki:
