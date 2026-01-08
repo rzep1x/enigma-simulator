@@ -24,7 +24,7 @@ Uszczegółowienie zakresu projektu jest elementem projektu.
 ## Logika przejścia przez pojedynczy wirnik
 ![Logika przejścia przez pojedynczy rotor na podstawie uproszczonej wersji rotora z indeksami od 0 do 5](/docs/rotor.png)
 
-## Struktura projektu (najważniejsze pliki)
+## Struktura projektu
 - main.py - odpowiedzialna za uruchomienie programu.
 - enigma.py — główna klasa Enigma: budowa, kroki rotorów, szyfrowanie, zapisywanie/ładowanie ustawień.
 - components.py — implementacja Rotor, Reflector, Plugboard oraz walidacje konfiguracji.
