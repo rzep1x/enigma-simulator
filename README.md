@@ -1,5 +1,16 @@
 # Enigma — symulator maszyny Enigma (projekt PIPR25Z)
 
+## Polecenie
+
+Proszę zaprojektować i zaimplementować symulator maszyny szyfrującej Enigma.
+
+Proszę obsłużyć czytanie i zapis do pliku, w tym warstwę trwałości dla ustawień maszyny szyfrującej. Proszę dostarczyć pracy w trybie wsadowym i graficznym - wystarczy proste GUI na potrzeby testowania i demonstracji.
+
+Uwagi
+Proszę dokładnie przetestować stworzony program i opracować jego demonstrację.
+Uszczegółowienie zakresu projektu jest elementem projektu.
+
+
 ## Opis
  Program jest  wiernym symulatorem wojskowej maszyny szyfrującej Enigma (model M3/Wehrmacht).
  Aplikacja odwzorowuje pełną, dwukierunkową ścieżkę sygnału elektrycznego przez wszystkie komponenty mechaniczne: łącznicę kablową, wirniki oraz reflektor.
@@ -8,10 +19,10 @@
  Import tekstu do szyfrowania z pliku txt oraz zapis zaszyfrowanej wiadomości także do pliku o rozszerzeniu .txt
 
 ## Logika szyfrowania
-[Logika szyfrowania enigmy](/README/enigma_flow.pdf)
+[Logika szyfrowania enigmy](/docs/enigma_flow.pdf)
 
 ## Logika przejścia przez pojedynczy wirnik
-[Logika przejścia przez pojedynczy rotor na podstawie uproszczonej wersji rotora z indeksami od 0 do 5](/README/rotor.png)
+![Logika przejścia przez pojedynczy rotor na podstawie uproszczonej wersji rotora z indeksami od 0 do 5](/docs/rotor.png)
 
 ## Struktura projektu (najważniejsze pliki)
 - main.py - odpowiedzialna za uruchomienie programu.
