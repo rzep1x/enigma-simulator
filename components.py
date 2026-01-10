@@ -15,7 +15,9 @@ class ReflectorConfigurationError(Exception):
 
 
 class Rotor:
-    def __init__(self, name: str, initial_position: int, ring_setting: int = 0):
+    def __init__(
+            self, name: str, initial_position: int, ring_setting: int = 0
+            ):
 
         # Validation for name
         if name not in ROTORS_DATA:
@@ -23,7 +25,9 @@ class Rotor:
 
         # Validation for initial postion
         if not isinstance(initial_position, int):
-            raise RotorConfigurationError("Initial position must be an integer")
+            raise RotorConfigurationError(
+                "Initial position must be an integer"
+                )
 
         # Validation for ring_setting
         if not isinstance(ring_setting, int):
@@ -32,7 +36,9 @@ class Rotor:
         self._name = name
         notches = ROTORS_DATA[name]['notch']
         self._notch_positions = [char_to_int(char) for char in notches]
-        self._wiring = [char_to_int(letter) for letter in ROTORS_DATA[name]['wiring']]
+        self._wiring = [
+            char_to_int(letter) for letter in ROTORS_DATA[name]['wiring']
+            ]
 
         # Create reversed wiring list
         self._reversed_wiring = [0] * len(self._wiring)
@@ -80,7 +86,9 @@ class Rotor:
 
     def set_initial_position(self, new_value: int) -> int:
         if not isinstance(new_value, int):
-            raise RotorConfigurationError("New initial position must be integer")
+            raise RotorConfigurationError(
+                "New initial position must be integer"
+                )
         self._initial_position = new_value % 26
         self._current_position = self.initial_position
         return self.initial_position
@@ -118,7 +126,9 @@ class Reflector:
         if name not in REFLECTORS_DATA:
             raise ReflectorConfigurationError("Unknown reflector")
         self._name = name
-        self._wiring = [char_to_int(letter) for letter in REFLECTORS_DATA[name]]
+        self._wiring = [
+            char_to_int(letter) for letter in REFLECTORS_DATA[name]
+            ]
 
     @property
     def name(self):
@@ -140,11 +150,13 @@ class Plugboard:
         for pair in pairs:
             if len(pair) != 2:
                 raise PlugboardConfigurationError(
-                    "Invalid plugboard format: pairs of letters to be swapped expected (e.g 'ab cd ef')"
+                    "Invalid plugboard format: "
+                    "pairs of letters to be swapped expected (e.g 'ab cd ef')"
                 )
             if not pair.isalpha() or not pair.isascii() or pair[0] == pair[1]:
                 raise PlugboardConfigurationError(
-                    "Invalid plugboard format: pairs of letters to be swapped expected (e.g 'ab cd ef')"
+                    "Invalid plugboard format: "
+                    "pairs of letters to be swapped expected (e.g 'ab cd ef')"
                 )
             char1 = char_to_int(pair[0])
             char2 = char_to_int(pair[1])

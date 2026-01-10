@@ -421,4 +421,3 @@ class Ui_inputTextArea(object):
         self.label_16.setText(QCoreApplication.translate("inputTextArea", u"Cipher Text", None))
         self.exportToFile.setText(QCoreApplication.translate("inputTextArea", u"Export to file", None))
     # retranslateUi
-

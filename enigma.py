@@ -17,7 +17,10 @@ class InvalidComponentError(Exception):
 
 
 class Enigma:
-    def __init__(self, rotor1: Rotor, rotor2: Rotor, rotor3: Rotor, reflector: Reflector, plugboard: Plugboard):
+    def __init__(
+            self, rotor1: Rotor, rotor2: Rotor, rotor3: Rotor,
+            reflector: Reflector, plugboard: Plugboard
+            ):
         self._rotor1 = rotor1
         self._rotor2 = rotor2
         self._rotor3 = rotor3
@@ -155,7 +158,9 @@ class Enigma:
             RotorConfigurationError, PlugboardConfigurationError,
             ReflectorConfigurationError
         ) as e:
-            raise InvalidComponentError("Invalid data detected during settings loading") from e
+            raise InvalidComponentError(
+                "Invalid data detected during settings loading"
+                ) from e
 
         self.set_rotor1(new_rotor1)
         self.set_rotor2(new_rotor2)

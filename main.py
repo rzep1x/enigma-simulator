@@ -48,6 +48,12 @@ def run_batch_mode(input_data, is_file, output_file, settings_file):
         except PermissionError:
             print(f"ERROR: No permission to read input file: '{input_data}")
             return
+        except UnicodeDecodeError:
+            print(
+                f"ERROR: File '{input_data}' is not a valid text file"
+                "(binary or unknown encoding)."
+                )
+            return
     else:
         content = input_data
         print(f"Input: {content}")
@@ -78,7 +84,10 @@ def main():
     group.add_argument("-t", "--text", help='Text to encrypt in ""')
 
     parser.add_argument("-o", "--output", help="File path to output file")
-    parser.add_argument("-s", "--settings", help="File path to json file with settings of enigma")
+    parser.add_argument(
+        "-s", "--settings",
+        help="File path to json file with settings of enigma"
+        )
 
     args = parser.parse_args()
 
@@ -92,7 +101,10 @@ def main():
         run_batch_mode(input, is_file, args.output, args.settings)
 
     elif has_input or has_output or has_settings:
-        print("Error: Batch mode requires 3 arguments: input(-i or -t), output(-o) and settings(-s)")
+        print(
+            "Error: Batch mode requires 3 arguments: "
+            "input(-i or -t), output(-o) and settings(-s)"
+            )
 
     else:
         guiMain(sys.argv)

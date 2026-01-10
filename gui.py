@@ -18,7 +18,8 @@ class EnigmaUI(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.central_widget = QWidget()
-        # fixed problem with expanding by creating central widget and put everythiong in this widget
+        # fixed problem with expanding by creating
+        # central widget and put everything in this widget
         self.setCentralWidget(self.central_widget)
         self.ui = Ui_inputTextArea()
         self.ui.setupUi(self.central_widget)
@@ -90,14 +91,23 @@ class EnigmaUI(QMainWindow):
             QMessageBox.warning(self, "Warning", "There is no text to export")
             return
 
-        file_path, _ = QFileDialog.getSaveFileName(self, "", "encrypted_text.txt", "Text files (*.txt);;All files (*)")
+        file_path, _ = QFileDialog.getSaveFileName(
+            self,
+            "",
+            "encrypted_text.txt",
+            "Text files (*.txt);;All files (*)"
+            )
 
         if not file_path:
             return
         try:
             with open(file_path, 'w') as file_handle:
                 file_handle.write(content)
-            QMessageBox.information(self, "Saved encrypted text", "You succesfully saved encrypted text")
+            QMessageBox.information(
+                self,
+                "Saved encrypted text",
+                "You succesfully saved encrypted text"
+                )
         except OSError as e:
             QMessageBox.critical(self, "", f"Error {e}")
 
@@ -122,10 +132,17 @@ class EnigmaUI(QMainWindow):
 
     def _load_enigma_settings(self):
         widgets_to_block = [
-                    self.ui.rotor1Model, self.ui.rotor1InitialPosition, self.ui.rotor1RingSetting,
-                    self.ui.rotor2Model, self.ui.rotor2InitialPosition, self.ui.rotor2RingSetting,
-                    self.ui.rotor3Model, self.ui.rotor3InitialPosition, self.ui.rotor3RingSetting,
-                    self.ui.reflectorModel, self.ui.plugboard
+                    self.ui.rotor1Model,
+                    self.ui.rotor1InitialPosition,
+                    self.ui.rotor1RingSetting,
+                    self.ui.rotor2Model,
+                    self.ui.rotor2InitialPosition,
+                    self.ui.rotor2RingSetting,
+                    self.ui.rotor3Model,
+                    self.ui.rotor3InitialPosition,
+                    self.ui.rotor3RingSetting,
+                    self.ui.reflectorModel,
+                    self.ui.plugboard
                 ]
         try:
             with open('settings.json', 'r') as file_handle:
@@ -135,20 +152,36 @@ class EnigmaUI(QMainWindow):
                     widget.blockSignals(True)
 
                 self.ui.rotor1Model.setCurrentText(self.enigma.rotor1.name)
-                self.ui.rotor1InitialPosition.setValue(self.enigma.rotor1.initial_position)
-                self.ui.rotor1RingSetting.setValue(self.enigma.rotor1.ring_setting)
+                self.ui.rotor1InitialPosition.setValue(
+                    self.enigma.rotor1.initial_position
+                    )
+                self.ui.rotor1RingSetting.setValue(
+                    self.enigma.rotor1.ring_setting
+                    )
 
                 self.ui.rotor2Model.setCurrentText(self.enigma.rotor2.name)
-                self.ui.rotor2InitialPosition.setValue(self.enigma.rotor2.initial_position)
-                self.ui.rotor2RingSetting.setValue(self.enigma.rotor2.ring_setting)
+                self.ui.rotor2InitialPosition.setValue(
+                    self.enigma.rotor2.initial_position
+                    )
+                self.ui.rotor2RingSetting.setValue(
+                    self.enigma.rotor2.ring_setting
+                    )
 
                 self.ui.rotor3Model.setCurrentText(self.enigma.rotor3.name)
-                self.ui.rotor3InitialPosition.setValue(self.enigma.rotor3.initial_position)
-                self.ui.rotor3RingSetting.setValue(self.enigma.rotor3.ring_setting)
+                self.ui.rotor3InitialPosition.setValue(
+                    self.enigma.rotor3.initial_position
+                    )
+                self.ui.rotor3RingSetting.setValue(
+                    self.enigma.rotor3.ring_setting
+                    )
 
-                self.ui.reflectorModel.setCurrentText(self.enigma.reflector.name)
+                self.ui.reflectorModel.setCurrentText(
+                    self.enigma.reflector.name
+                    )
 
-                self.ui.plugboard.setText(self.enigma.plugboard.connections_as_str)
+                self.ui.plugboard.setText(
+                    self.enigma.plugboard.connections_as_str
+                    )
 
                 self._update_spinbox_suffix(self.ui.rotor1InitialPosition)
                 self._update_spinbox_suffix(self.ui.rotor1RingSetting)
@@ -158,8 +191,13 @@ class EnigmaUI(QMainWindow):
                 self._update_spinbox_suffix(self.ui.rotor3RingSetting)
 
                 self._encryption()
-            QMessageBox.information(self, "Loaded", "Successfully loaded enigma settings")
+            QMessageBox.information(
+                self,
+                "Loaded",
+                "Successfully loaded enigma settings"
+                )
             print("Loaded")
+
         except MalformedDataError as e:
             print(f"Error during loading settings {e}")
             QMessageBox.critical(self, "Error", f"Loading Error: {e}")
@@ -167,7 +205,6 @@ class EnigmaUI(QMainWindow):
             print(f"Error: {e}")
             QMessageBox.critical(self, "Error", f"Loading Error: {e}")
 
-        # finally guaranttes that this lines of code will always execute no matter what
         finally:
             for widget in widgets_to_block:
                 widget.blockSignals(False)
@@ -176,11 +213,20 @@ class EnigmaUI(QMainWindow):
         try:
             with open('settings.json', 'w') as file_handle:
                 self.enigma.save_enigma_settings(file_handle)
-            QMessageBox.information(self, "Saved", "Successfully saved current settings")
+            QMessageBox.information(
+                self,
+                "Saved",
+                "Successfully saved current settings"
+                )
             print("Saved")
+
         except Exception as e:
             print(f"Error {e}")
-            QMessageBox.critical(self, "Save Error", f"Cannot save enigma settings: {e}")
+            QMessageBox.critical(
+                self,
+                "Save Error",
+                f"Cannot save enigma settings: {e}"
+                )
 
     def _set_default_values(self):
         self.ui.rotor1Model.setCurrentText("I")
@@ -232,7 +278,9 @@ class EnigmaUI(QMainWindow):
         ref_model = self.ui.reflectorModel.currentText()
         ref = Reflector(ref_model)
 
-        self.enigma = Enigma(rotor1=r1, rotor2=r2, rotor3=r3, reflector=ref, plugboard=plug)
+        self.enigma = Enigma(
+            rotor1=r1, rotor2=r2, rotor3=r3, reflector=ref, plugboard=plug
+            )
 
     def _encryption(self):
         text = self.ui.textEdit.toPlainText()
@@ -240,7 +288,9 @@ class EnigmaUI(QMainWindow):
             self._rebuild_enigma()
             self.ui.plugboard.setStyleSheet("")
         except PlugboardConfigurationError as e:
-            self.ui.plugboard.setStyleSheet("border: 1px solid red; background-color: rgba(255, 0, 0, 30);")
+            self.ui.plugboard.setStyleSheet(
+                "border: 1px solid red; background-color: rgba(255, 0, 0, 30);"
+                )
             self.ui.outputText.setText(f'{e}')
             print(e)
             return
