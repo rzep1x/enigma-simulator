@@ -1,4 +1,4 @@
-from components import (
+from enigma.components import (
     Rotor, Reflector, Plugboard,
     RotorConfigurationError,
     PlugboardConfigurationError,

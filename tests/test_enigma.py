@@ -1,8 +1,8 @@
-from enigma import Enigma
-from components import Rotor, Plugboard, Reflector
-from enigma import MalformedDataError, InvalidComponentError
+from enigma.enigma import Enigma
+from enigma.components import Rotor, Plugboard, Reflector
+from enigma.enigma import MalformedDataError, InvalidComponentError
 import pytest
-from utils import char_to_int
+from enigma.utils import char_to_int
 from io import StringIO
 
 

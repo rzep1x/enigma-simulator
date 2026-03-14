@@ -1,4 +1,4 @@
-from utils import char_to_int, int_to_char
+from enigma.utils import char_to_int, int_to_char
 
 
 def test_char_to_int():

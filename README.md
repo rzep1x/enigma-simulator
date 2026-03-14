@@ -1,85 +1,106 @@
-# Enigma — symulator maszyny Enigma (projekt PIPR25Z)
+# Enigma Machine Simulator (PIPR25Z Project)
 
-## Polecenie
+![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)
 
-Proszę zaprojektować i zaimplementować symulator maszyny szyfrującej Enigma.
+## Assignment
 
-Proszę obsłużyć czytanie i zapis do pliku, w tym warstwę trwałości dla ustawień maszyny szyfrującej. Proszę dostarczyć pracy w trybie wsadowym i graficznym - wystarczy proste GUI na potrzeby testowania i demonstracji.
+Design and implement a simulator of the Enigma encryption machine.
 
-Uwagi
-Proszę dokładnie przetestować stworzony program i opracować jego demonstrację.
-Uszczegółowienie zakresu projektu jest elementem projektu.
+Handle file reading and writing, including persistence layer for machine settings. Provide batch and graphical modes - a simple GUI is sufficient for testing and demonstration.
 
+Notes
+Thoroughly test the created program and develop its demonstration.
+Detailing the project scope is part of the project.
 
-## Opis
- Program jest  wiernym symulatorem wojskowej maszyny szyfrującej Enigma (model M3/Wehrmacht).
- Aplikacja odwzorowuje pełną, dwukierunkową ścieżkę sygnału elektrycznego przez wszystkie komponenty mechaniczne: łącznicę kablową, wirniki oraz reflektor.
- Przy konfiguracji użytkownik posiada do wyboru 8 historycznych modeli wirników (I-VIII) oraz dwa modele reflektorów (B,C).
- Program umożliwia użytkownikowi także zapis ustawień enigmy na której aktualnie pracuje i wczytanie tych ustawień.
- Import tekstu do szyfrowania z pliku txt oraz zapis zaszyfrowanej wiadomości także do pliku o rozszerzeniu .txt
+## Description
+The program is a faithful simulator of the military Enigma encryption machine (M3/Wehrmacht model).
+The application replicates the full bidirectional electrical signal path through all mechanical components: plugboard, rotors, and reflector.
+In configuration, the user has 8 historical rotor models (I-VIII) and two reflector models (B,C) to choose from.
+The program also allows the user to save the current Enigma settings and load them.
+Import text for encryption from a txt file and save the encrypted message to a txt file.
 
-## Logika szyfrowania
-[Logika szyfrowania enigmy](/docs/enigma_flow.pdf)
+## Encryption Logic
+[Enigma encryption logic](/docs/enigma_flow.pdf)
 
-## Logika przejścia przez pojedynczy wirnik
-![Logika przejścia przez pojedynczy rotor na podstawie uproszczonej wersji rotora z indeksami od 0 do 5](/docs/rotor.png)
+## Single Rotor Passage Logic
+![Single rotor passage logic based on a simplified rotor version with indices 0 to 5](/docs/rotor.png)
 
-## Struktura projektu
-- main.py - odpowiedzialna za uruchomienie programu.
-- enigma.py — główna klasa Enigma: budowa, kroki rotorów, szyfrowanie, zapisywanie/ładowanie ustawień.
-- components.py — implementacja Rotor, Reflector, Plugboard oraz walidacje konfiguracji.
-- config.py — dane konfiguracyjne rotorów i reflektorów.
-- ui_enigma.py, gui.py — interfejs użytkownika (PySide6).
-- utils.py — pomocnicze funkcje.
-- settings.json — przechowuje zapisane ustawienia
-- requirements.txt — wymagane pakiety.
-- tests/ — testy jednostkowe (pytest).
+## Project Structure
+- enigma/ — main Python package containing source code.
+  - __init__.py
+  - main.py — responsible for launching the program.
+  - enigma.py — main Enigma class: construction, rotor steps, encryption, saving/loading settings.
+  - components.py — implementation of Rotor, Reflector, Plugboard and configuration validations.
+  - config.py — configuration data for rotors and reflectors.
+  - utils.py — helper functions.
+  - gui/ — user interface subpackage.
+    - __init__.py
+    - gui.py — main GUI logic.
+    - ui_enigma.py — generated interface (PySide6).
+    - enigma.ui — Qt Designer UI file.
+- config/ — configuration files.
+  - settings.json — stores saved settings.
+- examples/ — example files.
+  - encrypted_text.txt — example encrypted text.
+- docs/ — documentation.
+- tests/ — unit tests (pytest).
+- pyproject.toml — Python package configuration.
+- requirements.txt — required packages.
+- README.md — this file (English).
+- README_PL.md — this file (Polish).
 
-## Instalacja
-Instalacja programu poprzez komendy
+## Installation
+Install the program using the commands:
 ```bash
-git clone https://gitlab-stud.elka.pw.edu.pl/frzepkow/enigma.git
+git clone https://github.com/yourusername/enigma-simulator.git
+cd enigma-simulator
+pip install -e .
 ```
 
-## Wymagania
-- Python 3.9+ (Testowano na wersji 3.9.6)
-- Zainstaluj biblioteki:
+## Requirements
+- Python 3.9+ (Tested on version 3.9.6)
+- Install libraries:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Uruchamianie
-Jeśli posiadasz odpowiednie wersje Pythona oraz pakiety z requirements.txt uruchom program komendami (bedąc w folderze programu):
+## Running
+If you have the appropriate Python version and packages from requirements.txt, run the program with commands (being in the program folder):
 
-- Tryb graficzny (GUI):
+- Graphical mode (GUI):
 ```bash
-python3 ./main.py
+python -m enigma.main
+# or
+enigma
 ```
-- Tryb wsadowy (Batch Mode)
-Tryb ten pozwala na szyfrowanie danych bezpośrednio z konsoli, bez otwierania okna programu. Wymaga podania trzech argumentów: źródła tekstu, pliku wyjściowego oraz pliku z ustawieniami.
+- Batch Mode
+This mode allows encrypting data directly from the console, without opening the program window. Requires providing three arguments: text source, output file, and settings file.
 
-
-| Flaga Krótka | Flaga Długa | Opis |
+| Short Flag | Long Flag | Description |
 | :---: | :--- | :--- |
-| `-i` | `--input` | Ścieżka do pliku wejściowego (np. `message.txt`). |
-| `-t` | `--text` | Tekst do zaszyfrowania podany bezpośrednio (np. `"MESSAGE"`). |
-| `-o` | `--output` | Ścieżka do pliku wynikowego (np. `encrypted.txt`). |
-| `-s` | `--settings` | Ścieżka do pliku JSON z ustawieniami maszyny. |
+| `-i` | `--input` | Path to input file (e.g. `examples/message.txt`). |
+| `-t` | `--text` | Text to encrypt provided directly (e.g. `"MESSAGE"`). |
+| `-o` | `--output` | Path to output file (e.g. `examples/encrypted.txt`). |
+| `-s` | `--settings` | Path to JSON file with machine settings (e.g. `config/settings.json`). |
 
-
-Przykłady użycia:
+Usage examples:
 ```bash
-python3 ./main.py -t "TextToEncyrpt" -o ./encrypted_text.txt -s ./settings.json
+python -m enigma.main -t "TextToEncrypt" -o examples/encrypted_text.txt -s config/settings.json
 ```
 ```bash
-python3 ./main.py -i ./message_to_encrypt.txt -o ./encrypted_text.txt -s ./settings.json
+python -m enigma.main -i examples/message_to_encrypt.txt -o examples/encrypted_text.txt -s config/settings.json
 ```
 
-## Uwagi implementacyjne
-- Szyfrowanie ignoruje znaki nie-ASCII / cyfry / znaki specjalne / spacje.
-- Szyfrowanie przyjmuje litery małe i wielkie lecz zakodowana wiadomość zawsze będzie wielkimi literami
-- Plugboard przyjmuje pary liter w formacie "AB CD EF" (unikatowe pary).
-- Enigma.save_enigma_settings i load_enigma_settings operują na plikach JSON i walidują strukturę.
+## Implementation Notes
+- Encryption ignores non-ASCII characters / numbers / special characters / spaces.
+- Encryption accepts lowercase and uppercase letters but the encoded message will always be uppercase.
+- Plugboard accepts letter pairs in the format "AB CD EF" (unique pairs).
+- Enigma.save_enigma_settings and load_enigma_settings operate on JSON files and validate the structure.
 
-## Autor
+## Author
 Filip Rzepkowski
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
