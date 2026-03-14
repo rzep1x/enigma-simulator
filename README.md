@@ -53,8 +53,8 @@ Import text for encryption from a txt file and save the encrypted message to a t
 ## Installation
 Install the program using the commands:
 ```bash
-git clone https://github.com/yourusername/enigma-simulator.git
-cd enigma-simulator
+git clone https://github.com/rzep1x/enigma-simulator.git
+cd enigma
 python -m pip install .
 ```
 

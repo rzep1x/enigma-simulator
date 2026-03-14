@@ -53,7 +53,7 @@ Import tekstu do szyfrowania z pliku txt oraz zapis zaszyfrowanej wiadomości ta
 ## Instalacja
 Instalacja programu poprzez komendy
 ```bash
-git clone https://github.com/yourusername/enigma-simulator.git
+git clone https://github.com/rzep1x/enigma-simulator.git
 cd enigma-simulator
 python -m pip install .
 ```
