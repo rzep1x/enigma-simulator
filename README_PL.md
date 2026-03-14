@@ -47,7 +47,6 @@ Import tekstu do szyfrowania z pliku txt oraz zapis zaszyfrowanej wiadomości ta
 - docs/ — dokumentacja.
 - tests/ — testy jednostkowe (pytest).
 - pyproject.toml — konfiguracja pakietu Python.
-- requirements.txt — wymagane pakiety.
 - README.md — ten plik (po angielsku).
 - README_PL.md — ten plik (po polsku).
 
@@ -56,18 +55,19 @@ Instalacja programu poprzez komendy
 ```bash
 git clone https://github.com/yourusername/enigma-simulator.git
 cd enigma-simulator
-pip install -e .
+python -m pip install .
+```
+
+Dla developmentu (testy, narzędzia lint):
+```bash
+python -m pip install -e ".[dev]"
 ```
 
 ## Wymagania
-- Python 3.9+ (Testowano na wersji 3.9.6)
-- Zainstaluj biblioteki:
-```bash
-pip install -r requirements.txt
-```
+- Python 3.8+ (zgodnie z `pyproject.toml`, testowano na wersji 3.9.6)
 
 ## Uruchamianie
-Jeśli posiadasz odpowiednie wersje Pythona oraz pakiety z requirements.txt uruchom program komendami (bedąc w folderze programu):
+Jeśli posiadasz odpowiednią wersję Pythona oraz pakiety zainstalowane z `pyproject.toml`, uruchom program komendami (będąc w folderze programu):
 
 - Tryb graficzny (GUI):
 ```bash

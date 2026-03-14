@@ -47,7 +47,6 @@ Import text for encryption from a txt file and save the encrypted message to a t
 - docs/ — documentation.
 - tests/ — unit tests (pytest).
 - pyproject.toml — Python package configuration.
-- requirements.txt — required packages.
 - README.md — this file (English).
 - README_PL.md — this file (Polish).
 
@@ -56,18 +55,19 @@ Install the program using the commands:
 ```bash
 git clone https://github.com/yourusername/enigma-simulator.git
 cd enigma-simulator
-pip install -e .
+python -m pip install .
+```
+
+For development (tests, linting tools):
+```bash
+python -m pip install -e ".[dev]"
 ```
 
 ## Requirements
-- Python 3.9+ (Tested on version 3.9.6)
-- Install libraries:
-```bash
-pip install -r requirements.txt
-```
+- Python 3.8+ (as defined in `pyproject.toml`, tested on 3.9.6)
 
 ## Running
-If you have the appropriate Python version and packages from requirements.txt, run the program with commands (being in the program folder):
+If you have the appropriate Python version and installed packages from `pyproject.toml`, run the program with commands (being in the project folder):
 
 - Graphical mode (GUI):
 ```bash
