@@ -50,30 +50,40 @@ Import text for encryption from a txt file and save the encrypted message to a t
 - README.md — this file (English).
 - README_PL.md — this file (Polish).
 
+## Requirements
+- [uv](https://docs.astral.sh/uv/) — Python package and project manager
+- Python 3.10+ (as defined in `pyproject.toml`; uv will download a matching version automatically if needed)
+
+To install uv:
+```bash
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Windows (PowerShell)
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
 ## Installation
-Install the program using the commands:
+Clone the repository and install dependencies:
 ```bash
 git clone https://github.com/rzep1x/enigma-simulator.git
 cd enigma-simulator
-python -m pip install .
+uv sync
 ```
+`uv sync` creates a virtual environment (`.venv`) and installs the project together with the development dependencies (tests, linting tools) based on `uv.lock`.
 
-For development (tests, linting tools):
+To install only runtime dependencies (without dev tools):
 ```bash
-python -m pip install -e ".[dev]"
+uv sync --no-dev
 ```
-
-## Requirements
-- Python 3.8+ (as defined in `pyproject.toml`, tested on 3.9.6)
 
 ## Running
-If you have the appropriate Python version and installed packages from `pyproject.toml`, run the program with commands (being in the project folder):
+Run the program with commands (being in the project folder):
 
 - Graphical mode (GUI):
 ```bash
-python -m enigma.main
+uv run enigma
 # or
-enigma
+uv run python -m enigma.main
 ```
 - Batch Mode
 This mode allows encrypting data directly from the console, without opening the program window. Requires providing three arguments: text source, output file, and settings file.
